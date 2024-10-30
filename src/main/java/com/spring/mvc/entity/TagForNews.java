@@ -1,24 +1,29 @@
 package com.spring.mvc.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Setter
 @Getter
 @Entity
-@Table(name = "Tag_for_news")
+@NoArgsConstructor
+@AllArgsConstructor
 public class TagForNews {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "name", columnDefinition = "NVARCHAR")
     private String name;
 
-    public TagForNews() {
-    }
+    @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    private List<News> newsList;
 
     @Override
     public String toString() {
