@@ -1,4 +1,4 @@
-﻿--------------------------------TAO DATABASE--------------------------------------------------
+--------------------------------TAO DATABASE--------------------------------------------------
 --create database project_house_rental_hsf301_assignment
 use project_house_rental_hsf301_assignment
 
@@ -209,6 +209,10 @@ CREATE TABLE Question (
 -- 12. Bổ sung khóa ngoại cho cột updated_by trong bảng House sau khi tất cả bảng đã được tạo
 ALTER TABLE House
 ADD CONSTRAINT FK_House_UpdatedBy FOREIGN KEY (updated_by) REFERENCES Account(id);
+
+ALTER TABLE Account 
+ADD CONSTRAINT FK_Account_UpdatedBy FOREIGN KEY (avatar_image_id) REFERENCES [dbo].[Image](id);
+
 
 ---------------------------------DU LIEU CO DINH (KHONG DUOC XOA)-------------------------------------------------
 USE project_house_rental_hsf301_assignment;
