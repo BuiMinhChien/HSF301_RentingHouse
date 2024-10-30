@@ -2,7 +2,6 @@ package com.spring.mvc.service.impl;
 
 import com.spring.mvc.dao.AgentDAO;
 import com.spring.mvc.dto.AgentDTO;
-import com.spring.mvc.entity.Agent;
 import com.spring.mvc.entity.Paging;
 import com.spring.mvc.service.AgentService;
 import org.springframework.stereotype.Service;

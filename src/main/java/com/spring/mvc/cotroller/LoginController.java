@@ -1,7 +1,6 @@
 package com.spring.mvc.cotroller;
 
 import com.spring.mvc.dto.AdminDTO;
-import com.spring.mvc.entity.Admin;
 import com.spring.mvc.service.AdminService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;

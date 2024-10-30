@@ -2,9 +2,7 @@ package com.spring.mvc.cotroller;
 
 import com.spring.mvc.dto.AgentDTO;
 import com.spring.mvc.dto.StatusDTO;
-import com.spring.mvc.entity.Agent;
 import com.spring.mvc.entity.Paging;
-import com.spring.mvc.entity.Status;
 import com.spring.mvc.service.AgentService;
 import com.spring.mvc.service.StatusService;
 import jakarta.servlet.http.HttpSession;

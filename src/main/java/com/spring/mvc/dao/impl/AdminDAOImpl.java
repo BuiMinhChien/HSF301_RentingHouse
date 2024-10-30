@@ -1,7 +1,6 @@
 package com.spring.mvc.dao.impl;
 
 import com.spring.mvc.dao.AdminDAO;
-import com.spring.mvc.entity.Admin;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

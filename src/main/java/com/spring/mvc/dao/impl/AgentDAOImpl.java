@@ -1,7 +1,6 @@
 package com.spring.mvc.dao.impl;
 
 import com.spring.mvc.dao.AgentDAO;
-import com.spring.mvc.entity.Agent;
 import com.spring.mvc.entity.Paging;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.Session;

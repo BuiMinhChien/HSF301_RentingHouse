@@ -1,7 +1,6 @@
 package com.spring.mvc.service;
 
 import com.spring.mvc.dto.AgentDTO;
-import com.spring.mvc.entity.Agent;
 import com.spring.mvc.entity.Paging;
 
 import java.util.List;

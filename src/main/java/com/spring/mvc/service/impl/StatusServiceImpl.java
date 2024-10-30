@@ -2,7 +2,6 @@ package com.spring.mvc.service.impl;
 
 import com.spring.mvc.dao.StatusDAO;
 import com.spring.mvc.dto.StatusDTO;
-import com.spring.mvc.entity.Status;
 import com.spring.mvc.service.StatusService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;

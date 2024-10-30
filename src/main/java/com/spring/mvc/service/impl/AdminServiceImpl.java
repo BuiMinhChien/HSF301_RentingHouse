@@ -2,7 +2,6 @@ package com.spring.mvc.service.impl;
 
 import com.spring.mvc.dao.AdminDAO;
 import com.spring.mvc.dto.AdminDTO;
-import com.spring.mvc.entity.Admin;
 import com.spring.mvc.service.AdminService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;

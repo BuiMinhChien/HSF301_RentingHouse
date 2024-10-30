@@ -1,6 +1,5 @@
 package com.spring.mvc.dto;
 
-import com.spring.mvc.entity.Status;
 import com.spring.mvc.validator.ValidDate;
 import com.spring.mvc.validator.ValidNumber;
 import jakarta.validation.constraints.Email;
