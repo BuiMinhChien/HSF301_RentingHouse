@@ -1,5 +1,6 @@
 package com.spring.mvc.entity;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,21 +12,19 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Role {
+public class Document {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name", columnDefinition = "NVARCHAR")
+    @Column(name = "name", columnDefinition = "NVARCHAR(MAX)")
     private String name;
 
+    @Column(name = "path")
+    private String path;
 
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
+    @Column(name = "upload_date")
+    private String uploadDate;
+
 }

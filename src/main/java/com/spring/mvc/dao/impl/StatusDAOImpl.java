@@ -20,22 +20,5 @@ public class StatusDAOImpl implements StatusDAO {
         this.sessionFactory = sessionFactory;
     }
 
-    @Override
-    public List<Status> getAllStatus() {
-        Session session = sessionFactory.getCurrentSession();
-        List<Status> statuses = null;
-        Query<Status> query = session.createQuery("FROM Status", Status.class);
-        statuses = query.list();
-        return statuses;
-    }
 
-    @Override
-    public Status getStatusByStatusId(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        Status status = null;
-        Query<Status> query = session.createQuery("FROM Status WHERE id = :id", Status.class);
-        query.setParameter("id", id);
-        status = query.uniqueResult();
-        return status;
-    }
 }

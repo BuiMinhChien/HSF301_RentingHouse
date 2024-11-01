@@ -1,10 +1,10 @@
-﻿--------------------------------TAO DATABASE--------------------------------------------------
+--------------------------------TAO DATABASE--------------------------------------------------
 --create database project_house_rental_hsf301_assignment
 use project_house_rental_hsf301_assignment
 
 --------------------------------TAO BANG-----------------------------------------
 -- 1. Các bảng không có khóa ngoại
-CREATE TABLE Role (
+CREATE TABLE [Role] (
     id INT PRIMARY KEY IDENTITY(1,1),
     name NVARCHAR(100) NOT NULL
 );
@@ -80,7 +80,7 @@ CREATE TABLE House (
 );
 
 -- 5. Bảng Image và Document (phụ thuộc vào House)
-CREATE TABLE Image (
+CREATE TABLE [Image] (
     id INT PRIMARY KEY IDENTITY(1,1),
     house_id INT FOREIGN KEY REFERENCES House(id),
     path VARCHAR(255) NOT NULL,
@@ -96,7 +96,7 @@ CREATE TABLE Document (
 );
 
 -- 6. Các bảng liên quan đến Account
-CREATE TABLE Notification (
+CREATE TABLE [Notification] (
     id INT PRIMARY KEY IDENTITY(1,1),
     content NVARCHAR(MAX) NOT NULL,
     created_date VARCHAR(100),
@@ -126,16 +126,11 @@ CREATE TABLE Customer (
     date_of_birth VARCHAR(100),
     address NVARCHAR(MAX),
     phone_number VARCHAR(10),
-    tax_identification_number VARCHAR(50),
     citizen_identification VARCHAR(50),
     id_issuance_date VARCHAR(100),
     id_issuance_place NVARCHAR(MAX),
     id_card_front_image_id INT FOREIGN KEY REFERENCES Image(id),
     id_card_back_image_id INT FOREIGN KEY REFERENCES Image(id),
-    bank_account_number VARCHAR(255),
-    bank_name NVARCHAR(MAX),
-    bank_branch NVARCHAR(MAX),
-    bank_owner NVARCHAR(MAX)
 );
 
 -- 8. Bảng chứa tiện ích và thiết bị phòng cháy của House
@@ -206,9 +201,15 @@ CREATE TABLE Question (
     answer NVARCHAR(MAX) NOT NULL
 );
 
+
+
 -- 12. Bổ sung khóa ngoại cho cột updated_by trong bảng House sau khi tất cả bảng đã được tạo
 ALTER TABLE House
 ADD CONSTRAINT FK_House_UpdatedBy FOREIGN KEY (updated_by) REFERENCES Account(id);
+
+ALTER TABLE Account 
+ADD CONSTRAINT FK_Account_UpdatedBy FOREIGN KEY (avatar_image_id) REFERENCES [dbo].[Image](id);
+
 
 ---------------------------------DU LIEU CO DINH (KHONG DUOC XOA)-------------------------------------------------
 USE project_house_rental_hsf301_assignment;
