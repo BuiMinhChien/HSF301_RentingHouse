@@ -18,22 +18,22 @@ import java.util.List;
 @DependsOn(value = "sessionFactory")
 public class TagForNewsDAOImpl implements TagForNewsDAO {
     private final SessionFactory sessionFactory;
-    private Session session;
+//    private Session session;
     public TagForNewsDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        session = sessionFactory.getCurrentSession();
+//        session = sessionFactory.getCurrentSession();
     }
 
     @Override
     public List<TagForNews> getAllTag() {
         List<TagForNews> list = null;
-        TypedQuery<TagForNews> query = session.createQuery("FROM TagForNews", TagForNews.class);
+        TypedQuery<TagForNews> query = sessionFactory.getCurrentSession().createQuery("FROM TagForNews", TagForNews.class);
         list = query.getResultList();
         return list;
     }
 
     @Override
     public TagForNews getTagById(int id) {
-        return session.find(TagForNews.class, id);
+        return sessionFactory.getCurrentSession().find(TagForNews.class, id);
     }
 }
