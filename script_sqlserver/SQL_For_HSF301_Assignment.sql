@@ -215,11 +215,11 @@ ADD CONSTRAINT FK_Account_UpdatedBy FOREIGN KEY (avatar_image_id) REFERENCES [db
 USE project_house_rental_hsf301_assignment;
 
 -- 1. Thêm dữ liệu mẫu vào bảng Role
-INSERT INTO Role (id,name) VALUES 
-(1,'ROLE_Customer'),
-(2,'ROLE_House_Listing_Agent'),
-(3,'ROLE_Customer_Care'),
-(4,'ROLE_News_Writer')
+INSERT INTO Role (id, [name]) VALUES 
+(1,'ROLE_CUSTOMER'),
+(2,'ROLE_HOUSE_LISTING_AGENT'),
+(3,'ROLE_CUSTOMER_CARE'),
+(4,'ROLE_NEWS_WRITER')
 
 -- 2. Thêm dữ liệu mẫu vào bảng Tag
 INSERT INTO Tag (name, description) VALUES 
