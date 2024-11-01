@@ -102,7 +102,6 @@ CREATE TABLE [Notification] (
     created_date VARCHAR(100),
     read_status NVARCHAR(100)
 );
-
 CREATE TABLE Account_Notification (
     notification_id INT FOREIGN KEY REFERENCES Notification(id),
     account_id INT FOREIGN KEY REFERENCES Account(id),
@@ -156,12 +155,12 @@ CREATE TABLE House_register (
     registration_time VARCHAR(100)
 );
 
-CREATE TABLE Constract (
+CREATE TABLE Contract (
     id INT PRIMARY KEY IDENTITY(1,1),
     house_id INT FOREIGN KEY REFERENCES House(id),
     owner_by INT FOREIGN KEY REFERENCES House_owner(id),
     tenant_id INT FOREIGN KEY REFERENCES Account(id),
-    created_by INT FOREIGN KEY REFERENCES Account(id), --nhan vien tao constract luc ban dau
+    created_by INT FOREIGN KEY REFERENCES Account(id), --nhan vien tao Contract luc ban dau
     rule_document INT FOREIGN KEY REFERENCES Document(id),
     price BIGINT,
     deposit BIGINT,
@@ -188,7 +187,7 @@ CREATE TABLE News (
 );
 
 CREATE TABLE News_Tag_for_news (
-    tag_id INT NOT NULL FOREIGN KEY REFERENCES Tag_for_news(id),
+tag_id INT NOT NULL FOREIGN KEY REFERENCES Tag_for_news(id),
     news_id INT NOT NULL FOREIGN KEY REFERENCES News(id),
     PRIMARY KEY (tag_id, news_id)
 );
@@ -213,13 +212,13 @@ ADD CONSTRAINT FK_Account_UpdatedBy FOREIGN KEY (avatar_image_id) REFERENCES [db
 
 ---------------------------------DU LIEU CO DINH (KHONG DUOC XOA)-------------------------------------------------
 USE project_house_rental_hsf301_assignment;
-SET IDENTITY_INSERT Role ON;
+
 -- 1. Thêm dữ liệu mẫu vào bảng Role
-INSERT INTO Role (id, [name]) VALUES 
-(1,'ROLE_CUSTOMER'),
-(2,'ROLE_HOUSE_LISTING_AGENT'),
-(3,'ROLE_CUSTOMER_CARE'),
-(4,'ROLE_NEWS_WRITER')
+INSERT INTO Role (name) VALUES 
+('ROLE_CUSTOMER'),
+('ROLE_HOUSE_LISTING_AGENT'),
+('ROLE_CUSTOMER_CARE'),
+('ROLE_NEWS_WRITER');
 
 -- 2. Thêm dữ liệu mẫu vào bảng Tag
 INSERT INTO Tag (name, description) VALUES 
@@ -268,9 +267,9 @@ INSERT INTO Account (username, password, verify, email, avatar_image_id, role_id
 VALUES 
 ('customer', '$2a$10$43UPoYJoq5cJT.U6bSrZPOAQ4K.GrN8F5JzhGdBcxy.ZfFpvrsUAi', 1, 'alexpeter@example.com', 1, 1, '30/10/2024'),
 ('admin', '$2a$10$43UPoYJoq5cJT.U6bSrZPOAQ4K.GrN8F5JzhGdBcxy.ZfFpvrsUAi', 1, 'johndoe@example.com', 1, 2, '30/10/2024'),
-('houselistingagent', '$2a$10$43UPoYJoq5cJT.U6bSrZPOAQ4K.GrN8F5JzhGdBcxy.ZfFpvrsUAi', 1, 'chickenrice@example.com', 1, 3, '30/10/2024'),
-('customercare', '$2a$10$43UPoYJoq5cJT.U6bSrZPOAQ4K.GrN8F5JzhGdBcxy.ZfFpvrsUAi', 1, 'banhmy@example.com', 1, 4, '30/10/2024'),
-('newswriter', '$2a$10$43UPoYJoq5cJT.U6bSrZPOAQ4K.GrN8F5JzhGdBcxy.ZfFpvrsUAi', 1, 'meomeo@example.com', 1, 5, '30/10/2024');
+('houselistingagent', '$2a$10$43UPoYJoq5cJT.U6bSrZPOAQ4K.GrN8F5JzhGdBcxy.ZfFpvrsUAi', 1, 'chickenrice@example.com', 1, 2, '30/10/2024'),
+('customercare', '$2a$10$43UPoYJoq5cJT.U6bSrZPOAQ4K.GrN8F5JzhGdBcxy.ZfFpvrsUAi', 1, 'banhmy@example.com', 1, 3, '30/10/2024'),
+('newswriter', '$2a$10$43UPoYJoq5cJT.U6bSrZPOAQ4K.GrN8F5JzhGdBcxy.ZfFpvrsUAi', 1, 'meomeo@example.com', 1, 4, '30/10/2024');
 
 -- 12. Thêm dữ liệu mẫu vào bảng Notification
 INSERT INTO Notification (content, created_date, read_status) VALUES 
@@ -290,9 +289,9 @@ INSERT INTO Staff (id, full_name, gender, date_of_birth, address, phone_number) 
 (5, N'Lê Đoàn Đức Chung', 'M', '18/10/2004', '123 Elm St, Cityville', '1234567890');
 
 -- 15. Thêm dữ liệu mẫu vào bảng Customer
-INSERT INTO Customer (account_id, full_name, gender, date_of_birth, address, phone_number, tax_identification_number, citizen_identification, id_issuance_date, id_issuance_place, id_card_front_image_id, id_card_back_image_id, bank_account_number, bank_name, bank_branch, bank_owner) 
-VALUES 
-(1, 'Jane Smith', 'F', '18/10/2004', '456 Oak St, Townsville', '0987654321', '123456789', '987654321', '30/10/2004', 'Cityville', NULL, NULL, '12345678', 'City Bank', 'City Branch', 'Jane Smith');
+--INSERT INTO Customer (account_id, full_name, gender, date_of_birth, address, phone_number, citizen_identification, id_issuance_date, id_issuance_place, id_card_front_image_id, id_card_back_image_id) 
+--VALUES 
+--(1, 'Jane Smith', 'F', '18/10/2004', '456 Oak St, Townsville', '0987654321', '123456789', '987654321', '30/10/2004', 'Cityville', NULL, NULL, '12345678', 'City Bank', 'City Branch', 'Jane Smith');
 
 -- 23. Thêm dữ liệu mẫu vào bảng Question
 INSERT INTO Question (topic_id, question, answer) 
