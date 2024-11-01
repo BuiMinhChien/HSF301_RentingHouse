@@ -1,8 +1,9 @@
 package com.spring.mvc.service.impl;
 
-import com.spring.mvc.dao.TagForNewsDAO;
+import com.spring.mvc.dao.TagDAO;
+import com.spring.mvc.entity.Tag;
 import com.spring.mvc.entity.TagForNews;
-import com.spring.mvc.service.TagForNewsService;
+import com.spring.mvc.service.TagService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,15 +12,16 @@ import java.util.List;
 
 @Service(value = "tagForNewsService")
 @Transactional(propagation = Propagation.REQUIRED)
-public class TagForNewsServiceImpl implements TagForNewsService {
-    private final TagForNewsDAO tagForNewsDAO;
-    public TagForNewsServiceImpl(TagForNewsDAO tagForNewsDAO) {
-        this.tagForNewsDAO = tagForNewsDAO;
+public class TagServiceImpl implements TagService {
+    private final TagDAO tagDAO;
+    public TagServiceImpl(TagDAO tagDAO) {
+        this.tagDAO = tagDAO;
     }
+
     @Override
-    public List<TagForNews> getAllTag() {
+    public List<Tag> getAllTag() {
         try {
-            List<TagForNews> list = tagForNewsDAO.getAllTag();
+            List<Tag> list = tagDAO.getAllTag();
             return list;
         } catch (Exception ex) {
             throw ex;
@@ -27,9 +29,9 @@ public class TagForNewsServiceImpl implements TagForNewsService {
     }
 
     @Override
-    public TagForNews getTagById(int id) {
+    public Tag getTagById(int id) {
         try {
-            TagForNews tag = tagForNewsDAO.getTagById(id);
+            Tag tag = tagDAO.getTagById(id);
             return tag;
         } catch (Exception ex) {
             throw ex;
