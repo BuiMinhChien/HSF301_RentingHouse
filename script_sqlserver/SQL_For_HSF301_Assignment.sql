@@ -156,12 +156,12 @@ CREATE TABLE House_register (
     registration_time VARCHAR(100)
 );
 
-CREATE TABLE Constract (
+CREATE TABLE Contract (
     id INT PRIMARY KEY IDENTITY(1,1),
     house_id INT FOREIGN KEY REFERENCES House(id),
     owner_by INT FOREIGN KEY REFERENCES House_owner(id),
     tenant_id INT FOREIGN KEY REFERENCES Account(id),
-    created_by INT FOREIGN KEY REFERENCES Account(id), --nhan vien tao constract luc ban dau
+    created_by INT FOREIGN KEY REFERENCES Account(id), --nhan vien tao Contract luc ban dau
     rule_document INT FOREIGN KEY REFERENCES Document(id),
     price BIGINT,
     deposit BIGINT,
