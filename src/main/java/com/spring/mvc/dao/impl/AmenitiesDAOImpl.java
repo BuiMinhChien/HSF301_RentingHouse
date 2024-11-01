@@ -17,43 +17,41 @@ import java.util.List;
 @DependsOn(value = "sessionFactory")
 public class AmenitiesDAOImpl implements AmenitiesDAO {
     private final SessionFactory sessionFactory;
-    private Session session;
 
     public AmenitiesDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        this.session = sessionFactory.getCurrentSession();
     }
 
     @Override
     public void save(Amenities amenities) {
-        session.save(amenities);
+        sessionFactory.getCurrentSession().save(amenities);
     }
 
     @Override
     public void update(Amenities amenities) {
-        session.save(amenities);
+        sessionFactory.getCurrentSession().save(amenities);
     }
 
     @Override
     public void delete(Amenities amenities) {
-        session.remove(amenities);
+        sessionFactory.getCurrentSession().remove(amenities);
     }
 
     @Override
     public Amenities findById(int id) {
-        return (Amenities) session.get(Amenities.class, id);
+        return (Amenities) sessionFactory.getCurrentSession().get(Amenities.class, id);
     }
 
     @Override
     public List<Amenities> findAll() {
-        return session.createQuery("from Amenities").list();
+        return sessionFactory.getCurrentSession().createQuery("from Amenities").list();
     }
 
     @Override
     public List<Amenities> findByName(String amenityName) {
         try {
             String hql = "from Amenities where name = :name";
-           return session.createQuery(hql).setParameter("name", amenityName).list();
+           return sessionFactory.getCurrentSession().createQuery(hql).setParameter("name", amenityName).list();
         }catch(Exception e) {
             e.printStackTrace();
         }

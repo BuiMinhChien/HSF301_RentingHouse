@@ -16,11 +16,9 @@ import java.util.List;
 @DependsOn(value = "sessionFactory")
 public class CustomerDAOImpl implements CustomerDAO {
     private SessionFactory sessionFactory;
-    private Session session;
 
     public CustomerDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        session = sessionFactory.getCurrentSession();
     }
 
     @Override
@@ -40,16 +38,16 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public void save(Customer customer) {
-        session.save(customer);
+        sessionFactory.getCurrentSession().save(customer);
     }
 
     @Override
     public void update(Customer customer) {
-        session.save(customer);
+        sessionFactory.getCurrentSession().save(customer);
     }
 
     @Override
     public void delete(Customer customer) {
-        session.delete(customer);
+        sessionFactory.getCurrentSession().delete(customer);
     }
 }

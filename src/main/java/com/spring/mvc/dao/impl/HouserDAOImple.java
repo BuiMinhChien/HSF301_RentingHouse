@@ -18,31 +18,29 @@ import java.util.List;
 @DependsOn(value = "sessionFactory")
 public class HouserDAOImple implements HouseDAO {
     private final SessionFactory sessionFactory;
-    private Session session;
 
     public HouserDAOImple(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        session = sessionFactory.openSession();
     }
 
     @Override
     public void save(House house) {
-        session.save(house);
+        sessionFactory.getCurrentSession().save(house);
     }
 
     @Override
     public void delete(House house) {
-        session.remove(house);
+        sessionFactory.getCurrentSession().remove(house);
     }
 
     @Override
     public void update(House house) {
-        session.save(house);
+        sessionFactory.getCurrentSession().save(house);
     }
 
     @Override
     public House findById(int id) {
-        return session.get(House.class, id);
+        return sessionFactory.getCurrentSession().get(House.class, id);
     }
 
     @Override

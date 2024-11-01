@@ -17,7 +17,6 @@ import java.util.List;
 @DependsOn(value = "sessionFactory")
 public class HouseOwnerImpl implements HouseOwnerDAO {
     private SessionFactory sessionFactory;
-    private Session session;
 
     public HouseOwnerImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -25,27 +24,27 @@ public class HouseOwnerImpl implements HouseOwnerDAO {
 
     @Override
     public void save(HouseOwner houseOwner) {
-        session.save(houseOwner);
+        sessionFactory.getCurrentSession().save(houseOwner);
     }
 
     @Override
     public void update(HouseOwner houseOwner) {
-        session.save(houseOwner);
+        sessionFactory.getCurrentSession().save(houseOwner);
     }
 
     @Override
     public void delete(HouseOwner houseOwner) {
-        session.delete(houseOwner);
+        sessionFactory.getCurrentSession().delete(houseOwner);
     }
 
     @Override
     public HouseOwner findById(int id) {
-        return session.get(HouseOwner.class, id);
+        return sessionFactory.getCurrentSession().get(HouseOwner.class, id);
     }
 
     @Override
     public List<HouseOwner> findAll() {
-        TypedQuery<HouseOwner> query = session.createQuery("from HouseOwner", HouseOwner.class);
+        TypedQuery<HouseOwner> query = sessionFactory.getCurrentSession().createQuery("from HouseOwner", HouseOwner.class);
         return query.getResultList();
 
     }
