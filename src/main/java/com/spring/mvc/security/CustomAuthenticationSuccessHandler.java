@@ -36,7 +36,5 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
         } else {
             response.sendRedirect("/customer/homepage");
         }
-
-
     }
 }

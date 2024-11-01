@@ -17,34 +17,32 @@ import java.util.List;
 @DependsOn(value = "sessionFactory")
 public class ContractDAOImpl implements ContractDAO {
     private final SessionFactory sessionFactory;
-    private Session session;
 
     public ContractDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        session = sessionFactory.getCurrentSession();
     }
 
     @Override
     public void save(Contract contract) {
-        session.save(contract);
+        sessionFactory.getCurrentSession().save(contract);
     }
 
     @Override
     public List<Contract> getAllContract() {
         List<Contract> contracts = null;
-        TypedQuery<Contract> query = session.createQuery("FROM Contract", Contract.class);
+        TypedQuery<Contract> query = sessionFactory.getCurrentSession().createQuery("FROM Contract", Contract.class);
         contracts = query.getResultList();
         return contracts;
     }
 
     @Override
     public Contract getContractById(int id) {
-        return session.find(Contract.class, id);
+        return sessionFactory.getCurrentSession().find(Contract.class, id);
     }
 
     @Override
     public void deleteContractById(int id) {
         Contract contract = getContractById(id);
-        session.remove(contract);
+        sessionFactory.getCurrentSession().remove(contract);
     }
 }
