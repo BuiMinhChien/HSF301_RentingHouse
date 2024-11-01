@@ -14,15 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 @DependsOn(value = "sessionFactory")
 public class AccountDAOImpl implements AccountDAO {
     private final SessionFactory sessionFactory;
-    private Session session;
 
     public AccountDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        session = sessionFactory.getCurrentSession();
     }
 
     @Override
     public Account findByUsername(String username) {
+        Session session = sessionFactory.getCurrentSession();
         String hql = "FROM Account a WHERE a.username = :username";
         return session.createQuery(hql, Account.class)
                 .setParameter("username", username)
@@ -31,6 +30,7 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     public Account findByEmail(String email) {
+        Session session = sessionFactory.getCurrentSession();
         String hql = "FROM Account a WHERE a.email = :email";
         return session.createQuery(hql, Account.class)
                 .setParameter("email", email)
@@ -39,6 +39,7 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     public boolean existsByUsername(String username) {
+        Session session = sessionFactory.getCurrentSession();
         String hql = "SELECT count(a) FROM Account a WHERE a.username = :username";
         Long count = session.createQuery(hql, Long.class)
                 .setParameter("username", username)

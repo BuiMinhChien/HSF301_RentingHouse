@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 @Setter
 @Getter
 @Entity
+@Table(name = "Constract")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Constract {

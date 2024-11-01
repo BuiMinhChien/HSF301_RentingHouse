@@ -6,12 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 @Setter
 @Getter
 @Entity
+@Table(name = "News")
 @NoArgsConstructor
 @AllArgsConstructor
 public class News {
@@ -29,8 +31,8 @@ public class News {
     @Column(name = "created_date")
     private String created_date;
 
-    @Column(name = "email")
-    private String email;
+//    @Column(name = "email")
+//    private String email;
 
     @Column(name="registration_date")
     private String registrationDate;
@@ -50,4 +52,10 @@ public class News {
     )
     private List<TagForNews> tags;
 
+    public void addTag(TagForNews tag) {
+        if(this.tags == null){
+            this.tags = new ArrayList<>();
+        }
+        this.tags.add(tag);
+    }
 }

@@ -63,7 +63,7 @@ public class DatabaseConfig implements Constants.DatabaseConfig {
         properties.put(HIBERNATE_DIALECT, environment.getProperty(HIBERNATE_DIALECT));
         properties.put(HIBERNATE_SHOW_SQL, environment.getProperty(HIBERNATE_SHOW_SQL));
         properties.put(HIBERNATE_FORMAT_SQL, environment.getProperty(HIBERNATE_FORMAT_SQL));
-        properties.put(HIBERNATE_HBM2DDL_AUTO, environment.getProperty(HIBERNATE_HBM2DDL_AUTO));
+//        properties.put(HIBERNATE_HBM2DDL_AUTO, environment.getProperty(HIBERNATE_HBM2DDL_AUTO));
         return properties;
     }
 

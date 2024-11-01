@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
+@Table(name = "HouseOwner")
 @NoArgsConstructor
 @AllArgsConstructor
 public class HouseOwner {

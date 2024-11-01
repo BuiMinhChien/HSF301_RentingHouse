@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -24,6 +25,13 @@ public class TagForNews {
 
     @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private List<News> newsList;
+
+    public void addNews(News news) {
+        if(this.newsList == null){
+            this.newsList = new ArrayList<>();
+        }
+        this.newsList.add(news);
+    }
 
     @Override
     public String toString() {

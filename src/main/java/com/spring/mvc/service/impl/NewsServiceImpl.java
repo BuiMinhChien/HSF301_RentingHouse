@@ -2,6 +2,7 @@ package com.spring.mvc.service.impl;
 
 import com.spring.mvc.dao.NewsDAO;
 import com.spring.mvc.dao.TagForNewsDAO;
+import com.spring.mvc.entity.Account;
 import com.spring.mvc.entity.News;
 import com.spring.mvc.entity.TagForNews;
 import com.spring.mvc.service.NewsService;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service(value = "newsService")
@@ -22,6 +24,8 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public boolean save(News news) {
         try {
+            news.setCreated_date(LocalDateTime.now().toString());
+            news.setAccount(new Account());
             newsDAO.save(news);
             return true;
         } catch (Exception ex) {

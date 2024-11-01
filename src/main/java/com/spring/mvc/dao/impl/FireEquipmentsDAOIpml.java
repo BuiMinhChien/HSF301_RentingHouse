@@ -1,7 +1,7 @@
 package com.spring.mvc.dao.impl;
 
-import com.spring.mvc.dao.TagDAO;
-import com.spring.mvc.entity.Tag;
+import com.spring.mvc.dao.FireEquipmentsDAO;
+import com.spring.mvc.entity.FireEquipments;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,27 +12,27 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Repository(value = "tagDAO")
+@Repository(value = "fireEquipmentsDAO")
 @Transactional(propagation = Propagation.REQUIRED)
 @DependsOn(value = "sessionFactory")
-public class TagDAOImpl implements TagDAO {
+public class FireEquipmentsDAOIpml implements FireEquipmentsDAO {
     private final SessionFactory sessionFactory;
-    public TagDAOImpl(SessionFactory sessionFactory) {
+    public FireEquipmentsDAOIpml(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
     @Override
-    public List<Tag> getAllTag() {
+    public List<FireEquipments> getAllFireEquipments() {
         Session session = sessionFactory.getCurrentSession();
-        List<Tag> list = null;
-        TypedQuery<Tag> query = session.createQuery("FROM Tag", Tag.class);
+        List<FireEquipments> list = null;
+        TypedQuery<FireEquipments> query = session.createQuery("FROM FireEquipments ", FireEquipments.class);
         list = query.getResultList();
         return list;
     }
 
     @Override
-    public Tag getTagById(int id) {
+    public FireEquipments getFireEquipmentsById(int id) {
         Session session = sessionFactory.getCurrentSession();
-        return session.find(Tag.class, id);
+        return session.find(FireEquipments.class, id);
     }
 }

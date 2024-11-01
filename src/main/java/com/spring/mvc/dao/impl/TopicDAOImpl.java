@@ -18,25 +18,26 @@ import java.util.List;
 public class TopicDAOImpl implements TopicDAO {
 
     private final SessionFactory sessionFactory;
-    private Session session;
 
     public TopicDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        session = sessionFactory.getCurrentSession();
     }
 
     @Override
     public Topic findById(int topicId) {
+        Session session = sessionFactory.getCurrentSession();
         return session.find(Topic.class, topicId);
     }
 
     @Override
     public void save(Topic topic) {
+        Session session = sessionFactory.getCurrentSession();
         session.save(topic);
     }
 
     @Override
     public void deleteById(int topicId) {
+        Session session = sessionFactory.getCurrentSession();
         Topic topic = findById(topicId);
         if (topic != null) {
             session.remove(topic);
@@ -45,12 +46,14 @@ public class TopicDAOImpl implements TopicDAO {
 
     @Override
     public List<Topic> findByParentTopicIsNull() {
+        Session session = sessionFactory.getCurrentSession();
         String hql = "FROM Topic t WHERE t.parent_topic IS NULL";
         return session.createQuery(hql, Topic.class).getResultList();
     }
 
     @Override
     public List<Topic> findByParentTopic_TopicId(int parentId) {
+        Session session = sessionFactory.getCurrentSession();
         String hql = "FROM Topic t WHERE t.parent_topic.id = :parentId";
         return session.createQuery(hql, Topic.class)
                 .setParameter("parentId", parentId)

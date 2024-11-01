@@ -17,19 +17,19 @@ import java.util.List;
 @DependsOn(value = "sessionFactory")
 public class NewsDAOIpml implements NewsDAO {
     private final SessionFactory sessionFactory;
-    private Session session;
     public NewsDAOIpml(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        session = sessionFactory.getCurrentSession();
     }
 
     @Override
     public void save(News news) {
+        Session session = sessionFactory.getCurrentSession();
         session.save(news);
     }
 
     @Override
     public List<News> getAllNews() {
+        Session session = sessionFactory.getCurrentSession();
         List<News> list = null;
         TypedQuery<News> query = session.createQuery("FROM News ORDER BY registrationDate DESC ", News.class);
         list = query.getResultList();
@@ -38,6 +38,7 @@ public class NewsDAOIpml implements NewsDAO {
 
     @Override
     public List<News> getAllNewsByAuthorId(int authorId) {
+        Session session = sessionFactory.getCurrentSession();
         List<News> list = null;
         TypedQuery<News> query = session.createQuery("FROM News WHERE account.id = :authorId ORDER BY registrationDate DESC ", News.class);
         query.setParameter("authorId", authorId);
@@ -47,17 +48,20 @@ public class NewsDAOIpml implements NewsDAO {
 
     @Override
     public News getNewsById(int id) {
+        Session session = sessionFactory.getCurrentSession();
         return session.find(News.class, id);
     }
 
     @Override
     public void deleteNewsById(int id) {
+        Session session = sessionFactory.getCurrentSession();
         News news = session.find(News.class, id);
         session.remove(news);
     }
 
     @Override
     public List<News> getTop3LatestNews() {
+        Session session = sessionFactory.getCurrentSession();
         List<News> list = null;
         TypedQuery<News> query = session.createQuery("FROM News ORDER BY registrationDate DESC", News.class);
         query.setMaxResults(3); // Giới hạn kết quả chỉ lấy 3 bản ghi gần nhất

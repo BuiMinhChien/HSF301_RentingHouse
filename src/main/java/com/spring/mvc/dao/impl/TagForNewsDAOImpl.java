@@ -1,7 +1,6 @@
 package com.spring.mvc.dao.impl;
 
 import com.spring.mvc.dao.TagForNewsDAO;
-import com.spring.mvc.entity.News;
 import com.spring.mvc.entity.TagForNews;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.Session;
@@ -18,14 +17,13 @@ import java.util.List;
 @DependsOn(value = "sessionFactory")
 public class TagForNewsDAOImpl implements TagForNewsDAO {
     private final SessionFactory sessionFactory;
-    private Session session;
     public TagForNewsDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        session = sessionFactory.getCurrentSession();
     }
 
     @Override
     public List<TagForNews> getAllTag() {
+        Session session = sessionFactory.getCurrentSession();
         List<TagForNews> list = null;
         TypedQuery<TagForNews> query = session.createQuery("FROM TagForNews", TagForNews.class);
         list = query.getResultList();
@@ -34,6 +32,7 @@ public class TagForNewsDAOImpl implements TagForNewsDAO {
 
     @Override
     public TagForNews getTagById(int id) {
+        Session session = sessionFactory.getCurrentSession();
         return session.find(TagForNews.class, id);
     }
 }

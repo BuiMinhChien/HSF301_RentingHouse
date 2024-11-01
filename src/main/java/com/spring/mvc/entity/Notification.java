@@ -12,6 +12,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
+@Table(name = "Notification")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Notification {

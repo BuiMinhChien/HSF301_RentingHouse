@@ -17,31 +17,33 @@ import java.util.List;
 @DependsOn(value = "sessionFactory")
 public class QuestionDAOImpl implements QuestionDAO {
     private final SessionFactory sessionFactory;
-    private Session session;
 
     public QuestionDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        session = sessionFactory.getCurrentSession();
     }
 
     @Override
     public void save(Question question) {
+        Session session = sessionFactory.getCurrentSession();
         session.save(question);
     }
 
     @Override
     public void deleteQuestionById(int questionId) {
+        Session session = sessionFactory.getCurrentSession();
         Question question = findById(questionId);
         session.remove(question);
     }
 
     @Override
     public Question findById(int questionId) {
+        Session session = sessionFactory.getCurrentSession();
         return session.find(Question.class, questionId);
     }
 
     @Override
     public List<Question> findByTopic(Topic topic) {
+        Session session = sessionFactory.getCurrentSession();
         String hql = "FROM Question q WHERE q.topic = :topic";
         return session.createQuery(hql, Question.class)
                 .setParameter("topic", topic)
