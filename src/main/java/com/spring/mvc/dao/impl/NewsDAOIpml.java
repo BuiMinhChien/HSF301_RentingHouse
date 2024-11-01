@@ -17,21 +17,21 @@ import java.util.List;
 @DependsOn(value = "sessionFactory")
 public class NewsDAOIpml implements NewsDAO {
     private final SessionFactory sessionFactory;
-    private Session session;
+//    private Session session;
     public NewsDAOIpml(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        session = sessionFactory.getCurrentSession();
+//        session = sessionFactory.getCurrentSession();
     }
 
     @Override
     public void save(News news) {
-        session.save(news);
+        sessionFactory.getCurrentSession().save(news);
     }
 
     @Override
     public List<News> getAllNews() {
         List<News> list = null;
-        TypedQuery<News> query = session.createQuery("FROM News ORDER BY registrationDate DESC ", News.class);
+        TypedQuery<News> query = sessionFactory.getCurrentSession().createQuery("FROM News ORDER BY registrationDate DESC ", News.class);
         list = query.getResultList();
         return list;
     }
@@ -39,7 +39,7 @@ public class NewsDAOIpml implements NewsDAO {
     @Override
     public List<News> getAllNewsByAuthorId(int authorId) {
         List<News> list = null;
-        TypedQuery<News> query = session.createQuery("FROM News WHERE account.id = :authorId ORDER BY registrationDate DESC ", News.class);
+        TypedQuery<News> query = sessionFactory.getCurrentSession().createQuery("FROM News WHERE account.id = :authorId ORDER BY registrationDate DESC ", News.class);
         query.setParameter("authorId", authorId);
         list = query.getResultList();
         return list;
@@ -47,19 +47,19 @@ public class NewsDAOIpml implements NewsDAO {
 
     @Override
     public News getNewsById(int id) {
-        return session.find(News.class, id);
+        return sessionFactory.getCurrentSession().find(News.class, id);
     }
 
     @Override
     public void deleteNewsById(int id) {
-        News news = session.find(News.class, id);
-        session.remove(news);
+        News news = sessionFactory.getCurrentSession().find(News.class, id);
+        sessionFactory.getCurrentSession().remove(news);
     }
 
     @Override
     public List<News> getTop3LatestNews() {
         List<News> list = null;
-        TypedQuery<News> query = session.createQuery("FROM News ORDER BY registrationDate DESC", News.class);
+        TypedQuery<News> query = sessionFactory.getCurrentSession().createQuery("FROM News ORDER BY registrationDate DESC", News.class);
         query.setMaxResults(3); // Giới hạn kết quả chỉ lấy 3 bản ghi gần nhất
         list = query.getResultList();
         return list;

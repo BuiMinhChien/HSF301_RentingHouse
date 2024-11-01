@@ -17,7 +17,7 @@ public class Role {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name", columnDefinition = "NVARCHAR")
+    @Column(name = "name", columnDefinition = "NVARCHAR(200)")
     private String name;
 
 
