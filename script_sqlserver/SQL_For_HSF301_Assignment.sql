@@ -262,7 +262,7 @@ INSERT INTO House_owner (name, address, phone, email, gender, dob) VALUES
 
 -- 9. Thêm dữ liệu mẫu vào bảng Image
 INSERT INTO Image (house_id, path, upload_date) VALUES 
-(null, '/image/avatar_default.jpg', '2024-09-26 15:38:54.468');
+(null, '/images/avatar_default.jpg', '2024-09-26 15:38:54.468');
 
 -- 11. Thêm dữ liệu mẫu vào bảng Account
 INSERT INTO Account (username, password, verify, email, avatar_image_id, role_id, registration_date) 
