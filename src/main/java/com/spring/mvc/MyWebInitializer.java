@@ -3,13 +3,13 @@ package com.spring.mvc;
 import jakarta.servlet.Filter;
 import org.springframework.lang.NonNull;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
  * 
  */
-public class MyWebInitializer 
-extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class MyWebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 	public static final String CHARACTER_ENCODING = "UTF-8";
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
@@ -24,13 +24,10 @@ extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return null;
+		return new Class<?>[]{SpringWebConfig.class};
 	}
 	@Override
 	protected Filter[] getServletFilters() {
-		final CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
-		encodingFilter.setEncoding(CHARACTER_ENCODING);
-		encodingFilter.setForceEncoding(true);
-		return new Filter[] { encodingFilter };
+		return new Filter[] { new DelegatingFilterProxy("springSecurityFilterChain") };
 	}
 }

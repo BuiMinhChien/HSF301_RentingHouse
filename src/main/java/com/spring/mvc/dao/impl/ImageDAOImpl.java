@@ -14,24 +14,24 @@ import org.springframework.transaction.annotation.Transactional;
 @DependsOn(value = "sessionFactory")
 public class ImageDAOImpl implements ImageDAO {
     private final SessionFactory sessionFactory;
-    private Session session;
+//    private Session session;
     public ImageDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        session = sessionFactory.getCurrentSession();
+//        session = sessionFactory.getCurrentSession();
     }
 
     @Override
     public Image findImageById(int id) {
-        return session.get(Image.class, id);
+        return sessionFactory.getCurrentSession().get(Image.class, id);
     }
 
     @Override
     public void saveImage(Image image) {
-        session.save(image);
+        sessionFactory.getCurrentSession().save(image);
     }
 
     @Override
     public Image getDefaultAvatar() {
-        return session.get(Image.class, 1);
+        return sessionFactory.getCurrentSession().get(Image.class, 1);
     }
 }
