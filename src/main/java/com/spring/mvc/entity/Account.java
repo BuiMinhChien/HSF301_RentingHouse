@@ -39,6 +39,7 @@ public class Account {
     private Role role;
 
     @OneToOne
+    @JoinColumn(name = "avatar_image_id")
     private Image image;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})

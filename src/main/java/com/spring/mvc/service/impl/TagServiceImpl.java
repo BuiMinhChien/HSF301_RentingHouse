@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service(value = "tagForNewsService")
+@Service(value = "tagService")
 @Transactional(propagation = Propagation.REQUIRED)
 public class TagServiceImpl implements TagService {
     private final TagDAO tagDAO;

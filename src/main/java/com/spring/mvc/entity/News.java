@@ -29,9 +29,6 @@ public class News {
     @Column(name = "created_date")
     private String created_date;
 
-    @Column(name = "email")
-    private String email;
-
     @Column(name="registration_date")
     private String registrationDate;
 

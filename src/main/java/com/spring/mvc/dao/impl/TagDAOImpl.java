@@ -18,22 +18,22 @@ import java.util.List;
 @DependsOn(value = "sessionFactory")
 public class TagDAOImpl implements TagDAO {
     private final SessionFactory sessionFactory;
-    private Session session;
+//    private Session session;
     public TagDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        session = sessionFactory.getCurrentSession();
+//        session = sessionFactory.getCurrentSession();
     }
 
     @Override
     public List<Tag> getAllTag() {
         List<Tag> list = null;
-        TypedQuery<Tag> query = session.createQuery("FROM Tag", Tag.class);
+        TypedQuery<Tag> query = sessionFactory.getCurrentSession().createQuery("FROM Tag", Tag.class);
         list = query.getResultList();
         return list;
     }
 
     @Override
     public Tag getTagById(int id) {
-        return session.find(Tag.class, id);
+        return sessionFactory.getCurrentSession().find(Tag.class, id);
     }
 }
