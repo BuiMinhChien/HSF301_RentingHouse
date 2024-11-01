@@ -166,7 +166,7 @@ CREATE TABLE Constract (
     house_id INT FOREIGN KEY REFERENCES House(id),
     owner_by INT FOREIGN KEY REFERENCES House_owner(id),
     tenant_id INT FOREIGN KEY REFERENCES Account(id),
-    created_by INT FOREIGN KEY REFERENCES Account(id),
+    created_by INT FOREIGN KEY REFERENCES Account(id), --nhan vien tao constract luc ban dau
     rule_document INT FOREIGN KEY REFERENCES Document(id),
     price BIGINT,
     deposit BIGINT,
