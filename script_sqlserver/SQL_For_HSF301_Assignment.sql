@@ -213,7 +213,7 @@ ADD CONSTRAINT FK_Account_UpdatedBy FOREIGN KEY (avatar_image_id) REFERENCES [db
 
 ---------------------------------DU LIEU CO DINH (KHONG DUOC XOA)-------------------------------------------------
 USE project_house_rental_hsf301_assignment;
-
+SET IDENTITY_INSERT Role ON;
 -- 1. Thêm dữ liệu mẫu vào bảng Role
 INSERT INTO Role (id, [name]) VALUES 
 (1,'ROLE_CUSTOMER'),
