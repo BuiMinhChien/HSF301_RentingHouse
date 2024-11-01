@@ -54,7 +54,7 @@ public class DatabaseConfig implements Constants.DatabaseConfig {
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan(new String[] { "com.spring.mvc.entity", "com.spring.mvc", "com.spring.mvc.dao", "com.spring.mvc.dao.impl",  "com.spring.mvc.service.impl" });
         sessionFactory.setHibernateProperties(hibernateProperties());
-        System.out.println("--> ...sessionFactory= " + sessionFactory ==  null ? " null " : "SessionFactory is Not null");
+        System.out.println("--> ...sessionFactory= " + (sessionFactory ==  null ? " null " : "SessionFactory is Not null"));
         return sessionFactory;
     }
 

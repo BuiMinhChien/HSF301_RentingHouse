@@ -14,9 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 @DependsOn(value = "sessionFactory")
 public class AccountDAOImpl implements AccountDAO {
     private final SessionFactory sessionFactory;
+    private Session session;
 
     public AccountDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
+        session = sessionFactory.getCurrentSession();
     }
 
     @Override
