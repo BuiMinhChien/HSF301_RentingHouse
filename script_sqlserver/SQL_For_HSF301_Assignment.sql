@@ -1,4 +1,6 @@
 --------------------------------TAO DATABASE--------------------------------------------------
+
+
 --create database project_house_rental_hsf301_assignment
 use project_house_rental_hsf301_assignment
 
@@ -288,11 +290,31 @@ INSERT INTO Staff (id, full_name, gender, date_of_birth, address, phone_number) 
 (4, N'Phạm Việt Tùng', 'M', '18/10/2004', '123 Elm St, Cityville', '1234567890'),
 (5, N'Lê Đoàn Đức Chung', 'M', '18/10/2004', '123 Elm St, Cityville', '1234567890');
 
-15. Thêm dữ liệu mẫu vào bảng Customer
-INSERT INTO Customer (id, full_name, gender, date_of_birth, address, phone_number, id_issuance_date, id_issuance_place, id_card_front_image_id, id_card_back_image_id) 
-VALUES 
-(1, 'Jane Smith', 'F', '18/10/2004', '456 Oak St, Townsville', '0987654321', '987654321', '30/10/2004', 'Cityville', NULL, NULL, '12345678', 'City Bank', 'City Branch', 'Jane Smith');
+--15. Thêm dữ liệu mẫu vào bảng Customer
 
+INSERT INTO [dbo].[Customer] 
+       ([id], 
+       [full_name], 
+       [gender], 
+       [date_of_birth], 
+       [address], 
+       [phone_number], 
+       [citizen_identification], 
+       [id_issuance_date], 
+       [id_issuance_place], 
+       [id_card_front_image_id], 
+       [id_card_back_image_id])
+VALUES 
+       (1,  -- id      'John Doe',  -- full_name
+       'M',  -- gender
+       '1990-01-01',  -- date_of_birth
+       '123 Main St',  -- address
+       '1234567890',  -- phone_number
+       'ID123456',  -- citizen_identification
+       '2010-01-01',  -- id_issuance_date
+       'City Hall',  -- id_issuance_place
+      null,  -- id_card_front_image_id
+      null);  -- id_card_back_image_id
 -- 23. Thêm dữ liệu mẫu vào bảng Question
 INSERT INTO Question (topic_id, question, answer) 
 VALUES 
