@@ -45,4 +45,18 @@ public class AccountDAOImpl implements AccountDAO {
                 .uniqueResult();
         return count != null && count > 0;
     }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        String hql = "SELECT count(a) FROM Account a WHERE a.email = :email";
+        Long count = sessionFactory.getCurrentSession().createQuery(hql, Long.class)
+                .setParameter("email", email)
+                .uniqueResult();
+        return count != null && count > 0;
+    }
+
+    @Override
+    public void save(Account account) {
+        sessionFactory.getCurrentSession().save(account);
+    }
 }
