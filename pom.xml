@@ -153,18 +153,18 @@
         </dependency>
 
         <!-- Spring WebSocket hỗ trợ SockJS -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>sockjs-client</artifactId>
-            <version>1.5.1</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.webjars</groupId>-->
+<!--            <artifactId>sockjs-client</artifactId>-->
+<!--            <version>1.5.1</version>-->
+<!--        </dependency>-->
 
-        <!-- STOMP hỗ trợ WebSocket client -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>stomp-websocket</artifactId>
-            <version>2.3.4</version>
-        </dependency>
+<!--        &lt;!&ndash; STOMP hỗ trợ WebSocket client &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.webjars</groupId>-->
+<!--            <artifactId>stomp-websocket</artifactId>-->
+<!--            <version>2.3.4</version>-->
+<!--        </dependency>-->
     </dependencies>
     <build>
         <finalName>HSF301_Assignment_RentingHouse</finalName>

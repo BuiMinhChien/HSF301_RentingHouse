@@ -16,10 +16,10 @@ import java.util.List;
 @Repository(value = "HouseDAO")
 @Transactional(propagation = Propagation.REQUIRED)
 @DependsOn(value = "sessionFactory")
-public class HouserDAOImple implements HouseDAO {
+public class HouseDAOImpl implements HouseDAO {
     private final SessionFactory sessionFactory;
 
-    public HouserDAOImple(SessionFactory sessionFactory) {
+    public HouseDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 

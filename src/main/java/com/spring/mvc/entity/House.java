@@ -97,5 +97,5 @@ public class House {
 
     @OneToMany(mappedBy = "house",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
-    private List<Image> contracts;
+    private List<Contract> contracts;
 }
