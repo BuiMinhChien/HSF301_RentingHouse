@@ -283,7 +283,8 @@ Author URL: http://w3layouts.com
                 <div class="w3breadcrumb-right">
                     <ul class="breadcrumbs-custom-path">
                         <li><a  th:href="@{/homepage}">Home</a></li>
-                        <li class="active"><span class="fas fa-angle-double-right mx-2"></span> Profile</li>
+                        <li><a  th:href="@{/profile}">Profile</a></li>
+                        <li><a  th:href="@{/logout}">Logout</a></li>
                     </ul>
                 </div>
             </div>
@@ -312,9 +313,9 @@ Author URL: http://w3layouts.com
                     <div class="card-user">
                         <div style="justify-content: center; align-content: center; text-align: center">
                             <form th:action="@{/customer/uploadAvatar}" method="post" enctype="multipart/form-data">
-                                <div th:object="${customerDTO}">
+                                <div th:object="${profileDTO}">
                                     <a href="#">
-                                        <img th:src="*{account.avatar_image.path}" class="img-fluid rounded-circle" alt="Avatar Image" style="margin-bottom: 15px" width="300" height="300">
+                                        <img th:src="*{account.image.path}" class="img-fluid rounded-circle" alt="Avatar Image" style="margin-bottom: 15px" width="300" height="300">
                                     </a>
                                     <!-- Input field to choose an avatar image -->
                                     <input type="file"  name="avatar" id="avatar" class="form-control" accept="image/png, image/jpeg, image/jpg" required>
@@ -337,10 +338,10 @@ Author URL: http://w3layouts.com
                         </div>
                         <div class="card-body sidebar-widget">
 
-                            <form th:action="@{/customer/updateProfile}" method="post" th:object="${customerDTO}" enctype="multipart/form-data">
+                            <form th:action="@{/customer/update}" method="post" th:object="${profileDTO}" enctype="multipart/form-data">
                                 <!-- Account fields -->
                                 <div class="row">
-                                    <input type="hidden" class="form-control" th:field="*{account.accountId}" name="accountId">
+                                    <input type="hidden" class="form-control" th:field="*{account.id}" name="accountId">
                                     <div class="col-md-6 pr-1">
                                         <div class="form-group">
                                             <label>Username</label>
@@ -357,8 +358,8 @@ Author URL: http://w3layouts.com
 
                                 <!-- Customer fields -->
                                 <div class="row">
-                                    <input type="hidden" class="form-control" readonly="" th:field="*{customer.customerId}">
-                                    <input type="hidden" class="form-control" readonly="" th:field="*{customer.account.accountId}">
+                                    <input type="hidden" class="form-control" readonly="" th:field="*{customer.id}">
+                                    <input type="hidden" class="form-control" readonly="" th:field="*{customer.account.id}">
 
                                     <div class="col-md-6 pr-1">
                                         <div class="form-group">
@@ -397,12 +398,6 @@ Author URL: http://w3layouts.com
 
                                 <!-- Address, Bank, ID, etc. -->
                                 <div class="row">
-                                    <div class="col-md-6 pr-1">
-                                        <div class="form-group">
-                                            <label>Citizen Identification</label>
-                                            <input type="text" class="form-control" th:field="*{customer.citizenIdentification}" name="citizenIdentification" placeholder="Citizen ID">
-                                        </div>
-                                    </div>
                                     <div class="col-md-6 pl-1">
                                         <div class="form-group">
                                             <label>ID Issuance Date</label>
@@ -418,42 +413,6 @@ Author URL: http://w3layouts.com
                                             <input type="text" class="form-control" th:field="*{customer.idIssuancePlace}" name="idIssuancePlace" placeholder="Issuance Place">
                                         </div>
                                     </div>
-                                    <div class="col-md-6 pl-1">
-                                        <div class="form-group">
-                                            <label>Bank Account Number</label>
-                                            <input type="text" class="form-control" th:field="*{customer.bankAccountNumber}" name="bankAccountNumber" placeholder="Bank Account Number">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 pr-1">
-                                        <div class="form-group">
-                                            <label>Bank Name</label>
-                                            <input type="text" class="form-control" th:field="*{customer.bankName}" name="bankName" placeholder="Bank Name">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 pl-1">
-                                        <div class="form-group">
-                                            <label>Bank Branch</label>
-                                            <input type="text" class="form-control" th:field="*{customer.bankBranch}" name="bankBranch" placeholder="Bank Branch">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 pr-1">
-                                        <div class="form-group">
-                                            <label>Bank Account Owner</label>
-                                            <input type="text" class="form-control" th:field="*{customer.bankOwner}" name="bankOwner" placeholder="Bank Account Owner">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 pl-1">
-                                        <div class="form-group">
-                                            <label>Tax Identification Number (TIN)</label>
-                                            <input type="text" class="form-control" th:field="*{customer.taxIdentificationNumber}" name="taxIdentificationNumber" placeholder="Tax ID">
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div class="row">
@@ -465,60 +424,30 @@ Author URL: http://w3layouts.com
                                     </div>
                                 </div>
 
-                                <!-- ID Card images -->
+                                 ID Card images
 
-<!--                                <div class="row">-->
-<!--                                    <div class="col-md-6 pr-1">-->
-<!--                                        <div>-->
-<!--                                            <label for="idCardFrontImage">ID Card Front Image</label>-->
-<!--                                        <input type="file" name="idCardFrontImage" id="idCardFrontImage"  class="form-control" accept="image/png, image/jpeg, image/jpg">-->
-<!--                                          </div>-->
-
-
-<!--                                    </div>-->
-<!--                                    <div class="col-md-6 pl-1">-->
-<!--                                        <div>-->
-<!--                                            <label for="idCardBackImage">ID Card Back Image</label>-->
-<!--                                            <input type="file" name="idCardBackImage"  id="idCardBackImage" class="form-control" accept="image/png, image/jpeg, image/jpg">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
                                 <div class="row">
                                     <div class="col-md-6 pr-1">
-                                        <div class="form-group">
+                                        <div>
                                             <label for="idCardFrontImage">ID Card Front Image</label>
-                                            <input type="file" name="idCardFrontImage" id="idCardFrontImage" class="form-control" accept="image/png, image/jpeg, image/jpg" onchange="updateImagePreview(this, 'idCardFrontPreview')">
-                                            <img id="idCardFrontPreview" alt="ID Card Front Preview" style="max-width: 300px; margin-top: 10px; display: none;">
-                                        </div>
+                                        <input type="file" name="idCardFrontImage" id="idCardFrontImage"  class="form-control" accept="image/png, image/jpeg, image/jpg">
+                                          </div>
+
+
                                     </div>
                                     <div class="col-md-6 pl-1">
-                                        <div class="form-group">
+                                        <div>
                                             <label for="idCardBackImage">ID Card Back Image</label>
-                                            <input type="file" name="idCardBackImage" id="idCardBackImage" class="form-control" accept="image/png, image/jpeg, image/jpg" onchange="updateImagePreview(this, 'idCardBackPreview')">
-                                            <img id="idCardBackPreview" alt="ID Card Back Preview" style="max-width: 300px; margin-top: 10px; display: none;">
+                                            <input type="file" name="idCardBackImage"  id="idCardBackImage" class="form-control" accept="image/png, image/jpeg, image/jpg">
                                         </div>
                                     </div>
                                 </div>
-
-
-
-                                <!-- Submit button -->
-
-<!--                                <div class="row" style="margin-top: 15px">-->
-<!--                                    <div class="update ml-auto mr-auto">-->
-<!--                                        <button type="submit" class="btn btn-primary btn-round">Update Profile</button>-->
-<!--                                    </div>-->
-
-
-<!--                                </div>-->
-<!--                            </form>-->
-<!--                            -->
 
                                 <!-- Profile Update Section -->
                                 <div class="row" style="margin-top: 15px">
                                     <!-- Profile Update Button -->
                                     <div class="col-md-6 text-center">
-                                        <form th:action="@{/customer/updateProfile}" method="post" th:object="${customerDTO}" enctype="multipart/form-data">
+                                        <form th:action="@{/customer/update}" method="post" th:object="${profileDTO}" enctype="multipart/form-data">
                                             <button type="submit" class="btn btn-primary btn-round">Update Profile</button>
                                         </form>
                                     </div>
@@ -578,7 +507,7 @@ Author URL: http://w3layouts.com
                                         const form = event.target;
                                         const formData = new FormData(form);
 
-                                        fetch('/customer/profile/change-password', {
+                                        fetch('/customer/change-password', {
                                             method: 'POST',
                                             body: formData
                                         })
@@ -591,7 +520,10 @@ Author URL: http://w3layouts.com
                                                     successDisplay.style.display = 'block';
                                                     errorDisplay.style.display = 'none';
                                                     successDisplay.innerText = data.message;
-                                                    form.reset();
+                                                    form.reset(); // Clear form inputs on success
+                                                    setTimeout(() => {
+                                                        $('#changePasswordModal').modal('hide'); // Close modal after success
+                                                    }, 2000); // Delay to allow user to see success message
                                                 } else {
                                                     successDisplay.style.display = 'none';
                                                     errorDisplay.style.display = 'block';
@@ -602,12 +534,9 @@ Author URL: http://w3layouts.com
                                                 console.error('Error:', error);
                                             });
                                     });
+
                                 </script>
-
-
-                        </form>
-
-
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -859,37 +788,37 @@ Author URL: http://w3layouts.com
 <script th:src="@{/assets_CustomerSide/js/bootstrap.min.js}"></script>
 
 
-<!--<script>(function () {-->
-<!--    function c() {-->
-<!--        var b = a.contentDocument || a.contentWindow.document;-->
-<!--        if (b) {-->
-<!--            var d = b.createElement('script');-->
-<!--            d.innerHTML = "window.__CF$cv$params={r:'8d39758f3c7ea8bb',t:'MTcyOTA5NjQ5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";-->
-<!--            b.getElementsByTagName('head')[0].appendChild(d)-->
-<!--        }-->
-<!--    }-->
+<script>(function () {
+    function c() {
+        var b = a.contentDocument || a.contentWindow.document;
+        if (b) {
+            var d = b.createElement('script');
+            d.innerHTML = "window.__CF$cv$params={r:'8d39758f3c7ea8bb',t:'MTcyOTA5NjQ5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName('head')[0].appendChild(d)
+        }
+    }
 
-<!--    if (document.body) {-->
-<!--        var a = document.createElement('iframe');-->
-<!--        a.height = 1;-->
-<!--        a.width = 1;-->
-<!--        a.style.position = 'absolute';-->
-<!--        a.style.top = 0;-->
-<!--        a.style.left = 0;-->
-<!--        a.style.border = 'none';-->
-<!--        a.style.visibility = 'hidden';-->
-<!--        document.body.appendChild(a);-->
-<!--        if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else {-->
-<!--            var e = document.onreadystatechange || function () {-->
-<!--            };-->
-<!--            document.onreadystatechange = function (b) {-->
-<!--                e(b);-->
-<!--                'loading' !== document.readyState && (document.onreadystatechange = e, c())-->
-<!--            }-->
-<!--        }-->
-<!--    }-->
-<!--})();-->
-<!--</script>-->
+    if (document.body) {
+        var a = document.createElement('iframe');
+        a.height = 1;
+        a.width = 1;
+        a.style.position = 'absolute';
+        a.style.top = 0;
+        a.style.left = 0;
+        a.style.border = 'none';
+        a.style.visibility = 'hidden';
+        document.body.appendChild(a);
+        if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else {
+            var e = document.onreadystatechange || function () {
+            };
+            document.onreadystatechange = function (b) {
+                e(b);
+                'loading' !== document.readyState && (document.onreadystatechange = e, c())
+            }
+        }
+    }
+})();
+</script>
 
 
 

@@ -38,13 +38,18 @@ public class Customer {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "citizen_identification")
-    private String citizenIdentification;
-
     @Column(name = "id_issuance_date")
     private String idIssuanceDate;
 
     @Column(name = "id_issuance_place" , columnDefinition = "NVARCHAR(MAX)")
     private String idIssuancePlace;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinColumn(name = "id_card_front_image_id", referencedColumnName = "id")
+    private Image idCardFrontImage;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinColumn(name = "id_card_back_image_id", referencedColumnName = "id")
+    private Image idCardBackImage;
 
 }

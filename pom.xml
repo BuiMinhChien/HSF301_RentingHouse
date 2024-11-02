@@ -153,11 +153,6 @@
         </dependency>
 
         <!-- Spring WebSocket hỗ trợ SockJS -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>sockjs-client</artifactId>
-            <version>1.5.1</version>
-        </dependency>
 
         <!-- STOMP hỗ trợ WebSocket client -->
         <dependency>

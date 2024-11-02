@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.NoSuchElementException;
 
 import static com.spring.mvc.entity.ERole.ROLE_CUSTOMER;
 
@@ -86,4 +87,61 @@ public class AccountServiceImpl implements AccountService {
             return false;
         }
     }
+
+
+    @Override
+    public void update(Account account) {
+        try {
+            Account existingAccount = accountDAO.findById(account.getId());
+            if (existingAccount != null) {
+                // Update fields if they are modified
+              //  existingAccount.setPassword(passwordEncoder.encode(account.getPassword())); // encode password if modified
+                existingAccount.setImage(account.getImage());
+                // Save the updated account
+                accountDAO.update(existingAccount);
+            } else {
+                throw new RuntimeException("Account not found");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw ex;
+        }
+    }
+
+    public void changePassword(String username, String oldPassword, String newPassword) {
+
+        Account existingAccount = accountDAO.findByUsername(username);
+
+        if (existingAccount == null) {
+            throw new NoSuchElementException("User not found.");
+        }
+
+        // Validate the old password
+        if (!passwordEncoder.matches(oldPassword, existingAccount.getPassword())) {
+            throw new IllegalArgumentException("Old password is incorrect.");
+        }
+
+        // Update the password with the new encoded password
+        existingAccount.setPassword(passwordEncoder.encode(newPassword));
+        accountDAO.update(existingAccount);
+    }
+
+    @Override
+    public void updateProfile(Account account) {
+        try {
+            Account existingAccount = accountDAO.findById(account.getId());
+            if (existingAccount != null) {
+                // Update fields if they are modified
+
+                // Save the updated account
+                accountDAO.update(existingAccount);
+            } else {
+                throw new RuntimeException("Account not found");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw ex;
+        }
+    }
+
 }
