@@ -3,18 +3,20 @@
  */
 package com.spring.mvc;
 
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import jakarta.servlet.MultipartConfigElement;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.core.env.Environment;
+import org.springframework.orm.hibernate5.support.OpenSessionInViewFilter;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -110,9 +112,15 @@ public class SpringWebConfig implements WebMvcConfigurer, ApplicationContextAwar
 		validator.setValidationMessageSource(messageSource());
 		return validator;
 	}
+
 	@Bean
-	public MultipartResolver multipartResolver() {
+	public StandardServletMultipartResolver multipartResolver() {
 		return new StandardServletMultipartResolver();
+	}
+
+	@Bean
+	public OpenSessionInViewFilter openSessionInViewFilter() {
+		return new OpenSessionInViewFilter();
 	}
 
 }

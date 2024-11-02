@@ -52,7 +52,7 @@ public class AuthController {
             request.getSession().setAttribute("redirectUrl", request.getRequestURI());
             return "redirect:/login";
         }
-        return "access-denied";
+        return "403";
     }
 
     @GetMapping("/")
@@ -72,7 +72,11 @@ public class AuthController {
     }
 
     @GetMapping("/customer/homepage")
-    public String customerHome() {
+    public String customerHome(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof String);
+        model.addAttribute("isLoggedIn", isLoggedIn); // Truyền biến vào view
+
         return "customer/homepage";
     }
 
@@ -112,5 +116,10 @@ public class AuthController {
 
         accountService.save(user);
 
+    }
+
+    @GetMapping("/403")
+    public String accessDenied() {
+        return "403"; // Tên file HTML là 403.html trong thư mục templates
     }
 }
