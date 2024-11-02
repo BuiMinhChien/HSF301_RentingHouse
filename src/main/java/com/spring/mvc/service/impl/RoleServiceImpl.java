@@ -11,7 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service(value = "roleService")
 @Transactional(propagation = Propagation.REQUIRED)
 public class RoleServiceImpl implements RoleService {
-        private RoleDao roleDao;
+
+    private final RoleDao roleDao;
+
+    public RoleServiceImpl(RoleDao roleDao) {
+        this.roleDao = roleDao;
+    }
 
     @Override
     public Role findRoleByRoleName(ERole roleName) {
