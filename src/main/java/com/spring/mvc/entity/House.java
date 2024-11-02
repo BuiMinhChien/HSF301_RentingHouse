@@ -21,19 +21,19 @@ public class House {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name" , columnDefinition = "NVARCHAR(MAX)")
+    @Column(name = "name", columnDefinition = "NVARCHAR(MAX)")
     private String name;
 
-    @Column(name = "ward" , columnDefinition = "NVARCHAR(MAX)")
+    @Column(name = "ward", columnDefinition = "NVARCHAR(MAX)")
     private String ward;
 
-    @Column(name = "district" , columnDefinition = "NVARCHAR(MAX)")
+    @Column(name = "district", columnDefinition = "NVARCHAR(MAX)")
     private String district;
 
-    @Column(name = "province" , columnDefinition = "NVARCHAR(MAX)")
+    @Column(name = "province", columnDefinition = "NVARCHAR(MAX)")
     private String province;
 
-    @Column(name = "location" , columnDefinition = "NVARCHAR(MAX)")
+    @Column(name = "location", columnDefinition = "NVARCHAR(MAX)")
     private String location;
 
     @Column(name = "land_space", precision = 12, scale = 4)
@@ -92,12 +92,13 @@ public class House {
     )
     private List<FireEquipments> fireEquipments;
 
-    @OneToMany(mappedBy = "house",
+    @OneToMany(mappedBy = "house", fetch = FetchType.EAGER,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private List<Image> images;
 
-    @OneToMany(mappedBy = "house",
+    @OneToMany(mappedBy = "house", fetch = FetchType.EAGER,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    private List<Contract> contracts;
     private List<Contract> contracts;
 
     public House(String name, String ward, String district, String province, String location, BigDecimal land_space, BigDecimal living_space, String number_bed_room, String description, String number_bath, String coordinates_on_map, String available_status, String updated_date, Account updated_by) {
