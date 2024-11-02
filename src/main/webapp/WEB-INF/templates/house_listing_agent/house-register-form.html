@@ -183,30 +183,12 @@
                                         </div>
                                     </div>
                                 </div>
-<!--                                <div class="row">-->
-<!--                                    <div class="col-md-12">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label>Choose tags</label>-->
-<!--                                            <div class="col-sm-10">-->
-<!--                                                <div class="row">-->
-<!--                                                    <div th:each="tag : ${}" class="col-md-3">-->
-<!--                                                        <input type="checkbox" th:id="${'tag' + tag.tagId}"-->
-<!--                                                               th:value="${tag.tagId}"-->
-<!--                                                               name="selectedTags"-->
-<!--                                                               th:title="${tag.description}"/>-->
-<!--                                                        <label th:for="${'tag' + tag.tagId}"-->
-<!--                                                               th:text="${tag.tagName}"></label><br/>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
+
                                 <div class="row">
                                     <div class="col-md-3">
                                         <label>Choose fire equipment</label>
                                         <div th:each="equipment : ${fireEquipments}">
-                                            <input type="checkbox" name="amenities" th:id="'equipment-' + ${equipment.id}"
+                                            <input type="checkbox" name="fireEquipments" th:id="'equipment-' + ${equipment.id}"
                                                    th:value="${equipment.id}" class="form-control" />
                                             <label th:for="'equipment-' + ${equipment.id}" th:text="${equipment.name}" th:field="*{fireEquipments}"></label>
                                         </div>

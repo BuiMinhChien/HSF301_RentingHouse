@@ -27,4 +27,11 @@ public class FireEquipmentDAOImpl implements FireEquipmentDAO {
         List<FireEquipments>  fireEquipmentsList = query.getResultList();
         return fireEquipmentsList;
     }
+
+    @Override
+    public FireEquipments findById(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(FireEquipments.class, id);
+    }
+
 }

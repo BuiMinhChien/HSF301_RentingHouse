@@ -21,4 +21,10 @@ public class FireEquipmentServiceImpl implements FireEquipmentService {
     public List<FireEquipments> findAll() {
         return fireEquipmentDAO.findAll();
     }
+
+    @Override
+    public FireEquipments findById(int id) {
+        return fireEquipmentDAO.findById(id);
+    }
+
 }

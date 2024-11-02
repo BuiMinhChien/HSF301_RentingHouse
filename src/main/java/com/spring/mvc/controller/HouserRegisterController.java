@@ -1,5 +1,6 @@
 package com.spring.mvc.controller;
 
+import com.spring.mvc.common.FileUploadUtil;
 import com.spring.mvc.dto.HouseRegisterDTO;
 import com.spring.mvc.entity.*;
 import com.spring.mvc.service.*;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.security.Principal;
@@ -25,11 +27,12 @@ public class HouserRegisterController {
     private AccountService accountService;
     private HouseOwnerService houseOwnerService;
     private ContractService contractService;
+    private FileUploadUtil fileUploadUtil;
 
 
     private static final String UPLOAD_DIRECTORY = "E:\\Semester5\\HFS301\\PROJECT\\HSF301_RentingHouse\\src\\main\\resources\\static\\image";
 
-    public HouserRegisterController(HouseService houseService, FireEquipmentService fireEquipmentService, AmenitiesService amenitiesService, ImageService imageService, AccountService accountService, HouseOwnerService houseOwnerService, ContractService contractService) {
+    public HouserRegisterController(HouseService houseService, FireEquipmentService fireEquipmentService, AmenitiesService amenitiesService, ImageService imageService, AccountService accountService, HouseOwnerService houseOwnerService, ContractService contractService, FileUploadUtil fileUploadUtil) {
         this.houseService = houseService;
         this.fireEquipmentService = fireEquipmentService;
         this.amenitiesService = amenitiesService;
@@ -37,6 +40,7 @@ public class HouserRegisterController {
         this.accountService = accountService;
         this.houseOwnerService = houseOwnerService;
         this.contractService = contractService;
+        this.fileUploadUtil = fileUploadUtil;
     }
 
     @GetMapping("register-form")
@@ -50,7 +54,12 @@ public class HouserRegisterController {
         return "house_listing_agent/house-register-form";
     }
     @PostMapping("register")
-    public String houserRegister(@ModelAttribute("houseRegisterDTO") HouseRegisterDTO houseform, Model model, Principal principal) {
+    public String houserRegister(@ModelAttribute("houseRegisterDTO") HouseRegisterDTO houseform,
+                                 @RequestParam(value = "fireEquipments") List<Integer> fireEquipments,
+                                 @RequestParam(value = "amenities") List<Integer> amenities,
+                                 @RequestParam(value = "images") List<MultipartFile> images,
+                                 @RequestParam(value = "documents") List<MultipartFile> documents,
+                                 Model model, Principal principal) {
         //Lâý session người dđăng nhap
         String username = principal.getName();
         Account account = accountService.findByUsername(username);
@@ -67,12 +76,22 @@ public class HouserRegisterController {
         Contract contract = new Contract(houseform.getPrice(), houseform.getLease_duration_day(), formattedDate);
         //Gắn các mối quan hệ
         //--------------------------------------
-        //Amenities cho House
-        house.setAmenities(houseform.getAmenities());
-        //Taglist cho House
-        house.setTagList(houseform.getTagList());
+        //Amenities cho House (many-to-many)
+        if (amenities != null) {
+            for (Integer id : amenities) {
+                Amenities amenity = amenitiesService.findById(id);
+                house.addAmenities(amenity);
+                amenity.addHouse(house);
+            }
+        }
         //FireEquipment cho House
-        house.setFireEquipments(houseform.getFireEquipments());
+        if(fireEquipments != null){
+            for (Integer id : fireEquipments) {
+                FireEquipments fireEquipment = fireEquipmentService.findById(id);
+                house.addFireEquipments(fireEquipment);
+                fireEquipment.addHouse(house);
+            }
+        }
         //House cho HouseOwner
         house.setOwner(houseOwner);
         //Contract toi House
@@ -80,6 +99,7 @@ public class HouserRegisterController {
         //Contract toi HouseOwner
         contract.setOwner(houseOwner);
         //Image to House
+        fileUploadUtil.UploadImagesForHouse(houseform.getImages(), house);
         //Luu lan luot tat ca
         houseService.save(house);
         houseOwnerService.save(houseOwner);

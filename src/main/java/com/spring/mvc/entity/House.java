@@ -116,4 +116,11 @@ public class House {
         this.amenities.add(amenities);
     }
 
+    public void addFireEquipments(FireEquipments fireEquipments) {
+        if (this.fireEquipments == null) {
+            this.fireEquipments = new ArrayList<>();
+        }
+        this.fireEquipments.add(fireEquipments);
+    }
+
 }

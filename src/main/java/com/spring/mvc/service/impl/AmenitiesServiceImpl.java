@@ -36,7 +36,7 @@ public class AmenitiesServiceImpl implements AmenitiesService {
 
     @Override
     public Amenities findById(int id) {
-        return null;
+        return amenitiesDAO.findById(id);
     }
 
     @Override

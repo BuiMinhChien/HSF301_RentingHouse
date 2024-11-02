@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface FireEquipmentDAO {
     public List<FireEquipments> findAll();
+    public FireEquipments findById(int id);
 }
