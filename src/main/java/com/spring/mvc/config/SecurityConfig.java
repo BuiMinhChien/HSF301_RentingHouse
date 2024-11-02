@@ -38,7 +38,6 @@ public class SecurityConfig  {
                                 "/customer/get_all_auction", "/customer/get_all_asset", "/customer/get_all_news")
                         .permitAll()
                         .requestMatchers("/customer/**").hasRole("CUSTOMER")
-                        .requestMatchers("/admin/**").hasRole("Admin")
                         .requestMatchers("/customer_care/**").hasRole("CUSTOMER_CARE")
                         .requestMatchers("/news_writer/**").hasRole("NEWS_WRITER")
                         .requestMatchers("//**").hasRole("News_Writer")
@@ -53,11 +52,14 @@ public class SecurityConfig  {
                         .failureHandler(customAuthenticationFailureHandler)
                         .permitAll()
                 )
-                .logout(logout -> logout.permitAll())
-                .exceptionHandling(configurer -> configurer
-                        .accessDeniedPage("/access-denied")
+                .logout(logout -> logout.logoutUrl("/logout")
+                        .logoutSuccessUrl("/logout?login")
+                        .permitAll()
+                )
+                .exceptionHandling(
+                        configurer -> configurer
+                                .accessDeniedPage("/access-denied")
                 );
-
         return http.build();
     }
 

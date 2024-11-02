@@ -2,7 +2,6 @@ package com.spring.mvc;
 
 import jakarta.servlet.Filter;
 import org.springframework.lang.NonNull;
-import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
