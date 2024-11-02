@@ -16,25 +16,35 @@ import java.util.List;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class HouseRegisterDTO {
-     String name;
-     String province;
-     String district;
-     String ward;
-     String location;
-     BigDecimal land_space;
-     BigDecimal living_space;
-     String number_bed_room;
-     String number_bath;
-     String description;
-     String coordinates_on_map;
-     String available_status;
-     String updated_date;
-     HouseOwner owner;
+     String name;//House
+     String province;//House
+     String district;//House
+     String ward;//House
+     String location;//House
+     BigDecimal land_space;//House
+     BigDecimal living_space;//House
+     String number_bed_room;//House
+     String number_bath;//House
+     String description;//House
+     String coordinates_on_map;//House
+     String available_status;//House
+     String updated_date;//House
+     String HouseOwnerName;//HouseOwner
+     String HouseOwnerPhone;//HouseOwner
+     String HouseOwnerAddress;//HouseOwner
      Account updated_by;
      List<Tag> tagList;
      List<Amenities> amenities;
      List<FireEquipments> fireEquipments;
      List<MultipartFile> images;
-     List<MultipartFile> documents;
+     List<MultipartFile> documents;//Contract
+     long price;//Contract
+     BigDecimal lease_duration_day;//Contract
+     String created_date;//Contract
+
+
+
+
+
 
 }

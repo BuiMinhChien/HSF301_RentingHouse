@@ -39,7 +39,7 @@ public class NewsWriterController {
     @Autowired
     private ImageService imageService;
 
-    private static final String UPLOAD_DIRECTORY = "D:\\Semester 5\\HSF301\\HSF301_RentingHouse\\src\\main\\resources\\static\\image";
+    private static final String UPLOAD_DIRECTORY = "E:\\Semester5\\HFS301\\PROJECT\\HSF301_RentingHouse\\src\\main\\resources\\static\\image";
 
 
 
