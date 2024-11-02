@@ -22,32 +22,35 @@ public class HouserDAOImple implements HouseDAO {
 
     public HouserDAOImple(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        session = sessionFactory.openSession();
     }
 
     @Override
     public void save(House house) {
+        session = sessionFactory.getCurrentSession();
         session.save(house);
     }
 
     @Override
     public void delete(House house) {
+        session = sessionFactory.getCurrentSession();
         session.remove(house);
     }
 
     @Override
     public void update(House house) {
+        session = sessionFactory.getCurrentSession();
         session.save(house);
     }
 
     @Override
     public House findById(int id) {
+        session = sessionFactory.getCurrentSession();
         return session.get(House.class, id);
     }
 
     @Override
     public List<House> findAll() {
-        Session session = sessionFactory.openSession();
+        session = sessionFactory.getCurrentSession();
         TypedQuery<House> query = session.createQuery("from House", House.class);
         List<House> houses = query.getResultList();
         session.close();
@@ -56,7 +59,7 @@ public class HouserDAOImple implements HouseDAO {
 
     @Override
     public House findByName(String name) {
-        Session session = sessionFactory.openSession();
+        session = sessionFactory.getCurrentSession();
         TypedQuery<House> query = session.createQuery("from House where name = :name", House.class);
         query.setParameter("name", name);
         House house = query.getSingleResult();

@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Repository(value = "AmenitiesDAO")
+@Repository(value = "amenitiesDAO")
 @Transactional(propagation = Propagation.REQUIRED)
 @DependsOn(value = "sessionFactory")
 public class AmenitiesDAOImpl implements AmenitiesDAO {
@@ -21,36 +21,42 @@ public class AmenitiesDAOImpl implements AmenitiesDAO {
 
     public AmenitiesDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        this.session = sessionFactory.getCurrentSession();
+
     }
 
     @Override
     public void save(Amenities amenities) {
+        session = sessionFactory.getCurrentSession();
         session.save(amenities);
     }
 
     @Override
     public void update(Amenities amenities) {
+        session = sessionFactory.getCurrentSession();
         session.save(amenities);
     }
 
     @Override
     public void delete(Amenities amenities) {
+        session = sessionFactory.getCurrentSession();
         session.remove(amenities);
     }
 
     @Override
     public Amenities findById(int id) {
+        session = sessionFactory.getCurrentSession();
         return (Amenities) session.get(Amenities.class, id);
     }
 
     @Override
     public List<Amenities> findAll() {
+        session = sessionFactory.getCurrentSession();
         return session.createQuery("from Amenities").list();
     }
 
     @Override
     public List<Amenities> findByName(String amenityName) {
+        session = sessionFactory.getCurrentSession();
         try {
             String hql = "from Amenities where name = :name";
            return session.createQuery(hql).setParameter("name", amenityName).list();

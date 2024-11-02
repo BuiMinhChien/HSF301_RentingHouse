@@ -20,7 +20,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     public CustomerDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        session = sessionFactory.getCurrentSession();
+
     }
 
     @Override
@@ -40,16 +40,19 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public void save(Customer customer) {
+        session = sessionFactory.getCurrentSession();
         session.save(customer);
     }
 
     @Override
     public void update(Customer customer) {
+        session = sessionFactory.getCurrentSession();
         session.save(customer);
     }
 
     @Override
     public void delete(Customer customer) {
+        session = sessionFactory.getCurrentSession();
         session.delete(customer);
     }
 }
