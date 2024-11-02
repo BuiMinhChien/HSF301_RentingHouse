@@ -47,6 +47,10 @@ public class CustomerController {
 
     @GetMapping("/get_all_news")
     public String getAllNews(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof String);
+        model.addAttribute("isLoggedIn", isLoggedIn);
+
         List<News> newsList = newsService.getAllNews();
         model.addAttribute("listNews", newsList);
 //        lay ra 3 bai viet moi nhat
@@ -80,6 +84,10 @@ public class CustomerController {
 
     @GetMapping("/viewNewsDetail")
     public String getNewsById(@RequestParam("newsId") int newsId, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof String);
+        model.addAttribute("isLoggedIn", isLoggedIn);
+
         if (newsId <= 0) {
             return "redirect:/customer/get_all_news";
         }

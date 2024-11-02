@@ -13,13 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Repository(value = "HouseDAO")
+@Repository(value = "houseDAO")
 @Transactional(propagation = Propagation.REQUIRED)
 @DependsOn(value = "sessionFactory")
-public class HouserDAOImple implements HouseDAO {
+public class HouseDAOImple implements HouseDAO {
     private final SessionFactory sessionFactory;
 
-    public HouserDAOImple(SessionFactory sessionFactory) {
+    public HouseDAOImple(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -45,10 +45,12 @@ public class HouserDAOImple implements HouseDAO {
 
     @Override
     public List<House> findAll() {
-        Session session = sessionFactory.openSession();
-        TypedQuery<House> query = session.createQuery("from House", House.class);
+        // Sử dụng JOIN FETCH để lấy tất cả các mối quan hệ EAGER của House
+        TypedQuery<House> query = sessionFactory.getCurrentSession().createQuery(
+                "SELECT h FROM House h ",
+                House.class
+        );
         List<House> houses = query.getResultList();
-        session.close();
         return houses;
     }
 
