@@ -42,7 +42,7 @@ public class SecurityConfig  {
                         .requestMatchers("/customer_care/**").hasRole("CUSTOMER_CARE")
                         .requestMatchers("/news_writer/**").hasRole("NEWS_WRITER")
                         .requestMatchers("//**").hasRole("News_Writer")
-                        .requestMatchers("/house-listing/register-form/**").hasRole("HOUSE_LISTING_AGENT")
+                        .requestMatchers("/house-listing/**").hasRole("HOUSE_LISTING_AGENT")
                         .anyRequest().authenticated()
                 )
 

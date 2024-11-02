@@ -53,31 +53,31 @@
         <div class="sidebar-wrapper">
             <ul class="nav">
                 <li class="active">
-<!--                    <a th:href="@{/property_agent/profile}">-->
+                    <a th:href="@{/property_agent/profile}">
                         <i class="nc-icon nc-single-02"></i>
                         <p>Profile</p>
                     </a>
                 </li>
                 <li>
-<!--                    <a th:href="@{/property_agent/dashboard}">-->
+                    <a th:href="@{/property_agent/dashboard}">
                         <i class="nc-icon nc-bank"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
                 <li class="active ">
-<!--                    <a th:href="@{/property_agent/register_form}">-->
+                    <a th:href="@{/property_agent/register_form}">
                         <i class="nc-icon nc-single-copy-04"></i>
                         <p>Register asset for auction</p>
                     </a>
                 </li>
                 <li>
-<!--                    <a th:href="@{/property_agent/list_unsuccessful_sale_asset}">-->
+                    <a th:href="@{/property_agent/get_all_asset}">
                         <i class="nc-icon nc-bullet-list-67"></i>
                         <p>Asset list</p>
                     </a>
                 </li>
                 <li>
-<!--                    <a th:href="@{/logout}">-->
+                    <a th:href="@{/logout}">
                         <i class="nc-icon nc-user-run"></i>
                         <p>Logout</p>
                     </a>
@@ -104,38 +104,63 @@
                             <h5 class="card-title">Please enter the asset information</h5>
                         </div>
                         <div class="card-body">
-                            <form th:action="@{/house_listing_agent/register}" th:method="post" th:object="${houseRegisterDTO}"
+                            <form th:action="@{/house-listing/register}" th:method="post" th:object="${houseRegisterDTO}"
                                   enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="location">Location</label>
                                             <input type="text" th:field="*{location}" id="location"
-                                                   class="form-control">
+                                                   required class="form-control">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4 pr-1">
                                         <div class="form-group">
-                                            <label for="length">Length (m)</label>
-                                            <input type="text" th:field="*{province}" id="length"
-                                                   class="form-control">
+                                            <label for="tinh">Province</label>
+                                            <select class="css_select" id="tinh" name="tinh" title="Chọn Tỉnh Thành" required step="0.01" min="0.01" max="9999.99" placeholder="Tỉnh/Thành phố ">
+                                                <option value="0">Tỉnh Thành</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-4 px-1">
                                         <div class="form-group">
-                                            <label for="width">Width (m)</label>
-                                            <input type="text" th:field="*{asset.width}" id="width"
-                                                   class="form-control">
+                                            <label for="quan">District</label>
+                                            <select class="css_select" id="quan" name="quan" title="Chọn Quận Huyện">
+                                                <option value="0">Quận Huyện</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-4 pl-1">
                                         <div class="form-group">
-                                            <label >Area <span>(m<sup>2</sup>)</span></label>
-                                            <select th:field="*{province}" id="tinh" name="tinh" required>
-                                                <option value="">Tỉnh/Thành phố</option>
+                                            <label for="area">Ward</label>
+                                            <select class="css_select" id="phuong" name="phuong" title="Chọn Phường Xã">
+                                                <option value="0">Phường Xã</option>
                                             </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 pr-1">
+                                        <div class="form-group">
+                                            <label for="land_space">Land space</label>
+                                            <input type="number" th:field="*{land_space}" id="land_space" class="form-control"
+                                                   required step="0.01" min="0.01" max="9999.99" placeholder="#.##">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 px-1">
+                                        <div class="form-group">
+                                            <label for="living_space">Living space</label>
+                                            <input type="number" th:field="*{living_space}" id="living_space" class="form-control"
+                                                   required step="0.01" min="0.01" max="9999.99" placeholder="#.##">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 pl-1">
+                                        <div class="form-group">
+                                            <label for="area">Number of bed room</label>
+                                            <input type="number" th:field="*{number_bed_room}" id="area" class="form-control"
+                                                   required step="0.0001" min="0.0001" max="99999999.9999" placeholder="#.####">
                                         </div>
                                     </div>
                                 </div>
@@ -143,7 +168,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="description">Description</label>
-                                            <textarea th:field="*{asset.description}" id="description"
+                                            <textarea th:field="*{description}" id="description"
                                                       class="form-control"></textarea>
                                         </div>
                                     </div>
@@ -152,53 +177,56 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="coordinatesOnMap">Coordinates on map</label>
-                                            <input type="text" th:field="*{asset.coordinatesOnMap}"
+                                            <input type="text" th:field="*{coordinates_on_map}"
                                                    id="coordinatesOnMap"
                                                    class="form-control">
                                         </div>
                                     </div>
                                 </div>
+<!--                                <div class="row">-->
+<!--                                    <div class="col-md-12">-->
+<!--                                        <div class="form-group">-->
+<!--                                            <label>Choose tags</label>-->
+<!--                                            <div class="col-sm-10">-->
+<!--                                                <div class="row">-->
+<!--                                                    <div th:each="tag : ${}" class="col-md-3">-->
+<!--                                                        <input type="checkbox" th:id="${'tag' + tag.tagId}"-->
+<!--                                                               th:value="${tag.tagId}"-->
+<!--                                                               name="selectedTags"-->
+<!--                                                               th:title="${tag.description}"/>-->
+<!--                                                        <label th:for="${'tag' + tag.tagId}"-->
+<!--                                                               th:text="${tag.tagName}"></label><br/>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label>Choose tags</label>
-                                            <div class="col-sm-10">
-                                                <div class="row">
-                                                    <div th:each="tag : ${listTag}" class="col-md-3">
-                                                        <input type="checkbox" th:id="${'tag' + tag.tagId}"
-                                                               th:value="${tag.tagId}"
-                                                               name="selectedTags"
-                                                               th:title="${tag.description}"/>
-                                                        <label th:for="${'tag' + tag.tagId}"
-                                                               th:text="${tag.tagName}"></label><br/>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <div class="col-md-3">
+                                        <label>Choose fire equipment</label>
+                                        <div th:each="equipment : ${fireEquipments}">
+                                            <input type="checkbox" name="amenities" th:id="'equipment-' + ${equipment.id}"
+                                                   th:value="${equipment.id}" class="form-control" />
+                                            <label th:for="'equipment-' + ${equipment.id}" th:text="${equipment.name}" th:field="*{fireEquipments}"></label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="authority">Choose local authority</label>
-                                            <select id="authority" name="authorityId" class="form-control">
-                                                <option value="">-- Select Local Authority --</option>
-                                                <option th:each="authority : ${listLocalAuthority}"
-                                                        th:value="${authority.localAuthorityId}"
-                                                        th:text="${authority.localAuthorityName}">
-                                                </option>
-                                            </select>
+                                    <div class="col-md-3">
+                                        <label>Choose amenities</label>
+                                        <div th:each="amenity : ${listAmenities}">
+                                            <input type="checkbox" name="amenities" th:id="'amenity-' + ${amenity.id}"
+                                                   th:value="${amenity.id}" class="form-control" />
+                                            <label th:for="'amenity-' + ${amenity.id}" th:text="${amenity.name}" th:field="*{amenities}"></label>
                                         </div>
                                     </div>
                                 </div>
-
-
-
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div>
                                             <label for="images">Choose images</label>
-                                            <input type="file" name="images" id="images" class="form-control" multiple
+                                            <input th:field="*{}" type="file" name="images" id="images" class="form-control" multiple
                                                    required
                                                    accept="image/png, image/jpeg, image/jpg, image/gif">
                                         </div>
@@ -214,27 +242,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="auctioneer">Select auctioneer</label>
-                                            <select id="auctioneer" name="auctioneerAccountId" class="form-control">
-                                                <option value="">-- Select Auctioneer --</option>
-                                                <option th:each="auctioneer : ${listAuctioneer}"
-                                                        th:value="${auctioneer.account.getAccountId()}"
-                                                        th:text="${auctioneer.fullName}">
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="update ml-auto mr-auto">
+                                <div class="row form-group" style="display: flex; flex-direction: column; margin-top: 10px;">
+                                    <p class="ml-auto mr-auto row" th:if="${param.message}" th:text="${param.message}"></p>
+                                    <div class="update ml-auto mr-auto row">
                                         <button type="submit" class="btn btn-primary btn-round">Save</button>
                                     </div>
                                 </div>
                             </form>
-                            <!--                            <span th:if="${param.message}" th:text="${param.message}" class="alert-message"></span>-->
                         </div>
                     </div>
                 </div>
@@ -243,10 +257,6 @@
         <!-- Het phan noi dung cua trang -->
     </div>
 </div>
-<!--<div class="col-md-4">-->
-<!--    <button class="btn btn-primary btn-block" onclick="demo.showNotification()">Bottom Right</button>-->
-<!--</div>-->
-
 
 <!---------------------------------------KHONG DUOC SUA------------------------------------------------------>
 <!--   Core JS Files   -->
@@ -311,6 +321,64 @@
             }
         }
     });
+    $(document).ready(function() {
+        // Lấy tỉnh thành
+        $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function(data_tinh) {
+            if (data_tinh.error == 0) {
+                $.each(data_tinh.data, function(key_tinh, val_tinh) {
+                    // Gán full_name vào text của option
+                    $("#tinh").append('<option value="' + val_tinh.id + '">' + val_tinh.full_name + '</option>');
+                });
+
+                // Khi chọn tỉnh
+                $("#tinh").change(function(e) {
+                    var tinhText = $("#tinh option:selected").text();  // Lấy tên tỉnh
+                    $("#selectedTinh").text("Tỉnh: " + tinhText);
+
+                    var idtinh = $(this).val(); // Vẫn lấy ID để truy xuất quận huyện
+                    // Lấy quận huyện
+                    $.getJSON('https://esgoo.net/api-tinhthanh/2/' + idtinh + '.htm', function(data_quan) {
+                        if (data_quan.error == 0) {
+                            $("#quan").html('<option value="0">Quận Huyện</option>');
+                            $("#phuong").html('<option value="0">Phường Xã</option>');
+                            $.each(data_quan.data, function(key_quan, val_quan) {
+                                $("#quan").append('<option value="' + val_quan.id + '">' + val_quan.full_name + '</option>');
+                            });
+                        }
+                    });
+                });
+
+                // Khi chọn quận
+                $("#quan").change(function(e) {
+                    var quanText = $("#quan option:selected").text();  // Lấy tên quận
+                    $("#selectedQuan").text("Quận: " + quanText);
+
+                    var idquan = $(this).val();  // Vẫn lấy ID để truy xuất phường xã
+                    // Lấy phường xã
+                    $.getJSON('https://esgoo.net/api-tinhthanh/3/' + idquan + '.htm', function(data_phuong) {
+                        if (data_phuong.error == 0) {
+                            $("#phuong").html('<option value="0">Phường Xã</option>');
+                            $.each(data_phuong.data, function(key_phuong, val_phuong) {
+                                $("#phuong").append('<option value="' + val_phuong.id + '">' + val_phuong.full_name + '</option>');
+                            });
+                        }
+                    });
+                });
+
+                // Khi chọn phường
+                $("#phuong").change(function(e) {
+                    var phuongText = $("#phuong option:selected").text();  // Lấy tên phường
+                    $("#selectedPhuong").text("Phường: " + phuongText);
+                });
+            }
+        });
+    });
 </script>
+<script src="/https://esgoo.net/scripts/jquery.js"></script>
+    <style type="text/css">
+        .css_select_div { text-align: center; }
+        .css_select { display: inline-table; width: 25%; padding: 5px; margin: 5px 2%; border: solid 1px #686868; border-radius: 5px; }
+        .result { margin-top: 10px; font-weight: bold; }
+    </style>
 </body>
 </html>

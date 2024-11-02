@@ -33,4 +33,6 @@ public class HouseRegisterDTO {
      List<Tag> tagList;
      List<Amenities> amenities;
      List<FireEquipments> fireEquipments;
+     List<MultplePa>
+
 }

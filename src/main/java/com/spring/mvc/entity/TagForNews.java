@@ -13,6 +13,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "Tag_for_news")
 public class TagForNews {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
