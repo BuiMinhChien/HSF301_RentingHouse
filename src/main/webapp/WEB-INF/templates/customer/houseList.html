@@ -5,6 +5,7 @@ Author URL: http://w3layouts.com
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -43,6 +44,7 @@ Author URL: http://w3layouts.com
         border-bottom-left-radius: 9px;
     }
 
+
     #w3lDemoBar.w3l-demo-bar a {
         display: block;
         color: #e6ebff;
@@ -53,17 +55,21 @@ Author URL: http://w3layouts.com
         text-align: center;
     }
 
+
     #w3lDemoBar.w3l-demo-bar span.w3l-icon {
         display: block;
     }
+
 
     #w3lDemoBar.w3l-demo-bar a:hover {
         opacity: 1;
     }
 
+
     #w3lDemoBar.w3l-demo-bar .w3l-icon svg {
         color: #e6ebff;
     }
+
 
     #w3lDemoBar.w3l-demo-bar .responsive-icons {
         margin-top: 30px;
@@ -71,18 +77,22 @@ Author URL: http://w3layouts.com
         padding-top: 40px;
     }
 
+
     #w3lDemoBar.w3l-demo-bar .demo-btns {
         border-top: 1px solid #41414d;
         padding-top: 30px;
     }
 
+
     #w3lDemoBar.w3l-demo-bar .responsive-icons a span.fa {
         font-size: 26px;
     }
 
+
     #w3lDemoBar.w3l-demo-bar .no-margin-bottom {
         margin-bottom: 0;
     }
+
 
     .toggle-right-sidebar span {
         background: #0D1326;
@@ -97,6 +107,7 @@ Author URL: http://w3layouts.com
         opacity: .5;
     }
 
+
     .pull-right {
         float: right;
         position: fixed;
@@ -107,9 +118,11 @@ Author URL: http://w3layouts.com
         text-align: center;
     }
 
+
     /* ============================================================
     RIGHT SIDEBAR SECTION
     ============================================================ */
+
 
     #right-sidebar {
         width: 90px;
@@ -131,6 +144,7 @@ Author URL: http://w3layouts.com
     RIGHT SIDEBAR TOGGLE SECTION
     ============================================================ */
 
+
     .hide-right-bar-notifications {
         margin-right: -300px !important;
         -webkit-transition: all .3s ease-in-out;
@@ -144,20 +158,25 @@ Author URL: http://w3layouts.com
         #w3lDemoBar.w3l-demo-bar a.desktop-mode {
             display: none;
 
+
         }
     }
+
 
     @media (max-width: 767px) {
         #w3lDemoBar.w3l-demo-bar a.tablet-mode {
             display: none;
 
+
         }
     }
+
 
     @media (max-width: 568px) {
         #w3lDemoBar.w3l-demo-bar a.mobile-mode {
             display: none;
         }
+
 
         #w3lDemoBar.w3l-demo-bar .responsive-icons {
             margin-top: 0px;
@@ -165,9 +184,11 @@ Author URL: http://w3layouts.com
             padding-top: 0px;
         }
 
+
         #right-sidebar, .pull-right {
             width: 90px;
         }
+
 
         #w3lDemoBar.w3l-demo-bar .no-margin-bottom-mobile {
             margin-bottom: 0;
@@ -258,7 +279,7 @@ Author URL: http://w3layouts.com
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light stroke py-lg-0">
             <h1><a class="navbar-brand" th:href="@{/customer/home}">
-                Viet<span class="sub-color">Land</span>
+                Viet<span class="sub-color">House</span>
             </a></h1>
             <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false"
@@ -272,20 +293,16 @@ Author URL: http://w3layouts.com
                         <a class="nav-link" th:href="@{/}" style="font-size: 20px;">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/customer/get_all_asset}" style="font-size: 20px;">Asset</a>
+                        <a class="nav-link" th:href="@{/customer/get_all_asset}" style="font-size: 20px;">House</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/customer/get_all_auction}" style="font-size: 20px;">Auction</a>
-                    </li>
-                    <li class="nav-item active">
                         <a class="nav-link" th:href="@{/customer/get_all_news}" style="font-size: 20px;">News</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html" style="font-size: 20px;">About us</a>
+                        <a class="nav-link" th:href="@{/customer/aboutus}" style="font-size: 20px;">About us</a>
                     </li>
                 </ul>
 
-                <!--/clock-->
                 <div class="navbar-nav" id="clock-container">
                     <span class="nav-link" id="time"></span>
                     <span class="nav-link" id="date"></span>
@@ -302,23 +319,29 @@ Author URL: http://w3layouts.com
                         <li><a class="dropdown-item" href="#">Loading...</a></li>
                     </ul>
                 </div>
+                <!-- open/close -->
+                <!--//notify-->
+
+                <!-- Register and Login Buttons -->
+                <div class="auth-buttons">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-user"></i>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li th:if="${isLoggedIn}" ><a class="dropdown-item" th:href="@{/customer/profile}">Profile</a></li>
+                            <li th:if="${isLoggedIn}" ><a class="dropdown-item" th:href="@{/customer/viewNotification}">Notifications</a></li>
+                            <li th:if="${!isLoggedIn}"><a class="dropdown-item" th:href="@{/login}">Login</a>
+                            </li>
+                            <li th:if="${!isLoggedIn}"><a class="dropdown-item" th:href="@{/register}">Register</a></li>
+                            <li th:if="${isLoggedIn}"><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
 
             </div>
-            <!-- toggle switch for light and dark theme -->
-            <div class="mobile-position">
-                <nav class="navigation">
-                    <div class="theme-switch-wrapper">
-                        <label class="theme-switch" for="checkbox">
-                            <input type="checkbox" id="checkbox">
-                            <div class="mode-container">
-                                <i class="gg-sun"></i>
-                                <i class="gg-moon"></i>
-                            </div>
-                        </label>
-                    </div>
-                </nav>
-            </div>
-            <!-- //toggle switch for light and dark theme -->
+
         </nav>
     </div>
 </header>
@@ -330,16 +353,18 @@ Author URL: http://w3layouts.com
             <div class="w3breadcrumb-gids">
                 <div class="w3breadcrumb-left text-left">
                     <h2 class="inner-w3-title mt-sm-5 mt-4">
-                        News Page </h2>
+                        House Page </h2>
+
 
                 </div>
                 <div class="w3breadcrumb-right">
                     <ul class="breadcrumbs-custom-path">
                         <li><a href="index.html">Home</a></li>
-                        <li class="active"><span class="fas fa-angle-double-right mx-2"></span> News Page</li>
+                        <li class="active"><span class="fas fa-angle-double-right mx-2"></span> Auction House</li>
                     </ul>
                 </div>
             </div>
+
 
         </div>
     </section>
@@ -347,7 +372,9 @@ Author URL: http://w3layouts.com
 <!--//inner-page-->
 <div style="margin: 8px auto; display: block; text-align:center;">
 
+
     <!---728x90--->
+
 
 </div>
 <!--/w3l-blog-->
@@ -358,31 +385,36 @@ Author URL: http://w3layouts.com
             <div class="row justify-content-center">
                 <!--/w3l-blopagew3-left-->
                 <div class="col-lg-8 blopagew3-left">
-                    <div th:fragment="newsListFragment">
-                        <div class="row" id="newsListContainer">
-                            <div class="col-md-6 item" th:each="news : ${listNews}" style="margin-bottom: 20px;">
+                    <div th:fragment="auctionListFragment">
+                        <div class="row" id="auctionListContainer">
+                            <div class="col-md-6 item" th:each="house : ${listHouse}" style="margin-bottom: 20px;">
                                 <div class="card">
                                     <div class="card-header p-0 position-relative">
-                                        <a th:href="@{/customer/viewNewsDetail(newsId=${news.id})}"
+                                        <a th:href="@{/customer/viewHouseDetail(houseId=${house.id})}"
                                            class="zoom d-block">
-                                            <img class="card-img-bottom d-block" th:src="${news.images.path}"
+                                            <img class="card-img-bottom d-block"
+                                                 th:if="${house != null}"
+                                                 th:src="${house.images.get(0).path}"
                                                  alt="Cover photo" style="height: 250px; width: 100%;">
                                         </a>
                                     </div>
                                     <div class="card-body blog-details">
-                                        <a th:href="@{/customer/viewNewsDetail(newsId=${news.id})}"
+                                        <a th:href="@{/customer/viewHouseDetail(houseId=${house.id})}"
                                            class="blog-desc"
-                                           th:text="${news.title.length() > 80 ? news.title.substring(0, 80) + '...' : news.title}"
-                                           th:title="${news.title}"></a>
+                                           th:text="${house.name.length() > 40 ? house.name.substring(0, 40) + '...' : house.name}"
+                                           th:title="${house.name}"></a>
+                                        <span th:href="@{/customer/viewHouseDetail(houseId=${house.id})}"
+                                              class="blog-desc"
+                                              th:text="${house.contracts.get(0).price}"></span>
                                     </div>
                                     <div class="card-footer">
-                                        <div class="author align-items-center">
-                                            <span class="meta-value">by</span>
-                                            <span th:text="${news.account.username}"
-                                                  style="font-weight: bold;"></span>
-                                            <div class="date">
-                                                <p th:text="${news.created_date}"></p>
-                                            </div>
+                                        <div>
+<!--                                            <div>-->
+<!--                                                <span class="meta-value">Starting price: </span>-->
+<!--                                                <span th:text="${auction.startingPrice}"-->
+<!--                                                      style="font-weight: bold; color: #f9351b;"></span>-->
+<!--                                                <span class="meta-value">(VNĐ) </span>-->
+<!--                                            </div>-->
                                         </div>
                                     </div>
                                 </div>
@@ -395,62 +427,76 @@ Author URL: http://w3layouts.com
                 <div class="sidebar-side col-lg-4 col-md-12 col-sm-12 mt-lg-0 mt-5">
                     <aside class="sidebar ps-lg-4">
                         <div class="sidebar-blog-category">
-                            <div class="sidebar-widget search-widget mb-4">
-                                <div class="sidebar-title">
-                                    <h4>Search</h4>
-                                </div>
-                                <form id="searchForm" action="#" method="get">
-                                    <div class="form-group mb-3">
-                                        <input type="text" class="form-control" placeholder="Enter keywords..."
-                                               name="keyword">
-                                    </div>
-                                    <button type="button" class="btn btn-primary btn-block"
-                                            onclick="applyNewsSearch()">Search
-                                    </button>
-                                    <button type="button" class="btn btn-primary btn-block"
-                                            onclick="clearSearchNewsFilters()">Clear
-                                    </button>
-                                </form>
-                            </div>
+                            <!--the tag nam ơ day-->
                             <!-- sidebar sticky -->
                             <div class="sidebar-sticky">
                                 <div class="sidebar-sticky-fix">
                                     <!-- Tags Widget-->
-                                    <div class="sidebar-widget popular-tags">
+                                    <div class="sidebar-widget search-widget mb-4">
                                         <div class="sidebar-title">
-                                            <h4>Tags</h4>
+                                            <h4>Search</h4>
                                         </div>
-                                        <form id="tagFilterNewsForm" action="#" method="get">
-                                            <div class="form-check" th:each="tag : ${listTag}">
-                                                <input class="form-check-input" type="checkbox" name="tagNewsIds" th:value="${tag.id}" th:id="${tag.id}">
-                                                <label th:for="${tag.id}" th:text="${tag.name}"></label><br>
+                                        <form id="searchForm" action="#" method="get">
+                                            <div class="form-group mb-3">
+                                                <input type="text" class="form-control" placeholder="Enter keywords..."
+                                                       name="keyword">
                                             </div>
-                                            <button class="btn btn-primary" type="button" onclick="applyNewsSearch()">Filter</button>
-                                            <button type="button" class="btn btn-primary" onclick="clearTagNewsFilters()">Clear</button>
+                                            <div class="row mb-3">
+                                                <div class="col-6">
+                                                    <label for="fromDate">From</label>
+                                                    <div class="input-group">
+                                                        <input type="date" id="fromDate" name="fromDate"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <label for="toDate">To</label>
+                                                    <div class="input-group">
+                                                        <input type="date" id="toDate" name="toDate"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-primary btn-block"
+                                                    onclick="applyAuctionSearch()">Search
+                                            </button>
+                                            <button type="button" class="btn btn-primary btn-block"
+                                                    onclick="clearSearchAuctionsFilters()">Clear
+                                            </button>
                                         </form>
                                     </div>
 
+                                    <div class="sidebar-widget auction-status mb-4">
+                                        <div class="sidebar-title">
+                                            <h4>Auction Status</h4>
+                                        </div>
+                                        <form id="statusFilterForm" action="#" method="get">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="status"
+                                                       value="Upcoming" id="upcomingStatus">
+                                                <label for="upcomingStatus">Upcoming</label><br>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="status"
+                                                       value="OnGoing" id="ongoingStatus">
+                                                <label for="ongoingStatus">OnGoing</label><br>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="status" value="Ended"
+                                                       id="endedStatus">
+                                                <label for="endedStatus">Ended</label><br>
+                                            </div>
+                                            <button class="btn btn-primary" type="button"
+                                                    onclick="applyAuctionSearch()">Filter
+                                            </button>
+                                            <button type="button" class="btn btn-primary"
+                                                    onclick="clearStatusFilters()">Clear
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                             <!-- //sidebar sticky -->
-                            <!-- Popular Post Widget-->
-                            <div class="sidebar-widget popular-posts">
-                                <div class="sidebar-title">
-                                    <h4>Latest News</h4>
-                                </div>
-
-                                <article class="post" th:each="news : ${top3LatestNews}" style="margin-top: 20px;">
-                                    <figure class="post-thumb">
-<!--                                        <img th:src="${news.cover_photo.path}" class="radius-image" alt="Cover Photo">-->
-                                    </figure>
-                                    <div class="text">
-                                        <a th:href="@{/customer/viewNewsDetail(newsId=${news.id})}"
-                                           th:text="${news.title.length() > 30 ? news.title.substring(0, 30) + '...' : news.title}"></a>
-                                        <div class="post-info" th:text="${news.created_date}"></div>
-                                    </div>
-                                </article>
-                            </div>
-                            <!--the tag nam ơ day-->
                         </div>
                     </aside>
                 </div>
@@ -493,12 +539,14 @@ Author URL: http://w3layouts.com
                                 <li><a href="#google"><span class="fab fa-google-plus-g"></span></a>
                                 </li>
 
+
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-2 sub-two-right">
                         <h6>Company</h6>
                         <ul>
+
 
                             <li><a href="#why"><i class="fas fa-angle-right"></i> Why Us</a>
                             </li>
@@ -508,7 +556,9 @@ Author URL: http://w3layouts.com
                             <li><a href="#log"><i class="fas fa-angle-right"></i>Our Offers
                             </a></li>
 
+
                             <li><a href="#career"><i class="fas fa-angle-right"></i> Careers</a></li>
+
 
                         </ul>
                     </div>
@@ -574,10 +624,10 @@ Author URL: http://w3layouts.com
                     </ul>
                 </div>
 
+
             </div>
         </div>
     </section>
-
     <!-- Chatbot -->
     <div id="chatbot">
         <div id="chatbox">
@@ -619,8 +669,10 @@ Author URL: http://w3layouts.com
             <button class="moralButton" id="confirmReject">Reject</button>
         </div>
     </div>
-
     <!-- Js scripts -->
+    <script th:inline="javascript">
+        var clientId = [[${accountId}]];
+    </script>
     <!-- move top -->
     <button onclick="topFunction()" id="movetop" title="Go to top">
         <span class="fas fa-level-up-alt" aria-hidden="true"></span>
@@ -632,6 +684,7 @@ Author URL: http://w3layouts.com
             scrollFunction()
         };
 
+
         function scrollFunction() {
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
                 document.getElementById("movetop").style.display = "block";
@@ -640,22 +693,24 @@ Author URL: http://w3layouts.com
             }
         }
 
+
         // When the user clicks on the button, scroll to the top of the document
         function topFunction() {
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
         }
 
+
     </script>
     <!-- //move top -->
 </footer>
 <!--//footer-9 -->
-<script th:inline="javascript">
-    var clientId = [[${accountId}]];
-</script>
+
+
 <!-- Template JavaScript -->
 <script th:src="@{/assets_CustomerSide/js/jquery-3.3.1.min.js}"></script>
 <script th:src="@{/assets_CustomerSide/js/theme-change.js}"></script>
+
 
 <!--/search-->
 <script th:src="@{/assets_CustomerSide/js/modernizr.custom.js}"></script>
@@ -667,12 +722,14 @@ Author URL: http://w3layouts.com
     $(window).on("scroll", function () {
         var scroll = $(window).scrollTop();
 
+
         if (scroll >= 80) {
             $("#site-header").addClass("nav-fixed");
         } else {
             $("#site-header").removeClass("nav-fixed");
         }
     });
+
 
     //Main navigation Active Class Add Remove
     $(".navbar-toggler").on("click", function () {
@@ -689,8 +746,10 @@ Author URL: http://w3layouts.com
         });
     });
 
+
 </script>
 <!-- //MENU-JS -->
+
 
 <!-- disable body scroll which navbar is in active -->
 <script>
@@ -700,35 +759,42 @@ Author URL: http://w3layouts.com
         })
     });
 
+
     function updateClock() {
         var now = new Date();
+
 
         // Lấy giờ, phút, giây với định dạng 2 chữ số
         var hours = now.getHours().toString().padStart(2, '0');
         var minutes = now.getMinutes().toString().padStart(2, '0');
         var seconds = now.getSeconds().toString().padStart(2, '0');
 
+
         // Lấy ngày với định dạng tiếng Anh
         var day = now.toLocaleDateString('en-US', {weekday: 'long'});
         var date = now.toLocaleDateString('en-US'); // Hiển thị ngày tháng năm theo định dạng US (MM/DD/YYYY)
+
 
         // Hiển thị thời gian vào phần tử HTML
         document.getElementById('time').innerText = `${hours}:${minutes}:${seconds}`;
         document.getElementById('date').innerText = `${day}, ${date}`;
     }
 
+
     // Cập nhật thời gian mỗi giây
     setInterval(updateClock, 1000);
     updateClock();
 
+
 </script>
 <!-- //disable body scroll which navbar is in active -->
 <!-- //bootstrap -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script th:src="@{/assets_CustomerSide/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets_CustomerSide/js/auctions.js}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script th:src="@{/assets_CustomerSide/js/chatbot.js}"></script>
 <script th:src="@{/assets_CustomerSide/js/notification.js}"></script>
-<script th:src="@{/assets_CustomerSide/js/news.js}"></script>
 <!--<script>(function () {-->
 <!--    function c() {-->
 <!--        var b = a.contentDocument || a.contentWindow.document;-->
@@ -738,6 +804,7 @@ Author URL: http://w3layouts.com
 <!--            b.getElementsByTagName('head')[0].appendChild(d)-->
 <!--        }-->
 <!--    }-->
+
 
 <!--    if (document.body) {-->
 <!--        var a = document.createElement('iframe');-->
@@ -762,4 +829,8 @@ Author URL: http://w3layouts.com
 <!--</script>-->
 </body>
 
+
 </html>
+
+
+

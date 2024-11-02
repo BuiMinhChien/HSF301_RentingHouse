@@ -53,6 +53,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public Account findById(int id) {
+        return accountDAO.findById(id);
+    }
+
+    @Override
     public boolean existsByUsername(String username) {
         try {
             return accountDAO.existsByUsername(username);
@@ -83,15 +88,6 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
-    @Override
-    public Account findById(int id) {
-        try {
-            return accountDAO.findById(id);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return null;
-        }
-    }
 
     @Override
     public void update(Account account) {

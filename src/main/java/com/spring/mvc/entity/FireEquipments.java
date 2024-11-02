@@ -6,14 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
 @Getter
 @Entity
-@Table(name = "Fire_equipments")
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "Fire_equipments")
 public class FireEquipments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,5 +33,11 @@ public class FireEquipments {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+    public void addHouse(House house) {
+        if (houses == null) {
+            houses = new ArrayList<House>();
+        }
+        houses.add(house);
     }
 }

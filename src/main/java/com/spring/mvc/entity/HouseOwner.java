@@ -47,4 +47,10 @@ public class HouseOwner {
                 ", address='" + address + '\'' +
                 '}';
     }
+
+    public HouseOwner(String phone, String address, String name) {
+        this.phone = phone;
+        this.address = address;
+        this.name = name;
+    }
 }

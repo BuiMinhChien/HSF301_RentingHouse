@@ -1,26 +1,18 @@
 package com.spring.mvc.controller;
 
 import com.spring.mvc.common.FileUploadUtil;
+import com.spring.mvc.entity.*;
+import com.spring.mvc.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.spring.mvc.common.QrCode;
-import com.spring.mvc.entity.News;
-import com.spring.mvc.entity.TagForNews;
-import com.spring.mvc.service.NewsService;
-import com.spring.mvc.service.TagForNewsService;
-import com.spring.mvc.service.TagService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.spring.mvc.dto.ProfileDTO;
-import com.spring.mvc.entity.Account;
-import com.spring.mvc.entity.Customer;
-import com.spring.mvc.entity.Image;
-import com.spring.mvc.service.AccountService;
-import com.spring.mvc.service.CustomerService;
-import com.spring.mvc.service.ImageService;
-import com.spring.mvc.service.RoleService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -30,13 +22,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +37,7 @@ public class CustomerController {
     private TagForNewsService tagForNewsService;
     private TagService tagService;
     private QrCode qrCode;
+    private HouseService houseService;
 
     @Autowired
     AccountService accountService;
@@ -63,11 +52,12 @@ public class CustomerController {
     private FileUploadUtil fileUploadUtil;
 
     public CustomerController(NewsService newsService, TagForNewsService tagForNewsService,
-                              TagService tagService, QrCode qrCode) {
+                              TagService tagService, QrCode qrCode, HouseService houseService) {
         this.newsService = newsService;
         this.tagForNewsService = tagForNewsService;
         this.tagService = tagService;
         this.qrCode = qrCode;
+        this.houseService = houseService;
     }
 
     @GetMapping("/get_all_news")
@@ -81,6 +71,16 @@ public class CustomerController {
         List<TagForNews> tagList = tagForNewsService.getAllTag();
         model.addAttribute("listTag", tagList);
         return "customer/newsList";
+    }
+
+    @GetMapping("/get_all_house")
+    public String getAllHouse(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof String);
+        model.addAttribute("isLoggedIn", isLoggedIn);
+        List<House> houseList = houseService.getAllHouses();
+        model.addAttribute("listHouse", houseList);
+        return "customer/houseList";
     }
 
 //    @GetMapping("/filter_news")
@@ -182,9 +182,9 @@ public class CustomerController {
 
     @PostMapping("/change-password")
     public Map<String, String> changePassword(@RequestParam("oldPassword") String oldPassword,
-                                 @RequestParam("newPassword") String newPassword,
-                                 @RequestParam("confirmPassword") String confirmPassword,
-                                 Principal principal) {
+                                              @RequestParam("newPassword") String newPassword,
+                                              @RequestParam("confirmPassword") String confirmPassword,
+                                              Principal principal) {
 
         Map<String, String> response = new HashMap<>();
 

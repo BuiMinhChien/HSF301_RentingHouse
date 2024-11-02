@@ -44,7 +44,7 @@ public class AmenitiesDAOImpl implements AmenitiesDAO {
 
     @Override
     public List<Amenities> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Amenities").list();
+        return sessionFactory.getCurrentSession().createQuery("from Amenities", Amenities.class).list();
     }
 
     @Override

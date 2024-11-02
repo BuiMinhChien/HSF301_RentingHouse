@@ -12,9 +12,9 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-@Table(name = "Tag_for_news")
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "Tag_for_news")
 public class TagForNews {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
