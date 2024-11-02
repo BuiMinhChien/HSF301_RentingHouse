@@ -41,11 +41,4 @@ public class TagForNews {
                 ", name='" + name + '\'' +
                 '}';
     }
-
-    public void addNews(News news) {
-        if(this.newsList == null){
-            this.newsList = new ArrayList<>();
-        }
-        this.newsList.add(news);
-    }
 }
