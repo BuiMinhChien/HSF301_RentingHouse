@@ -55,4 +55,9 @@ public class AuthController {
     public String customerHome() {
         return "customer/homepage";
     }
+
+    @GetMapping("customer-care/home")
+    public String customercareHome() {
+        return "customercare/chatbot-settings";
+    }
 }

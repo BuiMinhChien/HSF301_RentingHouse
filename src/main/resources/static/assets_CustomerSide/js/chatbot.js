@@ -1,8 +1,8 @@
 // Khởi tạo WebSocket connection và stompClient
-var socket;
-var stompClient;
-var currentSessionId = null;
-let inactivityTimer;
+// var socket;
+// var stompClient;
+// var currentSessionId = null;
+// let inactivityTimer;
 
 function initChat(){
     fetchMainTopics();
@@ -28,15 +28,16 @@ function showChatBot() {
     } else {
         chatbox.classList.add('show');
         // Kiểm tra localStorage xem có sessionId không
-        const storedSessionId = localStorage.getItem('currentSessionId');
-        if (storedSessionId) {
-            currentSessionId = storedSessionId;
-            loadChatHistory(currentSessionId); // Khôi phục lại lịch sử chat
-            setupWebSocket(currentSessionId);
-            directMode(); // Chuyển vào direct mode
-        } else {
-            fetchMainTopics(); // Nếu không có sessionId, bắt đầu từ main topics
-        }
+        // const storedSessionId = localStorage.getItem('currentSessionId');
+        // if (storedSessionId) {
+        //     currentSessionId = storedSessionId;
+        //     loadChatHistory(currentSessionId); // Khôi phục lại lịch sử chat
+        //     setupWebSocket(currentSessionId);
+        //     directMode(); // Chuyển vào direct mode
+        // } else {
+        //     fetchMainTopics(); // Nếu không có sessionId, bắt đầu từ main topics
+        // }
+        fetchMainTopics();
     }
 }
 
@@ -68,9 +69,9 @@ function loadChatHistory(sessionId) {
 function displayOptions(options, type) {
     options.forEach(option => {
         var opt = document.createElement("span");
-        opt.innerHTML = option.topicName;
+        opt.innerHTML = option.topic_name;
         opt.setAttribute("class", "opt");
-        opt.dataset.id = option.topicId;
+        opt.dataset.id = option.id;
         opt.dataset.type = type;
         opt.addEventListener("click", handleOpt);
         cbot.appendChild(opt);
@@ -83,6 +84,8 @@ function handleOpt() {
     var selectedOptionName = this.innerText;
     var type = this.dataset.type;
 
+    console.log(selectedOptionId);
+
     var replyElm = document.createElement("p");
     replyElm.setAttribute("class", "rep");
     replyElm.innerHTML = selectedOptionName;
@@ -91,9 +94,10 @@ function handleOpt() {
     // Xóa tất cả các options cũ
     document.querySelectorAll(".opt").forEach(el => el.remove());
 
-    // Gửi request tới server để lấy subtopics hoặc câu hỏi
-    // Gửi request tới server để lấy subtopics, câu hỏi, hoặc nhân viên
-    fetch(`/api/chatbot/topics/${selectedOptionId}`)
+    console.log(selectedOptionId);
+
+    // Gửi request tới server để lấy subtopics hoặc câu hỏi, sử dụng requestParam
+    fetch(`/api/chatbot/topics/sub/${selectedOptionId}`)
         .then(response => response.json())
         .then(data => {
             if (data.type === 'topics') {

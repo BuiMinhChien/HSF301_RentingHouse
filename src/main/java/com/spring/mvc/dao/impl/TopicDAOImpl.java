@@ -46,14 +46,14 @@ public class TopicDAOImpl implements TopicDAO {
     @Override
     public List<Topic> findByParentTopicIsNull() {
         String hql = "FROM Topic t WHERE t.parent_topic IS NULL";
-        return sessionFactory.getCurrentSession().createQuery(hql, Topic.class).getResultList();
+        List<Topic> list = sessionFactory.getCurrentSession().createQuery(hql, Topic.class).getResultList();
+        return list;
     }
 
     @Override
     public List<Topic> findByParentTopic_TopicId(int parentId) {
-        String hql = "FROM Topic t WHERE t.parent_topic.id = :parentId";
-        return sessionFactory.getCurrentSession().createQuery(hql, Topic.class)
-                .setParameter("parentId", parentId)
-                .getResultList();
+        String hql = "FROM Topic t WHERE t.parent_topic.id = " + parentId;
+        List<Topic> list = sessionFactory.getCurrentSession().createQuery(hql, Topic.class).getResultList();
+        return list;
     }
 }
