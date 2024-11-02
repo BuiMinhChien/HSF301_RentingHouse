@@ -19,8 +19,8 @@ import java.util.List;
 @Component
 public class FileUploadUtil {
     private NewsService newsService;
-    private String imageUploadDir = "src/main/resources/static/images/";
-    private String documentUploadDir = "src/main/resources/static/documents/";
+    private String imageUploadDir = "src/main/resources/static/image/";
+    private String documentUploadDir = "src/main/resources/static/document/";
     private ImageService imageService;
 
     @Autowired
@@ -182,7 +182,7 @@ public class FileUploadUtil {
                     // Tạo đối tượng Image và liên kết với Asset
                     Image img = new Image();
                     img.setUploadDate(LocalDateTime.now().toString());
-                    img.setPath("/images/" + imgName);
+                    img.setPath("/image/" + imgName);
                     news.setImage(img);
                 } catch (IOException e) {
                     e.printStackTrace();

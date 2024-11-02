@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -29,10 +30,8 @@ public class News {
     @Column(name = "created_date")
     private String created_date;
 
-    @Column(name="registration_date")
-    private String registrationDate;
-
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.REMOVE})
+    @JoinColumn(name = "cover_photo_id", referencedColumnName = "id")
     private Image image;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
@@ -47,4 +46,10 @@ public class News {
     )
     private List<TagForNews> tags;
 
+    public void addTag(TagForNews tag) {
+        if(this.tags == null){
+            this.tags = new ArrayList<>();
+        }
+        this.tags.add(tag);
+    }
 }

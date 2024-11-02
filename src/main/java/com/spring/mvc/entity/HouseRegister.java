@@ -11,6 +11,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
+@Table(name = "House_register")
 @NoArgsConstructor
 @AllArgsConstructor
 public class HouseRegister {
