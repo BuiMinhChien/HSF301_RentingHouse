@@ -4,6 +4,7 @@ import com.spring.mvc.entity.Account;
 import com.spring.mvc.entity.Image;
 import com.spring.mvc.entity.News;
 import com.spring.mvc.entity.TagForNews;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,7 +31,6 @@ public class NewsDTO {
         news.setTitle(title);
         news.setContent(content);
         news.setCreated_date(created_date);
-        news.setRegistrationDate(registrationDate);
         news.setImage(image);
         news.setAccount(account);
         news.setTags(tags);

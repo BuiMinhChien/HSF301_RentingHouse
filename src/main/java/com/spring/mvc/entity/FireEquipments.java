@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-@Table(name = "FireEquipments")
+@Table(name = "Fire_equipments")
 @NoArgsConstructor
 @AllArgsConstructor
 public class FireEquipments {

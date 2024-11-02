@@ -32,17 +32,14 @@ public class SecurityConfig  {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(configurer -> configurer
-                        .requestMatchers("/css/**", "/js/**", "/image/**", "/assets_CustomerSide/**", "/assets_CustomerSide/webfonts").permitAll()
+                        .requestMatchers("/image/**", "/document/**", "/dashboardStatic/**", "/assets_CustomerSide/**").permitAll()
                         .requestMatchers("/", "/home", "/login", "/access-denied", "/register",
                                 "/verify-otp", "/resend-otp", "/otp-success", "/forgot-password",
                                 "/customer/get_all_auction", "/customer/get_all_asset", "/customer/get_all_news")
                         .permitAll()
-                        .requestMatchers("/customer/**").hasRole("Customer")
-                        .requestMatchers("/admin/**").hasRole("Admin")
-                        .requestMatchers("/property_agent/**").hasRole("Property_Agent")
-                        .requestMatchers("/auctioneer/**").hasRole("Auctioneer")
-                        .requestMatchers("/customer_care/**").hasRole("Customer_Care")
-                        .requestMatchers("/news_writer/**").hasRole("News_Writer")
+                        .requestMatchers("/customer/**").hasRole("CUSTOMER")
+                        .requestMatchers("/customer_care/**").hasRole("CUSTOMER_CARE")
+                        .requestMatchers("/news_writer/**").hasRole("NEWS_WRITER")
                         .anyRequest().authenticated()
                 )
 
@@ -56,8 +53,8 @@ public class SecurityConfig  {
                 .logout(logout -> logout.permitAll())
                 .exceptionHandling(configurer -> configurer
                         .accessDeniedPage("/access-denied")
-                );
-
+                )
+                    .csrf(csrf -> csrf.disable());
         return http.build();
     }
 

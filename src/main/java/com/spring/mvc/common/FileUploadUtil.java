@@ -3,6 +3,7 @@ package com.spring.mvc.common;
 import com.spring.mvc.entity.Image;
 import com.spring.mvc.entity.News;
 import com.spring.mvc.service.ImageService;
+import com.spring.mvc.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,12 +18,14 @@ import java.util.List;
 
 @Component
 public class FileUploadUtil {
-    private String imageUploadDir = "src/main/resources/static/images/";
-    private String documentUploadDir = "src/main/resources/static/documents/";
+    private NewsService newsService;
+    private String imageUploadDir = "src/main/resources/static/image/";
+    private String documentUploadDir = "src/main/resources/static/document/";
     private ImageService imageService;
 
     @Autowired
-    public FileUploadUtil(ImageService imageService) {
+    public FileUploadUtil(NewsService newsService, ImageService imageService) {
+        this.newsService = newsService;
         this.imageService = imageService;
     }
     //upload image for cutomer have idfront and idback
@@ -82,31 +85,31 @@ public class FileUploadUtil {
 //        }
 //    }
 
-    private String saveImage(MultipartFile imageFile, String prefix) throws IOException {
-        String originalFileName = imageFile.getOriginalFilename();
-        if (originalFileName == null) return null;
-
-        // Extract file name and extension
-        String fileName = originalFileName.substring(0, originalFileName.lastIndexOf('.'));
-        String fileExtension = originalFileName.substring(originalFileName.lastIndexOf('.'));
-
-        // Generate unique file name
-        String imgName = prefix + "_" + fileName + fileExtension;
-        Path path = Paths.get(imageUploadDir + imgName);
-        int version = 1;
-
-        while (Files.exists(path)) {
-            imgName = prefix + "_" + fileName + "(" + version + ")" + fileExtension;
-            path = Paths.get(imageUploadDir + imgName);
-            version++;
-        }
-
-        // Save file
-        byte[] bytes = imageFile.getBytes();
-        Files.write(path, bytes);
-
-        return imgName;
-    }
+//    private String saveImage(MultipartFile imageFile, String prefix) throws IOException {
+//        String originalFileName = imageFile.getOriginalFilename();
+//        if (originalFileName == null) return null;
+//
+//        // Extract file name and extension
+//        String fileName = originalFileName.substring(0, originalFileName.lastIndexOf('.'));
+//        String fileExtension = originalFileName.substring(originalFileName.lastIndexOf('.'));
+//
+//        // Generate unique file name
+//        String imgName = prefix + "_" + fileName + fileExtension;
+//        Path path = Paths.get(imageUploadDir + imgName);
+//        int version = 1;
+//
+//        while (Files.exists(path)) {
+//            imgName = prefix + "_" + fileName + "(" + version + ")" + fileExtension;
+//            path = Paths.get(imageUploadDir + imgName);
+//            version++;
+//        }
+//
+//        // Save file
+//        byte[] bytes = imageFile.getBytes();
+//        Files.write(path, bytes);
+//
+//        return imgName;
+//    }
 
 
 //    public void UploadImagesForAsset(List<MultipartFile> images, Asset asset) {

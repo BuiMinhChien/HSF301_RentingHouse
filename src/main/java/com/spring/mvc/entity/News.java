@@ -30,13 +30,8 @@ public class News {
     @Column(name = "created_date")
     private String created_date;
 
-    @Column(name = "email")
-    private String email;
-
-    @Column(name="registration_date")
-    private String registrationDate;
-
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.REMOVE})
+    @JoinColumn(name = "cover_photo_id", referencedColumnName = "id")
     private Image image;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})

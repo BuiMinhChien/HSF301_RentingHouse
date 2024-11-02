@@ -12,6 +12,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
+@Table(name = "Tag_for_news")
 @NoArgsConstructor
 @AllArgsConstructor
 public class TagForNews {
@@ -39,5 +40,12 @@ public class TagForNews {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public void addNews(News news) {
+        if(this.newsList == null){
+            this.newsList = new ArrayList<>();
+        }
+        this.newsList.add(news);
     }
 }
