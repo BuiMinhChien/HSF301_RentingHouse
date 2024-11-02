@@ -138,7 +138,7 @@ Author URL: http://w3layouts.com
                         <a class="nav-link" th:href="@{/}" style="font-size: 20px;">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/customer/get_all_asset}" style="font-size: 20px;">House</a>
+                        <a class="nav-link" th:href="@{/customer/get_all_house}" style="font-size: 20px;">House</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/customer/get_all_news}" style="font-size: 20px;">News</a>
@@ -176,6 +176,7 @@ Author URL: http://w3layouts.com
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <li th:if="${isLoggedIn}" ><a class="dropdown-item" th:href="@{/customer/profile}">Profile</a></li>
+                            <li th:if="${isLoggedIn}" ><a class="dropdown-item" th:href="@{/customer/viewNotification}">Notifications</a></li>
                             <li th:if="${!isLoggedIn}"><a class="dropdown-item" th:href="@{/login}">Login</a>
                             </li>
                             <li th:if="${!isLoggedIn}"><a class="dropdown-item" th:href="@{/register}">Register</a></li>

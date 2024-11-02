@@ -38,6 +38,11 @@ public class AccountDAOImpl implements AccountDAO {
     }
 
     @Override
+    public Account findById(int id) {
+        return sessionFactory.getCurrentSession().find(Account.class, id);
+    }
+
+    @Override
     public boolean existsByUsername(String username) {
         String hql = "SELECT count(a) FROM Account a WHERE a.username = :username";
         Long count = sessionFactory.getCurrentSession().createQuery(hql, Long.class)

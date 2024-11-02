@@ -52,6 +52,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public Account findById(int id) {
+        return accountDAO.findById(id);
+    }
+
+    @Override
     public boolean existsByUsername(String username) {
         try {
             return accountDAO.existsByUsername(username);

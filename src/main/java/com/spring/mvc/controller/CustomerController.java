@@ -1,5 +1,9 @@
 package com.spring.mvc.controller;
 
+import com.spring.mvc.entity.House;
+import com.spring.mvc.service.HouseService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.spring.mvc.common.QrCode;
@@ -30,13 +34,15 @@ public class CustomerController {
     private TagForNewsService tagForNewsService;
     private TagService tagService;
     private QrCode qrCode;
+    private HouseService houseService;
 
     public CustomerController(NewsService newsService, TagForNewsService tagForNewsService,
-                              TagService tagService, QrCode qrCode) {
+                              TagService tagService, QrCode qrCode, HouseService houseService) {
         this.newsService = newsService;
         this.tagForNewsService = tagForNewsService;
         this.tagService = tagService;
         this.qrCode = qrCode;
+        this.houseService = houseService;
     }
 
     @GetMapping("/get_all_news")
@@ -50,6 +56,16 @@ public class CustomerController {
         List<TagForNews> tagList = tagForNewsService.getAllTag();
         model.addAttribute("listTag", tagList);
         return "customer/newsList";
+    }
+
+    @GetMapping("/get_all_house")
+    public String getAllHouse(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof String);
+        model.addAttribute("isLoggedIn", isLoggedIn);
+        List<House> houseList = houseService.getAllHouses();
+        model.addAttribute("listHouse", houseList);
+        return "customer/houseList";
     }
 
 //    @GetMapping("/filter_news")
