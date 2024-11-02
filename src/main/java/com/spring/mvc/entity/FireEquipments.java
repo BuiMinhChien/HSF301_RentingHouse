@@ -11,7 +11,6 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-@Table(name = "Fire_equipments")
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Fire_equipments")

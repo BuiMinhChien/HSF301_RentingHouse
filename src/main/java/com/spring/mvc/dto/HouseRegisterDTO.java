@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -33,6 +34,7 @@ public class HouseRegisterDTO {
      List<Tag> tagList;
      List<Amenities> amenities;
      List<FireEquipments> fireEquipments;
-     List<MultplePa>
+     List<MultipartFile> images;
+     List<MultipartFile> documents;
 
 }
