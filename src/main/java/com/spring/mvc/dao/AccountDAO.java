@@ -9,4 +9,5 @@ public interface AccountDAO {
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
     public void save(Account account);
+    public void update(Account account);
 }

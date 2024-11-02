@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-@Repository(value = "CustomerDAO")
+@Repository(value = "customerDAO")
 @Transactional(propagation = Propagation.REQUIRED)
 @DependsOn(value = "sessionFactory")
 public class CustomerDAOImpl implements CustomerDAO {
@@ -24,7 +24,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     @Override
     public Customer findById(int id) {
         Session session = sessionFactory.getCurrentSession();
-        TypedQuery<Customer> query = session.createQuery("from Customer where id = :id", Customer.class);
+        TypedQuery<Customer> query = session.createQuery("from Customer where id = : id", Customer.class);
         query.setParameter("id", id);
         return query.getSingleResult();
     }
@@ -43,7 +43,22 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public void update(Customer customer) {
-        sessionFactory.getCurrentSession().save(customer);
+        Session session = sessionFactory.getCurrentSession();
+        Customer existingCustomer = session.get(Customer.class, customer.getId());
+
+        if (existingCustomer != null) {
+            // Update fields
+            existingCustomer.setFullName(customer.getFullName());
+            existingCustomer.setGender(customer.getGender());
+            existingCustomer.setDateOfBirth(customer.getDateOfBirth());
+            existingCustomer.setAddress(customer.getAddress());
+            existingCustomer.setPhoneNumber(customer.getPhoneNumber());
+            existingCustomer.setIdIssuanceDate(customer.getIdIssuanceDate());
+            existingCustomer.setIdIssuancePlace(customer.getIdIssuancePlace());
+
+            // Save the updated customer
+            session.update(existingCustomer);
+        }
     }
 
     @Override

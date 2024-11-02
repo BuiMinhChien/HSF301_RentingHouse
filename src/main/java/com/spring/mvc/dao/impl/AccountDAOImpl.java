@@ -2,6 +2,7 @@ package com.spring.mvc.dao.impl;
 
 import com.spring.mvc.dao.AccountDAO;
 import com.spring.mvc.entity.Account;
+import org.hibernate.NonUniqueResultException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.DependsOn;
@@ -14,7 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 @DependsOn(value = "sessionFactory")
 public class AccountDAOImpl implements AccountDAO {
     private final SessionFactory sessionFactory;
-//    private Session session;
+
+
 
     public AccountDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -23,15 +25,22 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     public Account findByUsername(String username) {
-        String hql = "FROM Account a WHERE a.username = :username";
-        return sessionFactory.getCurrentSession().createQuery(hql, Account.class)
-                .setParameter("username", username)
-                .uniqueResult();
+        try {
+            // If unique constraint on the username field is set, this should work without issues
+            return (Account) sessionFactory.getCurrentSession().createQuery("FROM Account a WHERE a.username = :username")
+                    .setParameter("username", username)
+                    .uniqueResult();
+        } catch (NonUniqueResultException e) {
+            // Log the error or handle it appropriately
+            System.err.println("Multiple accounts found with the same username: " + username);
+            throw e;
+        }
     }
+
 
     @Override
     public Account findByEmail(String email) {
-        String hql = "FROM Account a WHERE a.email = :email";
+        String hql = "FROM Account a WHERE a.email == email";
         return sessionFactory.getCurrentSession().createQuery(hql, Account.class)
                 .setParameter("email", email)
                 .uniqueResult();
@@ -58,5 +67,10 @@ public class AccountDAOImpl implements AccountDAO {
     @Override
     public void save(Account account) {
         sessionFactory.getCurrentSession().save(account);
+    }
+
+    @Override
+    public void update(Account account) {
+
     }
 }

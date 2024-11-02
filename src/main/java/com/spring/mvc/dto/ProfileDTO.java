@@ -1,5 +1,7 @@
 package com.spring.mvc.dto;
 
+import com.spring.mvc.entity.Account;
+import com.spring.mvc.entity.Customer;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,5 +14,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProfileDTO {
 
-    private int name;
+    Customer customer;
+    Account account;
+
 }

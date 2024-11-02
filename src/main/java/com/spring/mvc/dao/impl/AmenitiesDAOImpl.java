@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Repository(value = "AmenitiesDAO")
+@Repository(value = "amenitiesDAO")
 @Transactional(propagation = Propagation.REQUIRED)
 @DependsOn(value = "sessionFactory")
 public class AmenitiesDAOImpl implements AmenitiesDAO {
