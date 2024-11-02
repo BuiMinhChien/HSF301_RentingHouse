@@ -119,7 +119,7 @@ CREATE TABLE Staff (
 );
 
 CREATE TABLE Customer (
-    account_id INT PRIMARY KEY FOREIGN KEY REFERENCES Account(id),
+    id INT PRIMARY KEY FOREIGN KEY REFERENCES Account(id),
     full_name NVARCHAR(100),
     gender NVARCHAR(1) CHECK (gender IN ('F', 'M')),
     date_of_birth VARCHAR(100),
@@ -288,10 +288,10 @@ INSERT INTO Staff (id, full_name, gender, date_of_birth, address, phone_number) 
 (4, N'Phạm Việt Tùng', 'M', '18/10/2004', '123 Elm St, Cityville', '1234567890'),
 (5, N'Lê Đoàn Đức Chung', 'M', '18/10/2004', '123 Elm St, Cityville', '1234567890');
 
--- 15. Thêm dữ liệu mẫu vào bảng Customer
---INSERT INTO Customer (account_id, full_name, gender, date_of_birth, address, phone_number, citizen_identification, id_issuance_date, id_issuance_place, id_card_front_image_id, id_card_back_image_id) 
---VALUES 
---(1, 'Jane Smith', 'F', '18/10/2004', '456 Oak St, Townsville', '0987654321', '123456789', '987654321', '30/10/2004', 'Cityville', NULL, NULL, '12345678', 'City Bank', 'City Branch', 'Jane Smith');
+15. Thêm dữ liệu mẫu vào bảng Customer
+INSERT INTO Customer (id, full_name, gender, date_of_birth, address, phone_number, id_issuance_date, id_issuance_place, id_card_front_image_id, id_card_back_image_id) 
+VALUES 
+(1, 'Jane Smith', 'F', '18/10/2004', '456 Oak St, Townsville', '0987654321', '987654321', '30/10/2004', 'Cityville', NULL, NULL, '12345678', 'City Bank', 'City Branch', 'Jane Smith');
 
 -- 23. Thêm dữ liệu mẫu vào bảng Question
 INSERT INTO Question (topic_id, question, answer) 
