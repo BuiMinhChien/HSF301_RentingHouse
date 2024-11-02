@@ -104,7 +104,7 @@
                             <h5 class="card-title">Compose news</h5>
                         </div>
                         <div class="card-body">
-                            <form th:action="@{/news_writer/create_news}" method="post" enctype="multipart/form-data">
+                            <form th:action="@{/news_writer/create_news}" th:method="POST" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -137,10 +137,10 @@
                                         <div class="form-group">
                                             <label>Choose tags for news</label>
                                             <div class="col-sm-10">
-<!--                                                <div th:each="tag : ${listTag}">-->
-<!--                                                    <input type="checkbox" th:id="${'tag' + tag.id}" th:value="${tag.id}" name="selectedTags" th:title="${tag.name}"/>-->
-<!--                                                    <label th:for="${'tag' + tag.id}" th:text="${tag.name}"></label><br/>-->
-<!--                                                </div>-->
+                                                <div th:each="tag : ${listTag}">
+                                                    <input type="checkbox" th:id="${'tag' + tag.id}" th:value="${tag.id}" name="selectedTags" th:title="${tag.name}"/>
+                                                    <label th:for="${'tag' + tag.id}" th:text="${tag.name}"></label><br/>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -152,9 +152,6 @@
                                     </div>
                                 </div>
                             </form>
-                        </div>
-                        <div class="stats">
-
                         </div>
                     </div>
                 </div>

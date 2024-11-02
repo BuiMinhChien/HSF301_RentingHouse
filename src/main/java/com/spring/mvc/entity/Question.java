@@ -15,7 +15,7 @@ public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int questionId;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "topic_id", nullable = false)
