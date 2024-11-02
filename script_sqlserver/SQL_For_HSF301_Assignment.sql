@@ -267,7 +267,7 @@ INSERT INTO Image (house_id, path, upload_date) VALUES
 -- 11. Thêm dữ liệu mẫu vào bảng Account
 INSERT INTO Account (username, password, verify, email, avatar_image_id, role_id, registration_date) 
 VALUES 
-('customer', '$2a$10$43UPoYJoq5cJT.U6bSrZPOAQ4K.GrN8F5JzhGdBcxy.ZfFpvrsUAi', 1, 'alexpeter@example.com', 1, 1, '30/10/2024'),
+('customer1', '$2a$10$43UPoYJoq5cJT.U6bSrZPOAQ4K.GrN8F5JzhGdBcxy.ZfFpvrsUAi', 1, 'alexpeter@example.com', 1, 1, '30/10/2024'),
 ('admin', '$2a$10$43UPoYJoq5cJT.U6bSrZPOAQ4K.GrN8F5JzhGdBcxy.ZfFpvrsUAi', 1, 'johndoe@example.com', 1, 2, '30/10/2024'),
 ('houselistingagent', '$2a$10$43UPoYJoq5cJT.U6bSrZPOAQ4K.GrN8F5JzhGdBcxy.ZfFpvrsUAi', 1, 'chickenrice@example.com', 1, 2, '30/10/2024'),
 ('customercare', '$2a$10$43UPoYJoq5cJT.U6bSrZPOAQ4K.GrN8F5JzhGdBcxy.ZfFpvrsUAi', 1, 'banhmy@example.com', 1, 3, '30/10/2024'),
