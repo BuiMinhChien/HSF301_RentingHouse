@@ -104,13 +104,13 @@
                             <h5 class="card-title">Compose news</h5>
                         </div>
                         <div class="card-body">
-                            <form th:action="@{/news_writer/add}" th:method="POST" th:object="${newsDTO}"
+                            <form th:action="@{/news_writer/create_news}" method="post" th:object="${newsDTO}"
                                   enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="title">Title</label>
-                                            <input type="text" th:field="*{news.title}" id="title"
+                                            <input type="text" th:field="${newsDTO.title}" id="title"
                                                    class="form-control" required>
                                         </div>
                                     </div>
@@ -119,7 +119,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="content">Content</label>
-                                            <textarea th:field="*{news.content}" id="content"
+                                            <textarea th:field="${newsDTO.content}" id="content"
                                                       class="form-control" required></textarea>
                                         </div>
                                     </div>

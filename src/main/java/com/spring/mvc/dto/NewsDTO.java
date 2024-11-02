@@ -17,7 +17,7 @@ public class NewsDTO {
     private String title;
     private String content;
     private String created_date;
-    private Image image;
+    private Image images;
     private Account account;
     private List<TagForNews> tags;
 
@@ -27,7 +27,7 @@ public class NewsDTO {
         news.setTitle(title);
         news.setContent(content);
         news.setCreated_date(created_date);
-        news.setImage(image);
+        news.setImages(images);
         news.setAccount(account);
         news.setTags(tags);
         return news;

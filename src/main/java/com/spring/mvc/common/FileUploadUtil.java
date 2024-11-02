@@ -183,7 +183,7 @@ public class FileUploadUtil {
                     Image img = new Image();
                     img.setUploadDate(LocalDateTime.now().toString());
                     img.setPath("/image/" + imgName);
-                    news.setImage(img);
+                    news.setImages(img);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
