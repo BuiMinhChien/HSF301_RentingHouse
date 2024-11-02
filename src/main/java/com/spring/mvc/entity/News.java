@@ -38,7 +38,7 @@ public class News {
     @JoinColumn(name = "staff_id")
     private Account account;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinTable(
             name = "News_Tag_for_news",
             joinColumns = @JoinColumn(name = "news_id"),

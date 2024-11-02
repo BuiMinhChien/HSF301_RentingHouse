@@ -109,8 +109,9 @@
 
                                     <div class="card"
                                          style="border: 1px solid rgba(0, 0, 0, 0.2); border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
-<!--                                        <img th:src="${news.cover_photo.path}" class="card-img-top" alt="Cover Photo"-->
-<!--                                             style="height: 200px; object-fit: cover; border-top-left-radius: 15px; border-top-right-radius: 15px;">-->
+                                        <p th:text="${news.images.path}"></p>
+                                        <img th:src="${news.images.path}" class="card-img-top" alt="Cover Photo"
+                                             style="height: 200px; object-fit: cover; border-top-left-radius: 15px; border-top-right-radius: 15px;">
                                         <div class="card-body" style="padding: 15px;">
                                             <h6 class="card-title" th:text="${news.title.length() > 100 ? news.title.substring(0, 100) + '...' : news.title}"
                                                 th:title="${news.title}"></h6>

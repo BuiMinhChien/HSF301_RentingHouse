@@ -39,7 +39,7 @@ public class NewsWriterController {
     @Autowired
     private ImageService imageService;
 
-    private static final String UPLOAD_DIRECTORY = "D:\\Semester 5\\HSF301\\HSF301_RentingHouse\\src\\main\\resources\\static\\image";
+    private static final String UPLOAD_DIRECTORY = "D:\\FPT_Syllabus\\Ky_5\\HSF301_Hibernate_and_Spring_Framework\\Assignment\\HSF301_RentingHouse\\src\\main\\resources\\static\\image";
 
 
 
@@ -78,14 +78,10 @@ public class NewsWriterController {
 
     @PostMapping("/create_news")
     public String addNews(@ModelAttribute("newsDTO") NewsDTO newsDTO,
-//                          @RequestParam(value = "selectedTags") List<Integer> selectedTags,
+                          @RequestParam(value = "selectedTags") List<Integer> selectedTags,
                           @RequestParam(value = "images") MultipartFile images,
                           RedirectAttributes redirectAttributes, Principal  principal) throws IOException {
-
-
-
         News news = new News();
-
         news.setTitle(newsDTO.getTitle());
         news.setContent(newsDTO.getContent());
         news.setCreated_date(LocalDateTime.now().toString());
@@ -93,39 +89,38 @@ public class NewsWriterController {
             // Đường dẫn lưu file
             String filePath = images.getOriginalFilename();
             images.transferTo(new File(filePath));
-
             // Lưu ảnh vào bảng Image
             Image image = new Image();
             image.setPath(UPLOAD_DIRECTORY+images.getOriginalFilename());
             image.setUploadDate(LocalDateTime.now().toString());
             imageService.saveImage(image);
-
             // Gán đối tượng Image cho News
             news.setImages(image);
         }
 
         String username = principal.getName();
         Account account = accountService.findByUsername(username);
-
         news.setAccount(account);
 
-//        if (selectedTags != null) {
-//            for (Integer tagId : selectedTags) {
-//                TagForNews tag = tagForNewsService.getTagById(tagId);
-//                news.addTag(tag);
-//                tag.addNews(news);
-//            }
-//        }
-
+        if (selectedTags != null) {
+            for (Integer tagId : selectedTags) {
+                TagForNews tag = tagForNewsService.getTagById(tagId);
+                news.addTag(tag);
+                tag.addNews(news);
+            }
+        }
         newsService.save(news);
         redirectAttributes.addAttribute("message", "The news was created successfully");
-        return "newsWriter/CreateNews";
+        return "redirect:/news_writer/create_news";
     }
 
 
     @GetMapping("/get_all_news_list")
     public String getAllNews(Model model) {
         List<News> list = newsService.getAllNews();
+        for(News news : list){
+            System.out.println("Tiêu đề: "+news.getTitle());
+        }
         model.addAttribute("listNews", list);
         model.addAttribute("pageTitle", "View all news");
         model.addAttribute("deletePermission", "false");
