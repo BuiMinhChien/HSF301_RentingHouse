@@ -1,4 +1,6 @@
 --------------------------------TAO DATABASE--------------------------------------------------
+
+
 --create database project_house_rental_hsf301_assignment
 use project_house_rental_hsf301_assignment
 
@@ -119,7 +121,7 @@ CREATE TABLE Staff (
 );
 
 CREATE TABLE Customer (
-    account_id INT PRIMARY KEY FOREIGN KEY REFERENCES Account(id),
+    id INT PRIMARY KEY FOREIGN KEY REFERENCES Account(id),
     full_name NVARCHAR(100),
     gender NVARCHAR(1) CHECK (gender IN ('F', 'M')),
     date_of_birth VARCHAR(100),
@@ -265,7 +267,7 @@ INSERT INTO Image (house_id, path, upload_date) VALUES
 -- 11. Thêm dữ liệu mẫu vào bảng Account
 INSERT INTO Account (username, password, verify, email, avatar_image_id, role_id, registration_date) 
 VALUES 
-('customer', '$2a$10$43UPoYJoq5cJT.U6bSrZPOAQ4K.GrN8F5JzhGdBcxy.ZfFpvrsUAi', 1, 'alexpeter@example.com', 1, 1, '30/10/2024'),
+('customer1', '$2a$10$43UPoYJoq5cJT.U6bSrZPOAQ4K.GrN8F5JzhGdBcxy.ZfFpvrsUAi', 1, 'alexpeter@example.com', 1, 1, '30/10/2024'),
 ('admin', '$2a$10$43UPoYJoq5cJT.U6bSrZPOAQ4K.GrN8F5JzhGdBcxy.ZfFpvrsUAi', 1, 'johndoe@example.com', 1, 2, '30/10/2024'),
 ('houselistingagent', '$2a$10$43UPoYJoq5cJT.U6bSrZPOAQ4K.GrN8F5JzhGdBcxy.ZfFpvrsUAi', 1, 'chickenrice@example.com', 1, 2, '30/10/2024'),
 ('customercare', '$2a$10$43UPoYJoq5cJT.U6bSrZPOAQ4K.GrN8F5JzhGdBcxy.ZfFpvrsUAi', 1, 'banhmy@example.com', 1, 3, '30/10/2024'),
@@ -288,11 +290,31 @@ INSERT INTO Staff (id, full_name, gender, date_of_birth, address, phone_number) 
 (4, N'Phạm Việt Tùng', 'M', '18/10/2004', '123 Elm St, Cityville', '1234567890'),
 (5, N'Lê Đoàn Đức Chung', 'M', '18/10/2004', '123 Elm St, Cityville', '1234567890');
 
--- 15. Thêm dữ liệu mẫu vào bảng Customer
---INSERT INTO Customer (account_id, full_name, gender, date_of_birth, address, phone_number, citizen_identification, id_issuance_date, id_issuance_place, id_card_front_image_id, id_card_back_image_id) 
---VALUES 
---(1, 'Jane Smith', 'F', '18/10/2004', '456 Oak St, Townsville', '0987654321', '123456789', '987654321', '30/10/2004', 'Cityville', NULL, NULL, '12345678', 'City Bank', 'City Branch', 'Jane Smith');
+--15. Thêm dữ liệu mẫu vào bảng Customer
 
+INSERT INTO [dbo].[Customer] 
+       ([id], 
+       [full_name], 
+       [gender], 
+       [date_of_birth], 
+       [address], 
+       [phone_number], 
+       [citizen_identification], 
+       [id_issuance_date], 
+       [id_issuance_place], 
+       [id_card_front_image_id], 
+       [id_card_back_image_id])
+VALUES 
+       (1,  -- id      'John Doe',  -- full_name
+       'M',  -- gender
+       '1990-01-01',  -- date_of_birth
+       '123 Main St',  -- address
+       '1234567890',  -- phone_number
+       'ID123456',  -- citizen_identification
+       '2010-01-01',  -- id_issuance_date
+       'City Hall',  -- id_issuance_place
+      null,  -- id_card_front_image_id
+      null);  -- id_card_back_image_id
 -- 23. Thêm dữ liệu mẫu vào bảng Question
 INSERT INTO Question (topic_id, question, answer) 
 VALUES 

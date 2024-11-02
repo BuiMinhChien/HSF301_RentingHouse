@@ -122,4 +122,9 @@ public class AuthController {
     public String accessDenied() {
         return "403"; // Tên file HTML là 403.html trong thư mục templates
     }
+
+    @GetMapping("customer-care/home")
+    public String customercareHome() {
+        return "customercare/chatbot-settings";
+    }
 }
