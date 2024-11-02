@@ -1,6 +1,8 @@
 package com.spring.mvc;
 
 import com.spring.mvc.common.Constants;
+import jakarta.servlet.MultipartConfigElement;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +12,9 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.util.unit.DataSize;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -65,6 +70,19 @@ public class DatabaseConfig implements Constants.DatabaseConfig {
         properties.put(HIBERNATE_FORMAT_SQL, environment.getProperty(HIBERNATE_FORMAT_SQL));
 //        properties.put(HIBERNATE_HBM2DDL_AUTO, environment.getProperty(HIBERNATE_HBM2DDL_AUTO));
         return properties;
+    }
+
+
+    @Bean
+    MultipartConfigElement multipartConfigElement() {
+        long maxFileSize = Long.parseLong(environment.getProperty("spring.servlet.multipart.max-file-size"));
+        long maxRequestSize = Long.parseLong(environment.getProperty("spring.servlet.multipart.max-request-size"));
+
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        factory.setMaxFileSize(DataSize.ofBytes(maxFileSize));
+        factory.setMaxRequestSize(DataSize.ofBytes(maxRequestSize));
+
+        return factory.createMultipartConfig();
     }
 
 }
