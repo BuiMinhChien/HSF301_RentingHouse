@@ -1,5 +1,6 @@
 package com.spring.mvc.controller;
 
+import com.spring.mvc.common.FileUploadUtil;
 import com.spring.mvc.dto.NewsDTO;
 import com.spring.mvc.entity.Account;
 import com.spring.mvc.entity.Image;
@@ -29,27 +30,20 @@ import java.util.List;
 @Controller
 @RequestMapping("/news_writer")
 public class NewsWriterController {
-    @Autowired
     private NewsService newsService;
-    @Autowired
     private TagForNewsService tagForNewsService;
-    @Autowired
     private AccountService accountService;
-
-    @Autowired
     private ImageService imageService;
-
-    private static final String UPLOAD_DIRECTORY = "D:\\FPT_Syllabus\\Ky_5\\HSF301_Hibernate_and_Spring_Framework\\Assignment\\HSF301_RentingHouse\\src\\main\\resources\\static\\image";
-
-
+    private FileUploadUtil fileUploadUtil;
 
     @Autowired
     public NewsWriterController(NewsService newsService, TagForNewsService tagForNewsService,
-                                AccountService accountService, ImageService imageService) {
+                                AccountService accountService, ImageService imageService, FileUploadUtil fileUploadUtil) {
         this.newsService = newsService;
         this.tagForNewsService = tagForNewsService;
         this.accountService = accountService;
         this.imageService = imageService;
+        this.fileUploadUtil = fileUploadUtil;
     }
     @GetMapping("/dashboard")
     public String dashboard( Model model) {
@@ -79,24 +73,13 @@ public class NewsWriterController {
     @PostMapping("/create_news")
     public String addNews(@ModelAttribute("newsDTO") NewsDTO newsDTO,
                           @RequestParam(value = "selectedTags") List<Integer> selectedTags,
-                          @RequestParam(value = "images") MultipartFile images,
+                          @RequestParam(value = "images") List<MultipartFile> images,
                           RedirectAttributes redirectAttributes, Principal  principal) throws IOException {
         News news = new News();
         news.setTitle(newsDTO.getTitle());
         news.setContent(newsDTO.getContent());
         news.setCreated_date(LocalDateTime.now().toString());
-        if (images != null && !images.isEmpty()) {
-            // Đường dẫn lưu file
-            String filePath = images.getOriginalFilename();
-            images.transferTo(new File(filePath));
-            // Lưu ảnh vào bảng Image
-            Image image = new Image();
-            image.setPath(UPLOAD_DIRECTORY+images.getOriginalFilename());
-            image.setUploadDate(LocalDateTime.now().toString());
-            imageService.saveImage(image);
-            // Gán đối tượng Image cho News
-            news.setImages(image);
-        }
+        fileUploadUtil.UploadImagesForNews(images, news);
 
         String username = principal.getName();
         Account account = accountService.findByUsername(username);
@@ -118,9 +101,6 @@ public class NewsWriterController {
     @GetMapping("/get_all_news_list")
     public String getAllNews(Model model) {
         List<News> list = newsService.getAllNews();
-        for(News news : list){
-            System.out.println("Tiêu đề: "+news.getTitle());
-        }
         model.addAttribute("listNews", list);
         model.addAttribute("pageTitle", "View all news");
         model.addAttribute("deletePermission", "false");
@@ -152,23 +132,23 @@ public class NewsWriterController {
     }
 
 
-//    @GetMapping("/deleteNews")
-//    public String deleteNews(@RequestParam("newsId") int newsId, Principal principal) {
-//        String username = principal.getName();
-//        Account this_user = accountService.findByUsername(username);
-//        if (newsId <= 0) {
-//            return "redirect:/news_writer/get_own_news_list";
-//        }
-//        News news = newsService.getNewsById(newsId);
-//        if(news==null){
-//            return "redirect:/news_writer/get_own_news_list";
-//        }
-//        if(news.getAccount().getId()==this_user.getId()) {
-//            uploadFile.deleteFile(news.getImages().getPath());
-//            newsService.deleteNewsById(newsId);
-//        }
-//        return "redirect:/news_writer/get_own_news_list";
-//    }
+    @GetMapping("/deleteNews")
+    public String deleteNews(@RequestParam("newsId") int newsId, Principal principal) {
+        String username = principal.getName();
+        Account this_user = accountService.findByUsername(username);
+        if (newsId <= 0) {
+            return "redirect:/news_writer/get_own_news_list";
+        }
+        News news = newsService.getNewsById(newsId);
+        if(news==null){
+            return "redirect:/news_writer/get_own_news_list";
+        }
+        if(news.getAccount().getId()==this_user.getId()) {
+            fileUploadUtil.deleteFile(news.getImages().getPath());
+            newsService.deleteNewsById(newsId);
+        }
+        return "redirect:/news_writer/get_own_news_list";
+    }
 
 //    @PostMapping("/uploadAvatar")
 //    public String uploadAvatar(@RequestParam("avatar") MultipartFile avatar, Model model) {

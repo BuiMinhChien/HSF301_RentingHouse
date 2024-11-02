@@ -87,24 +87,24 @@
                 <div class="col-md-12">
                     <div class="card card-user">
                         <div class="card-header">
-                            <h4 th:text="${news.getTitle()}" style="font-weight: bold; margin-top: 15px;"></h4>
-                            <p th:text="${news.createdDate}"></p>
+                            <h4 th:text="${news.title}" style="font-weight: bold; margin-top: 15px;"></h4>
+                            <p th:text="${news.created_date}"></p>
                         </div>
                         <hr>
                         <div class="card-body">
                             <div style="display: flex; justify-content: center; align-items: center; height: 500px; width: 100%;">
-                                <img th:src="${news.getCover_photo().getPath()}" alt="Cover photo"
+                                <img th:src="${news.images.path}" alt="Cover photo"
                                      style="height: 100%; width: auto;">
                             </div>
-                            <div th:utext="${news.getContent()}"></div>
+                            <div th:utext="${news.content}"></div>
                             <hr>
                             <div>
                                 <label>Author: </label>
-                                <span th:text="${news.getStaff().staff.fullName}" style="font-weight: bold"></span>
+                                <span th:text="${news.account.staff.fullName}" style="font-weight: bold"></span>
                                 <br>
                                 <label>Tags: </label>
                                 <span th:each="tag, iterStat : ${news.getTags()}"
-                                      th:text="${tag.tagName} + (${iterStat.last} ? '' : ', ')"
+                                      th:text="${tag.name} + (${iterStat.last} ? '' : ', ')"
                                       style="font-style: italic"></span>
                             </div>
                         </div>

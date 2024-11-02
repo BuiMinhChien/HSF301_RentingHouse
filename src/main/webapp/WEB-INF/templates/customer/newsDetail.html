@@ -354,7 +354,7 @@ Author URL: http://w3layouts.com
                 <!--/w3l-blopagew3-left-->
                 <div class="col-lg-8 blopagew3-left">
                     <div class="single-post-image mb-4">
-<!--                        <img th:src="${news.getCover_photo().getPath()}" class="img-fluid w-100 radius-image" alt="Cover photo">-->
+                        <img th:src="${news.images.getPath()}" class="img-fluid w-100 radius-image" alt="Cover photo">
                     </div>
                     <div class="blo-singl mb-4">
                         <ul class="blog-single-author-date d-sm-flex align-items-center">
@@ -368,16 +368,14 @@ Author URL: http://w3layouts.com
                         <br>
                         <div>
                             <span>Tags: </span>
-                            <span th:each="tag, iterStat : ${news.getTags()}"
+                            <span th:each="tag, iterStat : ${news.tags}"
                                   th:text="${tag.name} + (${iterStat.last} ? '' : ', ')"
                                   style="font-style: italic"></span>
                         </div>
                     </div>
                     <div class="single-post-content sidebar-widget">
-                        <h3 class="post-content-title mb-3" th:text="${news.title()}"></h3>
-
-                        <div th:utext="${news.content()}"></div>
-
+                        <h3 class="post-content-title mb-3" th:text="${news.title}"></h3>
+                        <div th:utext="${news.content}"></div>
                     </div>
 
                     <ul class="share-post mb-5 text-right">
@@ -397,7 +395,6 @@ Author URL: http://w3layouts.com
                             </a>
                         </li>
                     </ul>
-
                 </div>
                 <!--//w3l-blopagew3-left-->
                 <!--/w3l-blopagew3-right-->
@@ -410,15 +407,15 @@ Author URL: http://w3layouts.com
                                     <h4>Latest Post</h4>
                                 </div>
 
-                                <article class="post" th:each="news : ${top3LatestNews}" style="margin-top: 20px;">
-                                    <figure class="post-thumb">
+<!--                                <article class="post" th:each="news : ${top3LatestNews}" style="margin-top: 20px;">-->
+<!--                                    <figure class="post-thumb">-->
 <!--                                        <img th:src="${news.cover_photo.path}" class="radius-image" alt="Cover Photo">-->
-                                    </figure>
-                                    <div class="text">
-                                        <a th:href="@{/customer/viewNewsDetail(newsId=${news.id})}" th:text="${news.title.length() > 30 ? news.title.substring(0, 30) + '...' : news.title}" th:title="${news.title}"></a>
-                                        <div class="post-info" th:text="${news.created_date}"></div>
-                                    </div>
-                                </article>
+<!--                                    </figure>-->
+<!--                                    <div class="text">-->
+<!--                                        <a th:href="@{/customer/viewNewsDetail(newsId=${news.id})}" th:text="${news.title.length() > 30 ? news.title.substring(0, 30) + '...' : news.title}" th:title="${news.title}"></a>-->
+<!--                                        <div class="post-info" th:text="${news.created_date}"></div>-->
+<!--                                    </div>-->
+<!--                                </article>-->
                             </div>
                             <!--the tag nam ơ day-->
                             <!-- sidebar sticky -->
@@ -431,7 +428,6 @@ Author URL: http://w3layouts.com
                                         </div>
                                         <a href="filter tag o day" th:each="tag : ${listTag}" th:text="${tag.name}"></a>
                                     </div>
-
                                 </div>
                             </div>
                             <!-- //sidebar sticky -->
