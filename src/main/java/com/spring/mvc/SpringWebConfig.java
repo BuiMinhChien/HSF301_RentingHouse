@@ -3,7 +3,10 @@
  */
 package com.spring.mvc;
 
+import jakarta.servlet.MultipartConfigElement;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +16,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.util.unit.DataSize;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
@@ -110,9 +114,29 @@ public class SpringWebConfig implements WebMvcConfigurer, ApplicationContextAwar
 		validator.setValidationMessageSource(messageSource());
 		return validator;
 	}
+//	@Bean
+//	public MultipartResolver multipartResolver() {
+//		return new StandardServletMultipartResolver();
+//	}
+
+	@Value("${spring.servlet.multipart.max-file-size}")
+	private String maxFileSize;
+
+	@Value("${spring.servlet.multipart.max-request-size}")
+	private String maxRequestSize;
+
 	@Bean
 	public MultipartResolver multipartResolver() {
-		return new StandardServletMultipartResolver();
+		StandardServletMultipartResolver multipartResolver = new StandardServletMultipartResolver();
+		return multipartResolver;
+	}
+
+	@Bean
+	public MultipartConfigElement multipartConfigElement() {
+		MultipartConfigFactory factory = new MultipartConfigFactory();
+		factory.setMaxFileSize(DataSize.parse(maxFileSize));
+		factory.setMaxRequestSize(DataSize.parse(maxRequestSize)); // Dung lượng tối đa cho tổng các file trong request
+		return factory.createMultipartConfig();
 	}
 
 }

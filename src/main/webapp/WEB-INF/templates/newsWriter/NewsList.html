@@ -109,22 +109,22 @@
 
                                     <div class="card"
                                          style="border: 1px solid rgba(0, 0, 0, 0.2); border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
-                                        <img th:src="${news.cover_photo.path}" class="card-img-top" alt="Cover Photo"
-                                             style="height: 200px; object-fit: cover; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+<!--                                        <img th:src="${news.cover_photo.path}" class="card-img-top" alt="Cover Photo"-->
+<!--                                             style="height: 200px; object-fit: cover; border-top-left-radius: 15px; border-top-right-radius: 15px;">-->
                                         <div class="card-body" style="padding: 15px;">
                                             <h6 class="card-title" th:text="${news.title.length() > 100 ? news.title.substring(0, 100) + '...' : news.title}"
                                                 th:title="${news.title}"></h6>
                                             <p class="card-text">
-                                                <span class="text-muted" th:text="'By ' + ${news.staff.staff.fullName} + ' on ' + ${news.createdDate}"></span>
+                                                <span class="text-muted" th:text="'By ' + ${news.account.username} + ' on ' + ${news.created_date}"></span>
                                             </p>
                                         </div>
                                         <div class="update ml-auto mr-auto card-footer">
-                                            <a th:href="@{/news_writer/viewDetail(newsId=${news.newsId})}"
+                                            <a th:href="@{/news_writer/viewDetail(newsId=${news.id})}"
                                                class="btn btn-primary btn-round" style="margin-top: 5px;">
                                                 View detail
                                             </a>
                                             <a th:if="${deletePermission == 'true'}"
-                                               th:href="@{/news_writer/deleteNews(newsId=${news.newsId})}"
+                                               th:href="@{/news_writer/deleteNews(newsId=${news.id})}"
                                                class="btn btn-danger btn-round"
                                                onclick="return confirmDelete();"
                                                style="margin-top: 5px;">

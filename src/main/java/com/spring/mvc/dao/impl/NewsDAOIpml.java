@@ -17,10 +17,8 @@ import java.util.List;
 @DependsOn(value = "sessionFactory")
 public class NewsDAOIpml implements NewsDAO {
     private final SessionFactory sessionFactory;
-//    private Session session;
     public NewsDAOIpml(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-//        session = sessionFactory.getCurrentSession();
     }
 
     @Override
@@ -31,7 +29,7 @@ public class NewsDAOIpml implements NewsDAO {
     @Override
     public List<News> getAllNews() {
         List<News> list = null;
-        TypedQuery<News> query = sessionFactory.getCurrentSession().createQuery("FROM News ORDER BY registrationDate DESC ", News.class);
+        TypedQuery<News> query = sessionFactory.getCurrentSession().createQuery("FROM News ORDER BY created_date DESC ", News.class);
         list = query.getResultList();
         return list;
     }
@@ -39,7 +37,7 @@ public class NewsDAOIpml implements NewsDAO {
     @Override
     public List<News> getAllNewsByAuthorId(int authorId) {
         List<News> list = null;
-        TypedQuery<News> query = sessionFactory.getCurrentSession().createQuery("FROM News WHERE account.id = :authorId ORDER BY registrationDate DESC ", News.class);
+        TypedQuery<News> query = sessionFactory.getCurrentSession().createQuery("FROM News WHERE account.id = :authorId ORDER BY created_date DESC ", News.class);
         query.setParameter("authorId", authorId);
         list = query.getResultList();
         return list;
@@ -59,7 +57,7 @@ public class NewsDAOIpml implements NewsDAO {
     @Override
     public List<News> getTop3LatestNews() {
         List<News> list = null;
-        TypedQuery<News> query = sessionFactory.getCurrentSession().createQuery("FROM News ORDER BY registrationDate DESC", News.class);
+        TypedQuery<News> query = sessionFactory.getCurrentSession().createQuery("FROM News ORDER BY created_date DESC", News.class);
         query.setMaxResults(3); // Giới hạn kết quả chỉ lấy 3 bản ghi gần nhất
         list = query.getResultList();
         return list;

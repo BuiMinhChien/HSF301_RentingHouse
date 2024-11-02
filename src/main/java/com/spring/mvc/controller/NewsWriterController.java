@@ -123,9 +123,7 @@ public class NewsWriterController {
     }
 
     @GetMapping("/viewDetail")
-    public String getNewsById(@RequestParam("newsId") int newsId, Model model, HttpServletRequest request) {
-        String previousUrl = request.getHeader("Referer");
-        System.out.println(previousUrl);
+    public String getNewsById(@RequestParam("newsId") int newsId, Model model) {
         if (newsId <= 0) {
             return "redirect:/news_writer/get_all_news_list";
         }
