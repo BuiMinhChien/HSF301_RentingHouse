@@ -31,10 +31,11 @@ public class SecurityConfig  {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeHttpRequests(configurer -> configurer
                         .requestMatchers("/image/**", "/document/**", "/dashboardStatic/**", "/assets_CustomerSide/**").permitAll()
                         .requestMatchers("/", "/home", "/login", "/access-denied", "/register",
-                                "/verify-otp", "/resend-otp", "/otp-success", "/forgot-password",
+                                "/otp-success", "/forgot-password",
                                 "/customer/get_all_auction", "/customer/get_all_asset", "/customer/get_all_news")
                         .permitAll()
                         .requestMatchers("/customer/**").hasRole("CUSTOMER")
@@ -51,11 +52,14 @@ public class SecurityConfig  {
                         .failureHandler(customAuthenticationFailureHandler)
                         .permitAll()
                 )
-                .logout(logout -> logout.permitAll())
+                .logout(logout -> logout
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .permitAll())
                 .exceptionHandling(configurer -> configurer
-                        .accessDeniedPage("/access-denied")
-                )
-                .csrf().disable();
+                        .accessDeniedPage("/403")
+                );
+
 
         return http.build();
     }
