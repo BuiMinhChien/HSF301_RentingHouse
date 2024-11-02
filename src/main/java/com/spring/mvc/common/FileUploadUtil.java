@@ -151,45 +151,45 @@ public class FileUploadUtil {
 //        }
 //    }
 
-    public void UploadImagesForNews(List<MultipartFile> images, News news) {
-        //kiem tra xem thu muc da ton tai chua
-        File directory = new File(imageUploadDir);
-        if (!directory.exists()) {
-            directory.mkdirs(); //tao thu muc neu chua ton tai
-        }
-        for (MultipartFile image : images) {
-            if (!image.isEmpty()) {
-                try {
-                    // Lấy tên file gốc
-                    String originalFileName = image.getOriginalFilename();
-                    if (originalFileName == null) continue;
-                    // Tách tên file và phần mở rộng
-                    String fileName = originalFileName.substring(0, originalFileName.lastIndexOf('.'));
-                    String fileExtension = originalFileName.substring(originalFileName.lastIndexOf('.'));
-                    // Tạo đường dẫn file
-                    String imgName = "News_" + fileName + fileExtension;
-                    Path path = Paths.get(imageUploadDir + imgName);
-                    // Kiểm tra file đã tồn tại hay chưa, nếu có thì thêm số phiên bản vào
-                    int version = 1;
-                    while (Files.exists(path)) {
-                        imgName = "News_" + fileName + "(" + version + ")" + fileExtension;
-                        path = Paths.get(imageUploadDir + imgName);
-                        version++;
-                    }
-                    // Lưu tệp vào thư mục
-                    byte[] bytes = image.getBytes();
-                    Files.write(path, bytes);
-                    // Tạo đối tượng Image và liên kết với Asset
-                    Image img = new Image();
-                    img.setUploadDate(LocalDateTime.now().toString());
-                    img.setPath("/image/" + imgName);
-                    news.setImages(img);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
+//    public void UploadImagesForNews(List<MultipartFile> images, News news) {
+//        //kiem tra xem thu muc da ton tai chua
+//        File directory = new File(imageUploadDir);
+//        if (!directory.exists()) {
+//            directory.mkdirs(); //tao thu muc neu chua ton tai
+//        }
+//        for (MultipartFile image : images) {
+//            if (!image.isEmpty()) {
+//                try {
+//                    // Lấy tên file gốc
+//                    String originalFileName = image.getOriginalFilename();
+//                    if (originalFileName == null) continue;
+//                    // Tách tên file và phần mở rộng
+//                    String fileName = originalFileName.substring(0, originalFileName.lastIndexOf('.'));
+//                    String fileExtension = originalFileName.substring(originalFileName.lastIndexOf('.'));
+//                    // Tạo đường dẫn file
+//                    String imgName = "News_" + fileName + fileExtension;
+//                    Path path = Paths.get(imageUploadDir + imgName);
+//                    // Kiểm tra file đã tồn tại hay chưa, nếu có thì thêm số phiên bản vào
+//                    int version = 1;
+//                    while (Files.exists(path)) {
+//                        imgName = "News_" + fileName + "(" + version + ")" + fileExtension;
+//                        path = Paths.get(imageUploadDir + imgName);
+//                        version++;
+//                    }
+//                    // Lưu tệp vào thư mục
+//                    byte[] bytes = image.getBytes();
+//                    Files.write(path, bytes);
+//                    // Tạo đối tượng Image và liên kết với Asset
+//                    Image img = new Image();
+//                    img.setUploadDate(LocalDateTime.now().toString());
+//                    img.setPath("/image/" + imgName);
+//                    news.setImages();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//    }
 
     //ham upload folder
 //    public void UploadDocumentsForAsset(List<MultipartFile> documents, Asset asset) {

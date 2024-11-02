@@ -1,17 +1,16 @@
 package com.spring.mvc.controller;
 
-import com.spring.mvc.common.FileUploadUtil;
 import com.spring.mvc.dto.NewsDTO;
 import com.spring.mvc.entity.Account;
+import com.spring.mvc.entity.Image;
 import com.spring.mvc.entity.News;
 import com.spring.mvc.entity.TagForNews;
 import com.spring.mvc.service.AccountService;
+import com.spring.mvc.service.ImageService;
 import com.spring.mvc.service.NewsService;
 import com.spring.mvc.service.TagForNewsService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,27 +23,33 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
 @RequestMapping("/news_writer")
 public class NewsWriterController {
+    @Autowired
     private NewsService newsService;
+    @Autowired
     private TagForNewsService tagForNewsService;
-    private FileUploadUtil uploadFile;
+    @Autowired
     private AccountService accountService;
 
-    @Value("${image.upload.dir}")
-    private String uploadDir;
+    @Autowired
+    private ImageService imageService;
+
+    private static final String UPLOAD_DIRECTORY = "D:\\Semester 5\\HSF301\\HSF301_RentingHouse\\src\\main\\resources\\static\\image";
+
+
 
     @Autowired
     public NewsWriterController(NewsService newsService, TagForNewsService tagForNewsService,
-                                FileUploadUtil uploadFile,
-                                AccountService accountService) {
+                                AccountService accountService, ImageService imageService) {
         this.newsService = newsService;
         this.tagForNewsService = tagForNewsService;
-        this.uploadFile = uploadFile;
         this.accountService = accountService;
+        this.imageService = imageService;
     }
     @GetMapping("/dashboard")
     public String dashboard( Model model) {
@@ -73,34 +78,50 @@ public class NewsWriterController {
 
     @PostMapping("/create_news")
     public String addNews(@ModelAttribute("newsDTO") NewsDTO newsDTO,
-                          @RequestParam(value = "selectedTags", required = false) List<Integer> selectedTags,
-                          @RequestParam("images") MultipartFile images,
-                          RedirectAttributes redirectAttributes) throws IOException {
+//                          @RequestParam(value = "selectedTags") List<Integer> selectedTags,
+                          @RequestParam(value = "images") MultipartFile images,
+                          RedirectAttributes redirectAttributes, Principal  principal) throws IOException {
 
-            // Ensure the directory exists
-            File directory = new File(uploadDir);
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
 
-            // Save the file
-            byte[] bytes = images.getBytes();
-            Path path = Paths.get(uploadDir + File.separator + images.getOriginalFilename());
-            Files.write(path, bytes);
 
-            News news = newsDTO.getNews();
-            //    uploadFile.UploadImagesForNews(images, news);
-            if (selectedTags != null) {
-                for (Integer tagId : selectedTags) {
-                    TagForNews tag = tagForNewsService.getTagById(tagId);
-                    news.addTag(tag);
-                    tag.addNews(news);
-                }
-            }
-            newsService.save(news);
-            redirectAttributes.addAttribute("message", "The news was created successfully");
-            return "newsWriter/CreateNews";
+        News news = new News();
+
+        news.setTitle(newsDTO.getTitle());
+        news.setContent(newsDTO.getContent());
+        news.setCreated_date(LocalDateTime.now().toString());
+        if (images != null && !images.isEmpty()) {
+            // Đường dẫn lưu file
+            String filePath = images.getOriginalFilename();
+            images.transferTo(new File(filePath));
+
+            // Lưu ảnh vào bảng Image
+            Image image = new Image();
+            image.setPath(UPLOAD_DIRECTORY+images.getOriginalFilename());
+            image.setUploadDate(LocalDateTime.now().toString());
+            imageService.saveImage(image);
+
+            // Gán đối tượng Image cho News
+            news.setImages(image);
         }
+
+        String username = principal.getName();
+        Account account = accountService.findByUsername(username);
+
+        news.setAccount(account);
+
+//        if (selectedTags != null) {
+//            for (Integer tagId : selectedTags) {
+//                TagForNews tag = tagForNewsService.getTagById(tagId);
+//                news.addTag(tag);
+//                tag.addNews(news);
+//            }
+//        }
+
+        newsService.save(news);
+        redirectAttributes.addAttribute("message", "The news was created successfully");
+        return "newsWriter/CreateNews";
+    }
+
 
     @GetMapping("/get_all_news_list")
     public String getAllNews(Model model) {
@@ -137,23 +158,24 @@ public class NewsWriterController {
         return "newsWriter/NewsDetail";
     }
 
-    @GetMapping("/deleteNews")
-    public String deleteNews(@RequestParam("newsId") int newsId, Principal principal) {
-        String username = principal.getName();
-        Account this_user = accountService.findByUsername(username);
-        if (newsId <= 0) {
-            return "redirect:/news_writer/get_own_news_list";
-        }
-        News news = newsService.getNewsById(newsId);
-        if(news==null){
-            return "redirect:/news_writer/get_own_news_list";
-        }
-        if(news.getAccount().getId()==this_user.getId()) {
-            uploadFile.deleteFile(news.getImages().getPath());
-            newsService.deleteNewsById(newsId);
-        }
-        return "redirect:/news_writer/get_own_news_list";
-    }
+
+//    @GetMapping("/deleteNews")
+//    public String deleteNews(@RequestParam("newsId") int newsId, Principal principal) {
+//        String username = principal.getName();
+//        Account this_user = accountService.findByUsername(username);
+//        if (newsId <= 0) {
+//            return "redirect:/news_writer/get_own_news_list";
+//        }
+//        News news = newsService.getNewsById(newsId);
+//        if(news==null){
+//            return "redirect:/news_writer/get_own_news_list";
+//        }
+//        if(news.getAccount().getId()==this_user.getId()) {
+//            uploadFile.deleteFile(news.getImages().getPath());
+//            newsService.deleteNewsById(newsId);
+//        }
+//        return "redirect:/news_writer/get_own_news_list";
+//    }
 
 //    @PostMapping("/uploadAvatar")
 //    public String uploadAvatar(@RequestParam("avatar") MultipartFile avatar, Model model) {

@@ -31,17 +31,16 @@ public class SecurityConfig  {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeHttpRequests(configurer -> configurer
                         .requestMatchers("/image/**", "/document/**", "/dashboardStatic/**", "/assets_CustomerSide/**").permitAll()
                         .requestMatchers("/", "/home", "/login", "/access-denied", "/register",
-                                "/verify-otp", "/resend-otp", "/otp-success", "/forgot-password",
+                                "/otp-success", "/forgot-password",
                                 "/customer/get_all_auction", "/customer/get_all_asset", "/customer/get_all_news")
                         .permitAll()
                         .requestMatchers("/customer/**").hasRole("CUSTOMER")
                         .requestMatchers("/customer_care/**").hasRole("CUSTOMER_CARE")
                         .requestMatchers("/news_writer/**").hasRole("NEWS_WRITER")
-                        .requestMatchers("//**").hasRole("News_Writer")
-                        .requestMatchers("/house-listing/**").hasRole("HOUSE_LISTING_AGENT")
                         .requestMatchers("/house-listing/register-form/**").hasRole("HOUSE_LISTING_AGENT")
                         .anyRequest().authenticated()
                 )
@@ -53,10 +52,14 @@ public class SecurityConfig  {
                         .failureHandler(customAuthenticationFailureHandler)
                         .permitAll()
                 )
-                .logout(logout -> logout.permitAll())
+                .logout(logout -> logout
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .permitAll())
                 .exceptionHandling(configurer -> configurer
-                        .accessDeniedPage("/access-denied")
+                        .accessDeniedPage("/403")
                 );
+
 
         return http.build();
     }
