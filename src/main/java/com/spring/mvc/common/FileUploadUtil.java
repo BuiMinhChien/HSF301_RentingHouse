@@ -1,7 +1,7 @@
 package com.spring.mvc.common;
 
-import com.spring.mvc.entity.Image;
-import com.spring.mvc.entity.News;
+import com.spring.mvc.entity.*;
+import com.spring.mvc.service.HouseService;
 import com.spring.mvc.service.ImageService;
 import com.spring.mvc.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +21,12 @@ public class FileUploadUtil {
     private NewsService newsService;
     private String imageUploadDir = "src/main/resources/static/image/";
     private String documentUploadDir = "src/main/resources/static/document/";
-    private static final String UPLOAD_IMAGE_DIRECTORY = "D:\\FPT_Syllabus\\Ky_5\\HSF301_Hibernate_and_Spring_Framework\\Assignment\\HSF301_RentingHouse\\src\\main\\resources\\static\\image\\";
-    private static final String UPLOAD_DOCUMENT_DIRECTORY = "D:\\FPT_Syllabus\\Ky_5\\HSF301_Hibernate_and_Spring_Framework\\Assignment\\HSF301_RentingHouse\\src\\main\\resources\\static\\document\\";
-
+    private static final String UPLOAD_IMAGE_DIRECTORY = "E:\\Semester5\\HFS301\\PROJECT\\HSF301_RentingHouse\\src\\main\\resources\\static\\image";
+    private static final String UPLOAD_DOCUMENT_DIRECTORY = "E:\\Semester5\\HFS301\\PROJECT\\HSF301_RentingHouse\\src\\main\\resources\\static\\document";
+ //   private static final String UPLOAD_IMAGE_DIRECTORY = "D:\\Semester 5\\HSF301\\HSF301_RentingHouse\\src\\main\\resources\\static\\image\\";
     private ImageService imageService;
+    private HouseService houseService;
+
 
     @Autowired
     public FileUploadUtil(NewsService newsService, ImageService imageService) {
@@ -197,6 +199,168 @@ public class FileUploadUtil {
         }
     }
 
+    public void UploadImagesForAvata(List<MultipartFile> images, Account news) {
+        //kiem tra xem thu muc da ton tai chua
+        File directory = new File(imageUploadDir);
+        if (!directory.exists()) {
+            directory.mkdirs(); //tao thu muc neu chua ton tai
+        }
+        for (MultipartFile image : images) {
+            if (!image.isEmpty()) {
+                try {
+                    // Lấy tên file gốc
+                    String originalFileName = image.getOriginalFilename();
+                    if (originalFileName == null) continue;
+                    // Tách tên file và phần mở rộng
+                    String fileName = originalFileName.substring(0, originalFileName.lastIndexOf('.'));
+                    String fileExtension = originalFileName.substring(originalFileName.lastIndexOf('.'));
+                    // Tạo đường dẫn file
+                    String imgName = "Account_" + fileName + fileExtension;
+                    Path path = Paths.get(UPLOAD_IMAGE_DIRECTORY + imgName);
+                    // Kiểm tra file đã tồn tại hay chưa, nếu có thì thêm số phiên bản vào
+                    int version = 1;
+                    while (Files.exists(path)) {
+                        imgName = "Account_" + fileName + "(" + version + ")" + fileExtension;
+                        path = Paths.get(UPLOAD_IMAGE_DIRECTORY + imgName);
+                        version++;
+                    }
+                    // Lưu tệp vào thư mục
+                    byte[] bytes = image.getBytes();
+                    Files.write(path, bytes);
+                    // Tạo đối tượng Image và liên kết với Asset
+                    Image img = new Image();
+                    img.setUploadDate(LocalDateTime.now().toString());
+                    img.setPath("/image/" + imgName);
+                    imageService.saveImage(img);
+                    news.setImage(img);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    public void UploadImagesForCard(List<MultipartFile> images, Customer news) {
+        //kiem tra xem thu muc da ton tai chua
+        File directory = new File(imageUploadDir);
+        if (!directory.exists()) {
+            directory.mkdirs(); //tao thu muc neu chua ton tai
+        }
+        for (MultipartFile image : images) {
+            if (!image.isEmpty()) {
+                try {
+                    // Lấy tên file gốc
+                    String originalFileName = image.getOriginalFilename();
+                    if (originalFileName == null) continue;
+                    // Tách tên file và phần mở rộng
+                    String fileName = originalFileName.substring(0, originalFileName.lastIndexOf('.'));
+                    String fileExtension = originalFileName.substring(originalFileName.lastIndexOf('.'));
+                    // Tạo đường dẫn file
+                    String imgName = "Account_" + fileName + fileExtension;
+                    Path path = Paths.get(UPLOAD_IMAGE_DIRECTORY + imgName);
+                    // Kiểm tra file đã tồn tại hay chưa, nếu có thì thêm số phiên bản vào
+                    int version = 1;
+                    while (Files.exists(path)) {
+                        imgName = "Account_" + fileName + "(" + version + ")" + fileExtension;
+                        path = Paths.get(UPLOAD_IMAGE_DIRECTORY + imgName);
+                        version++;
+                    }
+                    // Lưu tệp vào thư mục
+                    byte[] bytes = image.getBytes();
+                    Files.write(path, bytes);
+                    // Tạo đối tượng Image và liên kết với Asset
+                    Image img = new Image();
+                    img.setUploadDate(LocalDateTime.now().toString());
+                    img.setPath("/image/" + imgName);
+                    imageService.saveImage(img);
+                    news.setIdCardFrontImage(img);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void UploadImagesForCardB(List<MultipartFile> images, Customer news) {
+        //kiem tra xem thu muc da ton tai chua
+        File directory = new File(imageUploadDir);
+        if (!directory.exists()) {
+            directory.mkdirs(); //tao thu muc neu chua ton tai
+        }
+        for (MultipartFile image : images) {
+            if (!image.isEmpty()) {
+                try {
+                    // Lấy tên file gốc
+                    String originalFileName = image.getOriginalFilename();
+                    if (originalFileName == null) continue;
+                    // Tách tên file và phần mở rộng
+                    String fileName = originalFileName.substring(0, originalFileName.lastIndexOf('.'));
+                    String fileExtension = originalFileName.substring(originalFileName.lastIndexOf('.'));
+                    // Tạo đường dẫn file
+                    String imgName = "Account_" + fileName + fileExtension;
+                    Path path = Paths.get(UPLOAD_IMAGE_DIRECTORY + imgName);
+                    // Kiểm tra file đã tồn tại hay chưa, nếu có thì thêm số phiên bản vào
+                    int version = 1;
+                    while (Files.exists(path)) {
+                        imgName = "Account_" + fileName + "(" + version + ")" + fileExtension;
+                        path = Paths.get(UPLOAD_IMAGE_DIRECTORY + imgName);
+                        version++;
+                    }
+                    // Lưu tệp vào thư mục
+                    byte[] bytes = image.getBytes();
+                    Files.write(path, bytes);
+                    // Tạo đối tượng Image và liên kết với Asset
+                    Image img = new Image();
+                    img.setUploadDate(LocalDateTime.now().toString());
+                    img.setPath("/image/" + imgName);
+                    imageService.saveImage(img);
+                    news.setIdCardBackImage(img);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void UploadImagesForHouse(List<MultipartFile> images, House house) {
+        //kiem tra xem thu muc da ton tai chua
+        File directory = new File(imageUploadDir);
+        if (!directory.exists()) {
+            directory.mkdirs(); //tao thu muc neu chua ton tai
+        }
+        for (MultipartFile image : images) {
+            if (!image.isEmpty()) {
+                try {
+                    // Lấy tên file gốc
+                    String originalFileName = image.getOriginalFilename();
+                    if (originalFileName == null) continue;
+                    // Tách tên file và phần mở rộng
+                    String fileName = originalFileName.substring(0, originalFileName.lastIndexOf('.'));
+                    String fileExtension = originalFileName.substring(originalFileName.lastIndexOf('.'));
+                    // Tạo đường dẫn file
+                    String imgName = "House_" + fileName + fileExtension;
+                    Path path = Paths.get(UPLOAD_IMAGE_DIRECTORY + imgName);
+                    // Kiểm tra file đã tồn tại hay chưa, nếu có thì thêm số phiên bản vào
+                    int version = 1;
+                    while (Files.exists(path)) {
+                        imgName = "House_" + fileName + "(" + version + ")" + fileExtension;
+                        path = Paths.get(UPLOAD_IMAGE_DIRECTORY + imgName);
+                        version++;
+                    }
+                    // Lưu tệp vào thư mục
+                    byte[] bytes = image.getBytes();
+                    Files.write(path, bytes);
+                    // Tạo đối tượng Image và liên kết với Asset
+                    Image img = new Image();
+                    img.setUploadDate(LocalDateTime.now().toString());
+                    img.setPath("/image/" + imgName);
+                    imageService.saveImage(img);
+                    img.setHouse(house);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
     //ham upload folder
 //    public void UploadDocumentsForAsset(List<MultipartFile> documents, Asset asset) {
 //        //kiem tra xem thu muc da ton tai chua

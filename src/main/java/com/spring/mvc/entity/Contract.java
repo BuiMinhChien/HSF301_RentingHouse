@@ -29,7 +29,6 @@ public class Contract {
     @Column(name = "lease_duration_day")
     private BigDecimal lease_duration_day;
 
-
     @Column(name = "move_in_date")
     private String move_in_date;
 
@@ -55,4 +54,10 @@ public class Contract {
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "rule_document")
     private Document document;
+
+    public Contract(long price, BigDecimal lease_duration_day, String created_date) {
+        this.price = price;
+        this.lease_duration_day = lease_duration_day;
+        this.created_date = created_date;
+    }
 }

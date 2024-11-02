@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -31,5 +32,12 @@ public class Amenities {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public void addHouse(House house) {
+        if (houses == null) {
+            houses = new ArrayList<House>();
+        }
+        houses.add(house);
     }
 }
