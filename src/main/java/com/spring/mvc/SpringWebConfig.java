@@ -26,14 +26,18 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+
+import java.util.List;
 
 /**
  * 
  */
-@EnableWebSecurity
 @Configuration
-@EnableWebMvc 
-@ComponentScan
+@EnableWebSecurity
+@EnableWebMvc
+@ComponentScan(basePackages = "com.spring.mvc")
 @EnableTransactionManagement
 public class SpringWebConfig implements WebMvcConfigurer, ApplicationContextAware {
 	private ApplicationContext applicationContext;
@@ -106,6 +110,7 @@ public class SpringWebConfig implements WebMvcConfigurer, ApplicationContextAwar
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
 	}
+
 	@Bean
 	public LocalValidatorFactoryBean getValidator() {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
@@ -123,4 +128,11 @@ public class SpringWebConfig implements WebMvcConfigurer, ApplicationContextAwar
 		return new OpenSessionInViewFilter();
 	}
 
+
+	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+		// Thêm Jackson converter để hỗ trợ JSON
+		converters.add(new MappingJackson2HttpMessageConverter());
+		// Có thể thêm các converter khác ở đây nếu cần
+	}
 }
