@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -98,4 +99,36 @@ public class House {
     @OneToMany(mappedBy = "house",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private List<Image> contracts;
+
+    public House(String name, String ward, String district, String province, String location, BigDecimal land_space, BigDecimal living_space, String number_bed_room, String description, String number_bath, String coordinates_on_map, String available_status, String updated_date, Account updated_by) {
+        this.name = name;
+        this.ward = ward;
+        this.district = district;
+        this.province = province;
+        this.location = location;
+        this.land_space = land_space;
+        this.living_space = living_space;
+        this.number_bed_room = number_bed_room;
+        this.description = description;
+        this.number_bath = number_bath;
+        this.coordinates_on_map = coordinates_on_map;
+        this.available_status = available_status;
+        this.updated_date = updated_date;
+        this.updated_by = updated_by;
+    }
+
+    public void addAmenities(Amenities amenities) {
+        if (this.amenities == null) {
+            this.amenities = new ArrayList<>();
+        }
+        this.amenities.add(amenities);
+    }
+
+    public void addFireEquipments(FireEquipments fireEquipments) {
+        if (this.fireEquipments == null) {
+            this.fireEquipments = new ArrayList<>();
+        }
+        this.fireEquipments.add(fireEquipments);
+    }
+
 }
