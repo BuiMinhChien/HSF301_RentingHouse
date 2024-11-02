@@ -1,6 +1,7 @@
 package com.spring.mvc.dto;
 
 
+import com.spring.mvc.entity.Role;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,4 +16,6 @@ public class UserRegisterDTO {
     private String username;
     private String password;
     private String email;
+    private Role role;
+    private String verify;
 }

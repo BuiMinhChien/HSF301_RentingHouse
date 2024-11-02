@@ -30,7 +30,7 @@ public class RoleDaoImpl implements RoleDao {
 
     @Override
     public Role findRoleById(int roleId) {
-        String hql = "FROM Role a WHERE a.id = : roleName";
+        String hql = "FROM Role a WHERE a.id = : roleId";
         return sessionFactory.getCurrentSession().createQuery(hql, Role.class)
                 .setParameter("roleId", roleId)
                 .uniqueResult();
