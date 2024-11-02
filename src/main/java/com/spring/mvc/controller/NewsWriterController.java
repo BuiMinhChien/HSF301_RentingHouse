@@ -132,23 +132,23 @@ public class NewsWriterController {
     }
 
 
-//    @GetMapping("/deleteNews")
-//    public String deleteNews(@RequestParam("newsId") int newsId, Principal principal) {
-//        String username = principal.getName();
-//        Account this_user = accountService.findByUsername(username);
-//        if (newsId <= 0) {
-//            return "redirect:/news_writer/get_own_news_list";
-//        }
-//        News news = newsService.getNewsById(newsId);
-//        if(news==null){
-//            return "redirect:/news_writer/get_own_news_list";
-//        }
-//        if(news.getAccount().getId()==this_user.getId()) {
-//            uploadFile.deleteFile(news.getImages().getPath());
-//            newsService.deleteNewsById(newsId);
-//        }
-//        return "redirect:/news_writer/get_own_news_list";
-//    }
+    @GetMapping("/deleteNews")
+    public String deleteNews(@RequestParam("newsId") int newsId, Principal principal) {
+        String username = principal.getName();
+        Account this_user = accountService.findByUsername(username);
+        if (newsId <= 0) {
+            return "redirect:/news_writer/get_own_news_list";
+        }
+        News news = newsService.getNewsById(newsId);
+        if(news==null){
+            return "redirect:/news_writer/get_own_news_list";
+        }
+        if(news.getAccount().getId()==this_user.getId()) {
+            fileUploadUtil.deleteFile(news.getImages().getPath());
+            newsService.deleteNewsById(newsId);
+        }
+        return "redirect:/news_writer/get_own_news_list";
+    }
 
 //    @PostMapping("/uploadAvatar")
 //    public String uploadAvatar(@RequestParam("avatar") MultipartFile avatar, Model model) {
