@@ -1,5 +1,7 @@
 package com.spring.mvc.controller;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import com.spring.mvc.common.QrCode;
 import com.spring.mvc.entity.News;
 import com.spring.mvc.entity.TagForNews;

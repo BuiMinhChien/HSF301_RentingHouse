@@ -19,18 +19,18 @@ import java.util.List;
 public class Topic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name="id")
     private int id;
 
-    @Column(name = "name" , columnDefinition = "NVARCHAR")
+    @Column(name="topic_name" , columnDefinition = "NVARCHAR")
     private String topic_name;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name="parent_topic_id")
     @JsonBackReference
     private Topic parent_topic;
 
-    @OneToMany(mappedBy = "parent_topic", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @OneToMany(mappedBy = "parent_topic", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JsonManagedReference
     private List<Topic> subTopics;
 
