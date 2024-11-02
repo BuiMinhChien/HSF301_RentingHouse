@@ -7,4 +7,5 @@ public interface CustomerService {
 
     public Customer findCustomerById(int id);
     public boolean save(Customer customer,int id);
+    public void update(Customer customer);
 }

@@ -2,6 +2,7 @@ package com.spring.mvc.dao.impl;
 
 import com.spring.mvc.dao.CustomerDAO;
 import com.spring.mvc.entity.Customer;
+import com.spring.mvc.entity.House;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -23,10 +24,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public Customer findById(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        TypedQuery<Customer> query = session.createQuery("from Customer where id = : id", Customer.class);
-        query.setParameter("id", id);
-        return query.getSingleResult();
+        return sessionFactory.getCurrentSession().get(Customer.class, id);
     }
 
     @Override
@@ -55,6 +53,8 @@ public class CustomerDAOImpl implements CustomerDAO {
             existingCustomer.setPhoneNumber(customer.getPhoneNumber());
             existingCustomer.setIdIssuanceDate(customer.getIdIssuanceDate());
             existingCustomer.setIdIssuancePlace(customer.getIdIssuancePlace());
+            existingCustomer.setIdCardFrontImage(existingCustomer.getIdCardFrontImage());
+            existingCustomer.setIdCardBackImage(existingCustomer.getIdCardBackImage());
 
             // Save the updated customer
             session.update(existingCustomer);

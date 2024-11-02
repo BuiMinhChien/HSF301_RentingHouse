@@ -71,6 +71,12 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     public void update(Account account) {
+        sessionFactory.getCurrentSession().update(account);
+    }
 
+
+    @Override
+    public Account findById(int id) {
+        return sessionFactory.getCurrentSession().get(Account.class, id);
     }
 }

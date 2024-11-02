@@ -1,5 +1,7 @@
 package com.spring.mvc.controller;
 
+import com.spring.mvc.common.FileUploadUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.spring.mvc.common.QrCode;
@@ -35,7 +37,9 @@ import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @Controller
@@ -45,15 +49,18 @@ public class CustomerController {
     private TagForNewsService tagForNewsService;
     private TagService tagService;
     private QrCode qrCode;
+
+    @Autowired
     AccountService accountService;
 
+    @Autowired
     CustomerService customerService;
 
-    ImageService imageService;
 
     PasswordEncoder passwordEncoder;
 
-    private static final String UPLOAD_DIRECTORY = "D:\\Semester 5\\HSF301\\HSF301_RentingHouse\\src\\main\\resources\\static\\image";
+    @Autowired
+    private FileUploadUtil fileUploadUtil;
 
     public CustomerController(NewsService newsService, TagForNewsService tagForNewsService,
                               TagService tagService, QrCode qrCode) {
@@ -104,7 +111,6 @@ public class CustomerController {
         model.addAttribute("listTag", tagList);
         return "customer/newsDetail";
     }
-    private static final String UPLOAD_DIRECTORY = "D:\\Semester 5\\HSF301\\HSF301_RentingHouse\\src\\main\\resources\\static\\image";
 
     @GetMapping("/profile")
     public String showProfile(Model model, Principal principal) {
@@ -124,41 +130,26 @@ public class CustomerController {
     @PostMapping("/update")
     public String updateProfile(
             @ModelAttribute("customerDTO") ProfileDTO profileDTO,
-            @RequestParam("idCardFrontImage") MultipartFile idCardFrontImage,
-            @RequestParam("idCardBackImage") MultipartFile idCardBackImage, Model model, Principal principal) throws IOException {
+            @RequestParam("idCardFrontImage") List<MultipartFile> idCardFrontImage,
+            @RequestParam("idCardBackImage") List<MultipartFile> idCardBackImage, Model model, Principal principal) throws IOException {
         // Extract customer and account from DTO
         Account account = accountService.findByUsername(principal.getName());
-        Customer customer = profileDTO.getCustomer();
+        Customer customer = customerService.findCustomerById(account.getId());
 
         // Check if account and customer are not null
         if (customer != null) {
-            // Update account and customer details
-            // Handle file uploads
-
-            // Đường dẫn lưu file
-            String filePath = idCardFrontImage.getOriginalFilename();
-            idCardFrontImage.transferTo(new File(filePath));
-
-            // Lưu ảnh vào bảng Image
-            Image image = new Image();
-            image.setPath(UPLOAD_DIRECTORY + idCardFrontImage.getOriginalFilename());
-            image.setUploadDate(LocalDateTime.now().toString());
-            imageService.saveImage(image);
-
             // Gán đối tượng Image cho News
-
-            // Đường dẫn lưu file
-            String filePath2 = idCardBackImage.getOriginalFilename();
-            idCardBackImage.transferTo(new File(filePath2));
-
-            // Lưu ảnh vào bảng Image
-            Image image2 = new Image();
-            image.setPath(UPLOAD_DIRECTORY + idCardBackImage.getOriginalFilename());
-            image.setUploadDate(LocalDateTime.now().toString());
-            imageService.saveImage(image2);
-
-            // Gán đối tượng Image cho News
-            customerService.save(customer, account.getId());
+            customer.setFullName(profileDTO.getCustomer().getFullName());
+            customer.setGender(profileDTO.getCustomer().getGender());
+            customer.setAddress(profileDTO.getCustomer().getAddress());
+            customer.setPhoneNumber(profileDTO.getCustomer().getPhoneNumber());
+            customer.setFullName(profileDTO.getCustomer().getFullName());
+            customer.setDateOfBirth(profileDTO.getCustomer().getDateOfBirth());
+            customer.setIdIssuanceDate(profileDTO.getCustomer().getIdIssuanceDate());
+            customer.setIdIssuancePlace(profileDTO.getCustomer().getIdIssuancePlace());
+            fileUploadUtil.UploadImagesForCard(idCardFrontImage, customer);
+            fileUploadUtil.UploadImagesForCard(idCardBackImage, customer);
+            customerService.update(customer);
         }
         else
         {
@@ -170,23 +161,10 @@ public class CustomerController {
     }
 
     @PostMapping("/uploadAvatar")
-    public String uploadAvatar(@RequestParam("avatar") MultipartFile avatar, Model model, Principal principal) throws IOException {
+    public String uploadAvatar(@RequestParam("avatar") List<MultipartFile> avatar, Model model, Principal principal) throws IOException {
         Account account = accountService.findByUsername(principal.getName());
-        if (avatar != null && !avatar.isEmpty()) {
-            // Đường dẫn lưu file
-            String filePath = avatar.getOriginalFilename();
-            avatar.transferTo(new File(filePath));
-
-            // Lưu ảnh vào bảng Image
-            Image image = new Image();
-            image.setPath(UPLOAD_DIRECTORY + avatar.getOriginalFilename());
-            image.setUploadDate(LocalDateTime.now().toString());
-            imageService.saveImage(image);
-
-            // Gán đối tượng Image cho News
-            accountService.save(account);
-        }
-
+         fileUploadUtil.UploadImagesForAvata(avatar,account);
+         accountService.update(account);
         return "redirect:/customer/profile";
     }
 
@@ -203,42 +181,33 @@ public class CustomerController {
 
 
     @PostMapping("/change-password")
-    public String changePassword(@RequestParam("oldPassword") String currentPassword,
+    public Map<String, String> changePassword(@RequestParam("oldPassword") String oldPassword,
                                  @RequestParam("newPassword") String newPassword,
                                  @RequestParam("confirmPassword") String confirmPassword,
-                                 Principal principal, Model model) {
-        String name = principal.getName();
-        Account user = accountService.findByUsername(name);
+                                 Principal principal) {
 
-        // Kiểm tra mật khẩu hiện tại có đúng không
-        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
-            model.addAttribute("passwordError", "Mật khẩu hiện tại không đúng.");
-            model.addAttribute("user", user);
-            return "/customer/profile";
-        }
+        Map<String, String> response = new HashMap<>();
 
-        // Kiểm tra nếu mật khẩu mới giống với mật khẩu hiện tại
-        if (passwordEncoder.matches(newPassword, user.getPassword())) {
-            model.addAttribute("passwordError", "Mật khẩu mới không được giống mật khẩu hiện tại.");
-            model.addAttribute("user", user);
-            return "/customer/profile";
-        }
-
-        // Kiểm tra xem mật khẩu mới có khớp với xác nhận mật khẩu không
         if (!newPassword.equals(confirmPassword)) {
-            model.addAttribute("passwordError", "Mật khẩu mới và xác nhận không khớp.");
-            model.addAttribute("user", user);
-            return "/customer/profile";
+            response.put("status", "error");
+            response.put("message", "New password and confirm password do not match.");
+            return response;
+        }
+        String username = principal.getName();
+        Account account = accountService.findByUsername(username);
+        try {
+            accountService.changePassword(username,oldPassword,newPassword );
+            response.put("status", "success");
+            response.put("message", "Password changed successfully.");
+        } catch (IllegalArgumentException e) {
+            response.put("status", "error");
+            response.put("message", e.getMessage());
+        } catch (NoSuchElementException e) {
+            response.put("status", "error");
+            response.put("message", "User not found.");
         }
 
-        // Cập nhật mật khẩu mới
-        user.setPassword(passwordEncoder.encode(newPassword));
-
-        accountService.save(user);
-
-        model.addAttribute("passwordSuccess", "Mật khẩu đã được cập nhập.");
-        model.addAttribute("user", user);
-        return "/customer/profile";
+        return response;
     }
 
 }

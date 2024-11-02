@@ -50,10 +50,38 @@ public class CustomerServiceImpl implements CustomerService {
             existingUser.setIdIssuancePlace(customer.getIdIssuancePlace());
 
             // Lưu thay đổi
-            customerDAO.save(existingUser);
+            customerDAO.update(existingUser);
             return true;
         } else {
             throw new EntityNotFoundException("User not found with id " + id);
+        }
+    }
+
+    @Override
+    public void update(Customer customer) {
+        try {
+            Customer existingAccount = customerDAO.findById(customer.getId());
+            if (existingAccount != null) {
+                // Update fields if they are modified
+                existingAccount.setGender(customer.getGender());
+                existingAccount.setAddress(customer.getAddress());
+                existingAccount.setPhoneNumber(customer.getPhoneNumber());
+                existingAccount.setFullName(customer.getFullName());
+                existingAccount.setDateOfBirth(customer.getDateOfBirth());
+                existingAccount.setIdIssuanceDate(customer.getIdIssuanceDate());
+                existingAccount.setIdIssuancePlace(customer.getIdIssuancePlace());
+                existingAccount.setIdCardFrontImage(existingAccount.getIdCardFrontImage());
+                existingAccount.setIdCardBackImage(existingAccount.getIdCardBackImage());
+                customerDAO.update(existingAccount);
+
+                // Save the updated account
+
+            } else {
+                throw new RuntimeException("Account not found");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw ex;
         }
     }
 

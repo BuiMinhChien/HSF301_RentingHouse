@@ -9,4 +9,8 @@ public interface AccountService {
     boolean existsByUsername(String username);
     public boolean save(Account account);
     boolean existsByEmail(String email);
+    Account findById(int id);
+    public void update(Account account);
+    public void changePassword(String username, String oldPassword, String newPassword);
+    public void updateProfile(Account account);
 }

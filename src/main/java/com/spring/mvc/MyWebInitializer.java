@@ -13,7 +13,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
  */
 public class MyWebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 	public static final String CHARACTER_ENCODING = "UTF-8";
-	private static final String UPLOAD_DIRECTORY = "D:\\FPT_Syllabus\\Ky_5\\HSF301_Hibernate_and_Spring_Framework\\Assignment\\HSF301_RentingHouse\\src\\main\\resources\\static\\image";
+	private static final String UPLOAD_DIRECTORY = "D:\\Semester 5\\HSF301\\HSF301_RentingHouse\\src\\main\\resources\\static\\image";
 	private static final long MAX_FILE_SIZE = 5242880; // 5MB
 	private static final long MAX_REQUEST_SIZE = 20971520; // 20MB
 	private static final int FILE_SIZE_THRESHOLD = 0;

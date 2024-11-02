@@ -10,4 +10,5 @@ public interface AccountDAO {
     boolean existsByEmail(String email);
     public void save(Account account);
     public void update(Account account);
+    Account findById(int id);
 }
