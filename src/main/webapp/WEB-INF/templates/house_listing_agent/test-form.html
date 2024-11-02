@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/house_listing/register}" th:object="${houseRegisterDTO}" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+  <h1>Hồ sơ đăng kí tài sản</h1>
+  <div class="form-group">
+    <input th:field="*{name}" type="text" placeholder="Tên mảnh đất" required>
+  </div>
+  <div class="form-group double">
+    <select th:field="*{province}" id="tinh" name="tinh" required>
+      <option value="">Tỉnh/Thành phố</option>
+    </select>
+    <select type="text" id="quan" th:field="*{district}" name="quan" placeholder="Huyện/Quận" required>
+      <option value="">Quận Huyện</option>
+    </select>
+  </div>
+  <div class="form-group double">
+    <select type="text" id="phuong" name="phuong" th:field="*{ward}" placeholder="Phường xã" required>
+      <option value="">Phường xã</option>
+    </select>
+    <input type="text" th:field="*{land_space}" id="land_space" placeholder="diện tích sàn" required>
+  </div>
+  <div class="form-group double">
+
+    <input type="text" th:field="*{living_space}" id="living_space" placeholder="diện tích sàn" required>
+  </div>
+  <div class="form-group double">
+
+    <input type="text" th:field="*{living_space}" id="square" placeholder="diện tích sàn" required>
+  </div>
+  <div class="form-group double">
+    <div class="single-field">
+      <label>Giá khởi điểm</label>
+      <input type="text" id="price" th:field="*{number_bed_room}" placeholder="Số phòng ngủ" required>
+    </div>
+    <div class="single-field">
+      <label>Địa vị địa lí</label>
+      <input type="text" th:field="*{location}" placeholder="Vị trí bản đồ" required>
+    </div>
+
+  </div>
+  <div class="form-group double">
+    <input type="number"  th:field="*{owner}" placeholder="" required>
+    <input type="number" th:field="*{coordinates_on_map}" placeholder="" required>
+  </div>
+  <div  class="form-group" >
+    <label>Mô tả thêm thông tin chi tiết</label>
+    <textarea th:field="*{description}" placeholder="Mô tả chi tiết" required></textarea>
+  </div>
+  <button type="submit" class="submit-btn">Hoàn thiện</button>
+</form>
+<script>
+  function validateForm() {
+    var priceInput = document.getElementById("price").value;
+
+    // Kiểm tra nếu input chứa chữ cái hoặc là số âm
+    if (!/^\d+$/.test(priceInput) || parseFloat(priceInput) < 0) {
+      alert("Giá khởi điểm phải là số dương và không được chứa chữ cái.");
+      return false; // Ngăn form submit
+    }
+
+    return true; // Cho phép form submit nếu kiểm tra thành công
+  }
+  $(document).ready(function() {
+    // Lấy tỉnh/thành
+    $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function(data_tinh) {
+      if (data_tinh.error == 0) {
+        $.each(data_tinh.data, function(key_tinh, val_tinh) {
+          // Lưu full_name trong value và id trong data-id
+          $("#tinh").append('<option value="' + val_tinh.full_name + '" data-id="' + val_tinh.id + '">' + val_tinh.full_name + '</option>');
+        });
+
+        // Khi chọn tỉnh/thành
+        $("#tinh").change(function() {
+          var tinhName = $(this).val(); // Lấy tên tỉnh/thành đã chọn
+          var idtinh = $("#tinh option:selected").data('id'); // Lấy ID từ thuộc tính data-id
+          console.log("ID Tỉnh/Thành phố:", idtinh);
+          console.log("Tên Tỉnh/Thành phố:", tinhName);
+
+          // Lấy quận/huyện
+          $.getJSON('https://esgoo.net/api-tinhthanh/2/' + idtinh + '.htm', function(data_quan) {
+            if (data_quan.error == 0) {
+              $("#quan").html('<option value="0">Quận Huyện</option>');
+              $("#phuong").html('<option value="0">Phường Xã</option>');
+              $.each(data_quan.data, function(key_quan, val_quan) {
+                // Tương tự như tỉnh, lưu full_name trong value và id trong data-id
+                $("#quan").append('<option value="' + val_quan.full_name + '" data-id="' + val_quan.id + '">' + val_quan.full_name + '</option>');
+              });
+
+              // Khi chọn quận/huyện
+              $("#quan").change(function() {
+                var quanName = $(this).val(); // Lấy tên quận/huyện đã chọn
+                var idquan = $("#quan option:selected").data('id'); // Lấy ID từ thuộc tính data-id
+                console.log("ID Quận/Huyện:", idquan);
+                console.log("Tên Quận/Huyện:", quanName);
+
+                // Lấy phường/xã
+                $.getJSON('https://esgoo.net/api-tinhthanh/3/' + idquan + '.htm', function(data_phuong) {
+                  if (data_phuong.error == 0) {
+                    $("#phuong").html('<option value="0">Phường Xã</option>');
+                    $.each(data_phuong.data, function(key_phuong, val_phuong) {
+                      // Lưu tên trong value và id trong data-id
+                      $("#phuong").append('<option value="' + val_phuong.full_name + '" data-id="' + val_phuong.id + '">' + val_phuong.full_name + '</option>');
+                    });
+
+                    // Khi chọn phường/xã
+                    $("#phuong").change(function() {
+                      var phuongName = $(this).val(); // Lấy tên phường/xã đã chọn
+                      var idphuong = $("#phuong option:selected").data('id'); // Lấy ID từ data-id nếu cần
+                      console.log("ID Phường/Xã:", idphuong);
+                      console.log("Tên Phường/Xã:", phuongName);
+                    });
+                  }
+                });
+              });
+            }
+          });
+        });
+      }
+    });
+  });
+
+</script>
+</body>
+</html>
