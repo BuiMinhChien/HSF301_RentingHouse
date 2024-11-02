@@ -71,20 +71,6 @@ public class DatabaseConfig implements Constants.DatabaseConfig {
 //        properties.put(HIBERNATE_HBM2DDL_AUTO, environment.getProperty(HIBERNATE_HBM2DDL_AUTO));
         return properties;
     }
-
-
-    @Bean
-    MultipartConfigElement multipartConfigElement() {
-        long maxFileSize = Long.parseLong(environment.getProperty("spring.servlet.multipart.max-file-size"));
-        long maxRequestSize = Long.parseLong(environment.getProperty("spring.servlet.multipart.max-request-size"));
-
-        MultipartConfigFactory factory = new MultipartConfigFactory();
-        factory.setMaxFileSize(DataSize.ofBytes(maxFileSize));
-        factory.setMaxRequestSize(DataSize.ofBytes(maxRequestSize));
-
-        return factory.createMultipartConfig();
-    }
-
 }
 //1. SessionFactory
 //Định nghĩa: SessionFactory là một đối tượng trong Hibernate được sử dụng để tạo ra các phiên (session) làm việc với cơ sở dữ liệu. Nó được cấu hình một lần và có thể được tái sử dụng để tạo ra nhiều phiên.
