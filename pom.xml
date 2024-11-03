@@ -151,19 +151,6 @@
             <artifactId>spring-security-config</artifactId>
             <version>6.0.0</version>
         </dependency>
-        <!-- Spring WebSocket -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-websocket</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <!-- Spring Messaging (cần thiết cho WebSocket hỗ trợ STOMP) -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-messaging</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
 
         <!-- Spring WebSocket hỗ trợ SockJS -->
 <!--        <dependency>-->
