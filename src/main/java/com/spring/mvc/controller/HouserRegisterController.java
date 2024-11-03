@@ -18,7 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
-@RequestMapping("house-listing")
+@RequestMapping("/house-listing")
 public class HouserRegisterController {
     private HouseService houseService;
     private FireEquipmentService fireEquipmentService;
