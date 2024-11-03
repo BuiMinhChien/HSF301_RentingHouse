@@ -23,7 +23,7 @@ public class Amenities {
     @Column(name = "name", columnDefinition = "NVARCHAR")
     private String name;
 
-    @ManyToMany(mappedBy = "amenities", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToMany(mappedBy = "amenities", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private List<House> houses;
 
     @Override

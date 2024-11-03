@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Repository(value = "HouseDAO")
+@Repository(value = "houseDAO")
 @Transactional(propagation = Propagation.REQUIRED)
 @DependsOn(value = "sessionFactory")
 public class HouserDAOImple implements HouseDAO {

@@ -53,4 +53,6 @@ public class HouseOwner {
         this.address = address;
         this.name = name;
     }
+
+
 }
