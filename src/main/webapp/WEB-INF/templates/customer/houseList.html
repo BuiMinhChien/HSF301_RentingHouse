@@ -293,7 +293,8 @@ Author URL: http://w3layouts.com
                         <a class="nav-link" th:href="@{/}" style="font-size: 20px;">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" th:href="@{/customer/get_all_asset}" style="font-size: 20px;">House</a>
+                        <a class="nav-link active" th:href="@{/customer/get_all_asset}"
+                           style="font-size: 20px;">House</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/customer/get_all_news}" style="font-size: 20px;">News</a>
@@ -406,21 +407,37 @@ Author URL: http://w3layouts.com
                                            th:text="${house.name.length() > 40 ? house.name.substring(0, 40) + '...' : house.name}"
                                            th:title="${house.name}">
                                         </a>
-                                        <span th:if="${house.contracts.size() > 0}"
+                                        <span th:href="@{/customer/viewHouseDetail(houseId=${house.id})}"
+                                              class="blog-desc"
+                                              th:text="${house.description.length() > 40 ? house.description.substring(0, 40) + '...' : house.description}">
+                                        </span>
+                                        <span th:if="${house.contract != null}"
                                               th:href="@{/customer/viewHouseDetail(houseId=${house.id})}"
                                               class="blog-desc"
-                                              th:text="${house.contracts.get(0).price} + ' vnd/month'">
+                                              th:text="${house.contract.price} + ' vnd/month'">
                                         </span>
-
                                     </div>
                                     <div class="card-footer">
                                         <div>
-                                            <!--                                            <div>-->
-                                            <!--                                                <span class="meta-value">Starting price: </span>-->
-                                            <!--                                                <span th:text="${auction.startingPrice}"-->
-                                            <!--                                                      style="font-weight: bold; color: #f9351b;"></span>-->
-                                            <!--                                                <span class="meta-value">(VNĐ) </span>-->
-                                            <!--                                            </div>-->
+                                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                                <!-- Phần hiển thị giá tiền lệch trái -->
+                                                <div style="font-weight: bold; color: #f9351b;">
+                                                    <span th:if="${house.contract != null}"
+                                                          th:text="${house.contract.price}"></span>
+                                                    <span class="meta-value">vnd/month</span>
+                                                </div>
+
+                                                <!-- Phần biểu tượng lệch phải -->
+                                                <div style="display: flex; gap: 10px; color: #B0B0B0;">
+                                                    <span class="meta-value">
+                                                        <i class="fas fa-bed"></i> <span th:text="${house.number_bed_room}"></span>
+                                                    </span>
+                                                    <span class="meta-value">
+                                                        <i class="fas fa-bath"></i> <span th:text="${house.number_bath}"></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
