@@ -99,16 +99,6 @@ public class CustomerController {
         return "customer/houseList";
     }
 
-//    @GetMapping("/filter_news")
-//    public String filterNews(
-//            @RequestParam(required = false) List<Integer> tagIds,
-//            @RequestParam(required = false) String keyword,
-//            Model model) {
-//        List<News> filteredNews = newsService.filterNews(tagIds, keyword);
-//        model.addAttribute("listNews", filteredNews);
-//        return "customer/newsList :: newsListFragment";
-//    }
-
     @GetMapping("/viewNewsDetail")
     public String getNewsById(@RequestParam("newsId") int newsId, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -330,7 +320,6 @@ public class CustomerController {
 
 
     @PostMapping("/change-password")
-    @ResponseBody
     public Map<String, String> changePassword(@RequestParam("oldPassword") String oldPassword,
                                               @RequestParam("newPassword") String newPassword,
                                               @RequestParam("confirmPassword") String confirmPassword,
@@ -360,6 +349,22 @@ public class CustomerController {
         return response;
     }
 
+    @GetMapping("/filter_houses")
+    public String filterHouses(
+            @RequestParam(value = "status", required = false) String status,
+            @RequestParam(value = "province", required = false) String province,
+            @RequestParam(value = "district", required = false) String district,
+            @RequestParam(value = "ward", required = false) String ward,
+            Model model) {
+        // Gọi service để lấy danh sách nhà dựa vào các bộ lọc
+        List<House> filteredHouses = houseService.filterHouses(status, province, district, ward);
+        System.out.println(filteredHouses.size());
+        // Thêm danh sách nhà đã lọc vào model
+        model.addAttribute("listHouse", filteredHouses);
+
+        // Trả về fragment để cập nhật danh sách nhà trong giao diện
+        return "customer/houseList :: houseListFragment";
+    }
     @GetMapping("/viewRegisterHistory")
     public String getRegisterHistory(Model model, Principal principal) {
         Account account = accountService.findByUsername(principal.getName());

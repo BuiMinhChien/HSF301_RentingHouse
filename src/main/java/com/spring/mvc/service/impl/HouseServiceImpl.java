@@ -67,6 +67,11 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
+    public List<House> filterHouses(String status, String province, String district, String ward) {
+        return houseDAO.filterHouses(status, province, district, ward);
+    }
+
+    @Override
     public List<House> getAllHouses() {
         return houseDAO.findAll();
     }
