@@ -12,4 +12,5 @@ public interface HouseDAO {
     public List<House> findAll();
     public House findByName(String name);
     public House findTop3ByOrderByUpdatedDateDesc();
+    public List<House> filterHouses(String statuses, String province, String district, String ward);
 }
