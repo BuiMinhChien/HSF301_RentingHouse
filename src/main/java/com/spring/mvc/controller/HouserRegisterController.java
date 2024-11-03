@@ -57,7 +57,8 @@ public class HouserRegisterController {
                                  @RequestParam(value = "images") List<MultipartFile> images,
                                  @RequestParam(value = "documents") List<MultipartFile> documents,
                                  Model model, Principal principal) {
-        //Lâý session người dđăng nhap
+        //Lâý session người đăng nhap
+        System.out.println(houseform.getProvince());
         String username = principal.getName();
         Account account = accountService.findByUsername(username);
         //Lưu House vào database
@@ -66,7 +67,7 @@ public class HouserRegisterController {
         String formattedDate = createdDate.format(formatter);
         House house = new House(houseform.getName(), houseform.getWard(), houseform.getDistrict(), houseform.getProvince(),
                                 houseform.getLocation(), houseform.getLand_space(), houseform.getLiving_space(), houseform.getNumber_bed_room(),
-                                houseform.getDescription(), houseform.getNumber_bath(), houseform.getCoordinates_on_map(),"Rảnh", formattedDate, account);
+                                houseform.getDescription(), houseform.getNumber_bath(), houseform.getCoordinates_on_map(),"1", formattedDate, account);
         //Lưu HouseOwner vào database
         HouseOwner houseOwner = new HouseOwner(houseform.getHouseOwnerPhone(),houseform.getHouseOwnerAddress(), houseform.getHouseOwnerName()) ;
         //Lưu  Contract
@@ -96,12 +97,13 @@ public class HouserRegisterController {
         //Contract toi HouseOwner
         contract.setOwner(houseOwner);
         //Image to House
-        fileUploadUtil.UploadImagesForHouse(houseform.getImages(), house);
+        fileUploadUtil.UploadImagesForHouse(images, house);
+        //Document to Contract
+        fileUploadUtil.UploadDocumentForContract(documents, contract);
         //Luu lan luot tat ca
-        houseService.save(house);
         houseOwnerService.save(houseOwner);
+        houseService.save(house);
         contractService.save(contract);
         return "house_listing_agent/house-register-success";
     }
-
 }

@@ -109,8 +109,8 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="location">Location</label>
-                                            <input type="text" th:field="*{location}" id="location"
+                                            <label for="name">Name</label>
+                                            <input type="text" th:field="*{name}" id="name"
                                                    required class="form-control">
                                         </div>
                                     </div>
@@ -119,7 +119,7 @@
                                     <div class="col-md-4 pr-1">
                                         <div class="form-group">
                                             <label for="tinh">Province</label>
-                                            <select class="css_select" id="tinh" name="tinh" title="Chọn Tỉnh Thành" required step="0.01" min="0.01" max="9999.99" placeholder="Tỉnh/Thành phố ">
+                                            <select th:field="*{province}"  class="css_select" id="tinh" name="tinh" title="Chọn Tỉnh Thành" required step="0.01" min="0.01" max="9999.99" placeholder="Tỉnh/Thành phố ">
                                                 <option value="0">Tỉnh Thành</option>
                                             </select>
                                         </div>
@@ -127,7 +127,7 @@
                                     <div class="col-md-4 px-1">
                                         <div class="form-group">
                                             <label for="quan">District</label>
-                                            <select class="css_select" id="quan" name="quan" title="Chọn Quận Huyện">
+                                            <select th:field="*{district}" class="css_select" id="quan" name="quan" title="Chọn Quận Huyện">
                                                 <option value="0">Quận Huyện</option>
                                             </select>
                                         </div>
@@ -135,32 +135,48 @@
                                     <div class="col-md-4 pl-1">
                                         <div class="form-group">
                                             <label for="area">Ward</label>
-                                            <select class="css_select" id="phuong" name="phuong" title="Chọn Phường Xã">
+                                            <select th:field="*{ward}" class="css_select" id="phuong" name="phuong" title="Chọn Phường Xã">
                                                 <option value="0">Phường Xã</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4 pr-1">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="location">Location</label>
+                                            <input type="text" th:field="*{location}" id="location"
+                                                   required class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 pr-1">
                                         <div class="form-group">
                                             <label for="land_space">Land space</label>
                                             <input type="number" th:field="*{land_space}" id="land_space" class="form-control"
                                                    required step="0.01" min="0.01" max="9999.99" placeholder="#.##">
                                         </div>
                                     </div>
-                                    <div class="col-md-4 px-1">
+                                    <div class="col-md-3 px-1">
                                         <div class="form-group">
                                             <label for="living_space">Living space</label>
                                             <input type="number" th:field="*{living_space}" id="living_space" class="form-control"
                                                    required step="0.01" min="0.01" max="9999.99" placeholder="#.##">
                                         </div>
                                     </div>
-                                    <div class="col-md-4 pl-1">
+                                    <div class="col-md-3 pl-1">
                                         <div class="form-group">
                                             <label for="area">Number of bed room</label>
                                             <input type="number" th:field="*{number_bed_room}" id="area" class="form-control"
                                                    required step="0.0001" min="0.0001" max="99999999.9999" placeholder="#.####">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 pr-1">
+                                        <div class="form-group">
+                                            <label for="number_bath">Number of Bath</label>
+                                            <input type="number" th:field="*{number_bath}" id="number_bath" class="form-control"
+                                                   required step="0.01" min="0.01" max="9999.99" placeholder="#.##">
                                         </div>
                                     </div>
                                 </div>
@@ -190,7 +206,7 @@
                                         <div th:each="equipment : ${fireEquipments}">
                                             <input type="checkbox" name="fireEquipments" th:id="'equipment-' + ${equipment.id}"
                                                    th:value="${equipment.id}" class="form-control" />
-                                            <label th:for="'equipment-' + ${equipment.id}" th:text="${equipment.name}" th:field="*{fireEquipments}"></label>
+                                            <label th:for="'equipment-' + ${equipment.id}" th:text="${equipment.name}" ></label>
                                         </div>
                                     </div>
                                 </div>
@@ -200,7 +216,7 @@
                                         <div th:each="amenity : ${listAmenities}">
                                             <input type="checkbox" name="amenities" th:id="'amenity-' + ${amenity.id}"
                                                    th:value="${amenity.id}" class="form-control" />
-                                            <label th:for="'amenity-' + ${amenity.id}" th:text="${amenity.name}" th:field="*{amenities}"></label>
+                                            <label th:for="'amenity-' + ${amenity.id}" th:text="${amenity.name}"></label>
                                         </div>
                                     </div>
                                 </div>
@@ -208,19 +224,19 @@
                                     <div class="col-md-6">
                                         <div>
                                             <label for="images">Choose images</label>
-                                            <input th:field="*{images}" type="file" name="images" id="images" class="form-control" multiple
+                                            <input  type="file" name="images" id="images" class="form-control" multiple
                                                    required
                                                    accept="image/png, image/jpeg, image/jpg, image/gif">
-
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div>
-                                            <label for="documents">Choose documents</label>
-                                            <input type="file" th:field="*{documents}" name="documents" id="documents" class="form-control"
+                                            <label for="documents">Choose rule document</label>
+                                            <input type="file"  name="documents" id="documents" class="form-control"
                                                    multiple
+                                                   accept=".pdf,.doc,.docx,.xls,.xlsx,.txt"
                                                    required>
                                         </div>
                                     </div>
@@ -229,21 +245,21 @@
                                     <div class="col-md-4 pr-1">
                                         <div class="form-group">
                                             <label for="house_owner_name">House Owner Name</label>
-                                            <input type="number" th:field="*{houseOwnerName}" id="house_owner_name" class="form-control"
+                                            <input type="text" th:field="*{houseOwnerName}" id="house_owner_name" class="form-control"
                                                    required step="0.01" min="0.01" max="9999.99" placeholder="#.##">
                                         </div>
                                     </div>
                                     <div class="col-md-4 px-1">
                                         <div class="form-group">
                                             <label for="house_owner_address">House Owner Address</label>
-                                            <input type="number" th:field="*{houseOwnerAddress}" id="house_owner_address" class="form-control"
+                                            <input type="text" th:field="*{houseOwnerAddress}" id="house_owner_address" class="form-control"
                                                    required step="0.01" min="0.01" max="9999.99" placeholder="#.##">
                                         </div>
                                     </div>
                                     <div class="col-md-4 pl-1">
                                         <div class="form-group">
                                             <label for="house_Owner_Phone">House Owner Phone</label>
-                                            <input type="number" th:field="*{houseOwnerPhone}" id="house_Owner_Phone" class="form-control"
+                                            <input type="text" th:field="*{houseOwnerPhone}" id="house_Owner_Phone" class="form-control"
                                                    required step="0.0001" min="0.0001" max="99999999.9999" placeholder="#.####">
                                         </div>
                                     </div>
@@ -344,53 +360,59 @@
         }
     });
     $(document).ready(function() {
-        // Lấy tỉnh thành
+        // Lấy tỉnh/thành
         $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function(data_tinh) {
             if (data_tinh.error == 0) {
                 $.each(data_tinh.data, function(key_tinh, val_tinh) {
-                    // Gán full_name vào text của option
-                    $("#tinh").append('<option value="' + val_tinh.id + '">' + val_tinh.full_name + '</option>');
+                    // Lưu full_name trong value và id trong data-id
+                    $("#tinh").append('<option value="' + val_tinh.full_name + '" data-id="' + val_tinh.id + '">' + val_tinh.full_name + '</option>');
                 });
 
-                // Khi chọn tỉnh
-                $("#tinh").change(function(e) {
-                    var tinhText = $("#tinh option:selected").text();  // Lấy tên tỉnh
-                    $("#selectedTinh").text("Tỉnh: " + tinhText);
+                // Khi chọn tỉnh/thành
+                $("#tinh").change(function() {
+                    var tinhName = $(this).val(); // Lấy tên tỉnh/thành đã chọn
+                    var idtinh = $("#tinh option:selected").data('id'); // Lấy ID từ thuộc tính data-id
+                    console.log("ID Tỉnh/Thành phố:", idtinh);
+                    console.log("Tên Tỉnh/Thành phố:", tinhName);
 
-                    var idtinh = $(this).val(); // Vẫn lấy ID để truy xuất quận huyện
-                    // Lấy quận huyện
+                    // Lấy quận/huyện
                     $.getJSON('https://esgoo.net/api-tinhthanh/2/' + idtinh + '.htm', function(data_quan) {
                         if (data_quan.error == 0) {
                             $("#quan").html('<option value="0">Quận Huyện</option>');
                             $("#phuong").html('<option value="0">Phường Xã</option>');
                             $.each(data_quan.data, function(key_quan, val_quan) {
-                                $("#quan").append('<option value="' + val_quan.id + '">' + val_quan.full_name + '</option>');
+                                // Tương tự như tỉnh, lưu full_name trong value và id trong data-id
+                                $("#quan").append('<option value="' + val_quan.full_name + '" data-id="' + val_quan.id + '">' + val_quan.full_name + '</option>');
+                            });
+
+                            // Khi chọn quận/huyện
+                            $("#quan").change(function() {
+                                var quanName = $(this).val(); // Lấy tên quận/huyện đã chọn
+                                var idquan = $("#quan option:selected").data('id'); // Lấy ID từ thuộc tính data-id
+                                console.log("ID Quận/Huyện:", idquan);
+                                console.log("Tên Quận/Huyện:", quanName);
+
+                                // Lấy phường/xã
+                                $.getJSON('https://esgoo.net/api-tinhthanh/3/' + idquan + '.htm', function(data_phuong) {
+                                    if (data_phuong.error == 0) {
+                                        $("#phuong").html('<option value="0">Phường Xã</option>');
+                                        $.each(data_phuong.data, function(key_phuong, val_phuong) {
+                                            // Lưu tên trong value và id trong data-id
+                                            $("#phuong").append('<option value="' + val_phuong.full_name + '" data-id="' + val_phuong.id + '">' + val_phuong.full_name + '</option>');
+                                        });
+
+                                        // Khi chọn phường/xã
+                                        $("#phuong").change(function() {
+                                            var phuongName = $(this).val(); // Lấy tên phường/xã đã chọn
+                                            var idphuong = $("#phuong option:selected").data('id'); // Lấy ID từ data-id nếu cần
+                                            console.log("ID Phường/Xã:", idphuong);
+                                            console.log("Tên Phường/Xã:", phuongName);
+                                        });
+                                    }
+                                });
                             });
                         }
                     });
-                });
-
-                // Khi chọn quận
-                $("#quan").change(function(e) {
-                    var quanText = $("#quan option:selected").text();  // Lấy tên quận
-                    $("#selectedQuan").text("Quận: " + quanText);
-
-                    var idquan = $(this).val();  // Vẫn lấy ID để truy xuất phường xã
-                    // Lấy phường xã
-                    $.getJSON('https://esgoo.net/api-tinhthanh/3/' + idquan + '.htm', function(data_phuong) {
-                        if (data_phuong.error == 0) {
-                            $("#phuong").html('<option value="0">Phường Xã</option>');
-                            $.each(data_phuong.data, function(key_phuong, val_phuong) {
-                                $("#phuong").append('<option value="' + val_phuong.id + '">' + val_phuong.full_name + '</option>');
-                            });
-                        }
-                    });
-                });
-
-                // Khi chọn phường
-                $("#phuong").change(function(e) {
-                    var phuongText = $("#phuong option:selected").text();  // Lấy tên phường
-                    $("#selectedPhuong").text("Phường: " + phuongText);
                 });
             }
         });

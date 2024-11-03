@@ -4,4 +4,6 @@ import com.spring.mvc.entity.HouseOwner;
 
 public interface HouseOwnerService {
     public void save(HouseOwner houseOwner);
+    public HouseOwner findByEmail(String email);
 }
+

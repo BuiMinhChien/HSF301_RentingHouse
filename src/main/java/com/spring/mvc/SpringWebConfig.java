@@ -4,6 +4,8 @@
 package com.spring.mvc;
 
 
+import com.spring.mvc.service.EmailService;
+import com.spring.mvc.service.impl.EmailServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -134,5 +136,11 @@ public class SpringWebConfig implements WebMvcConfigurer, ApplicationContextAwar
 		// Thêm Jackson converter để hỗ trợ JSON
 		converters.add(new MappingJackson2HttpMessageConverter());
 		// Có thể thêm các converter khác ở đây nếu cần
+	}
+
+	@Bean
+	public EmailService emailService() {
+		// Khởi tạo EmailServiceImpl với email và mật khẩu của bạn
+		return new EmailServiceImpl("chunglddhe181800@fpt.edu.vn", "efgdrspexinqcwhy");
 	}
 }
