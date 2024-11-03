@@ -34,7 +34,7 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
         } else if (roles.contains("ROLE_CUSTOMER")) {
             response.sendRedirect("/customer/homepage");
         } else {
-            response.sendRedirect("/customer/homepage");
+            response.sendRedirect("/home");
         }
     }
 }
