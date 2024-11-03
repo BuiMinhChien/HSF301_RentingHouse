@@ -99,7 +99,6 @@ public class House {
     @OneToMany(mappedBy = "house", fetch = FetchType.EAGER,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private List<Contract> contracts;
-    private List<Contract> contracts;
 
     public House(String name, String ward, String district, String province, String location, BigDecimal land_space, BigDecimal living_space, String number_bed_room, String description, String number_bath, String coordinates_on_map, String available_status, String updated_date, Account updated_by) {
         this.name = name;
