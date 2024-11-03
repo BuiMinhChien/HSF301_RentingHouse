@@ -22,8 +22,8 @@ public class FileUploadUtil {
     private NewsService newsService;
     private String imageUploadDir = "src/main/resources/static/image/";
     private String documentUploadDir = "src/main/resources/static/document/";
-    private static final String UPLOAD_IMAGE_DIRECTORY = "E:\\Semester5\\HFS301\\PROJECT\\HSF301_RentingHouse\\src\\main\\resources\\static\\image";
-    private static final String UPLOAD_DOCUMENT_DIRECTORY = "E:\\Semester5\\HFS301\\PROJECT\\HSF301_RentingHouse\\src\\main\\resources\\static\\document";
+    private static final String UPLOAD_IMAGE_DIRECTORY = "E:\\Semester5\\HFS301\\PROJECT\\HSF301_RentingHouse\\src\\main\\resources\\static\\image\\";
+    private static final String UPLOAD_DOCUMENT_DIRECTORY = "E:\\Semester5\\HFS301\\PROJECT\\HSF301_RentingHouse\\src\\main\\resources\\static\\document\\";
     private ImageService imageService;
     private HouseService houseService;
     private DocumentService documentService;
