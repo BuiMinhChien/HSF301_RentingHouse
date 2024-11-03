@@ -96,9 +96,12 @@ public class House {
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private List<Image> images;
 
-    @OneToMany(mappedBy = "house", fetch = FetchType.EAGER,
+    @OneToOne(mappedBy = "house", fetch = FetchType.EAGER,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
-    private List<Contract> contracts;
+    private Contract contract;
+
+    @OneToMany(mappedBy = "house", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    private List<HouseRegister> registers;
 
     public House(String name, String ward, String district, String province, String location, BigDecimal land_space, BigDecimal living_space, String number_bed_room, String description, String number_bath, String coordinates_on_map, String available_status, String updated_date, Account updated_by) {
         this.name = name;
@@ -129,6 +132,13 @@ public class House {
             this.fireEquipments = new ArrayList<>();
         }
         this.fireEquipments.add(fireEquipments);
+    }
+
+    public void addRegister(HouseRegister register) {
+        if (this.registers == null) {
+            this.registers = new ArrayList<>();
+        }
+        this.registers.add(register);
     }
 
 }

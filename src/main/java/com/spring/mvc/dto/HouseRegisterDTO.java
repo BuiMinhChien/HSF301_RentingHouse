@@ -33,11 +33,11 @@ public class HouseRegisterDTO {
      String HouseOwnerPhone;//HouseOwner
      String HouseOwnerAddress;//HouseOwner
      Account updated_by;
-     List<Tag> tagList;
-     List<Amenities> amenities;
-     List<FireEquipments> fireEquipments;
-     List<MultipartFile> images;
-     List<MultipartFile> documents;//Contract
+//     List<Tag> tagList;
+//     List<Amenities> amenities;
+//     List<FireEquipments> fireEquipments;
+//     List<MultipartFile> images;
+//     List<MultipartFile> documents;//Contract
      long price;//Contract
      BigDecimal lease_duration_day;//Contract
      String created_date;//Contract

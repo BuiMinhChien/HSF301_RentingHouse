@@ -61,6 +61,17 @@ CREATE TABLE Account (
     registration_date VARCHAR(100)
 );
 
+CREATE TABLE Token (
+    id INT IDENTITY(1,1) PRIMARY KEY,             
+    token VARCHAR(255) NOT NULL,                  
+    expiry_date DATETIME NOT NULL,            
+    account_id INT,                                
+    
+    CONSTRAINT FK_Account_Token FOREIGN KEY (account_id) REFERENCES Account(id) 
+);
+
+
+
 -- 4. Bảng "House" vì các bảng Image và Document sẽ tham chiếu tới
 CREATE TABLE House (
     id INT PRIMARY KEY IDENTITY(1,1),

@@ -26,5 +26,4 @@ public class Document {
 
     @Column(name = "upload_date")
     private String uploadDate;
-
 }
