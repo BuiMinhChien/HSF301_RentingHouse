@@ -35,7 +35,23 @@ public class HouseDAOImpl implements HouseDAO {
 
     @Override
     public void update(House house) {
-        sessionFactory.getCurrentSession().save(house);
+        House existingHouse = findById(house.getId());
+        existingHouse.setName(house.getName());
+        existingHouse.setWard(house.getWard());
+        existingHouse.setDistrict(house.getDistrict());
+        existingHouse.setProvince(house.getProvince());
+        existingHouse.setLocation(house.getLocation());
+        existingHouse.setLand_space(house.getLand_space());
+        existingHouse.setLiving_space(house.getLiving_space());
+        existingHouse.setNumber_bed_room(house.getNumber_bed_room());
+        existingHouse.setNumber_bath(house.getNumber_bath());
+        existingHouse.setDescription(house.getDescription());
+        existingHouse.setCoordinates_on_map(house.getCoordinates_on_map());
+        existingHouse.setAvailable_status(house.getAvailable_status());
+        existingHouse.setUpdated_by(house.getUpdated_by());
+        existingHouse.setUpdated_date(house.getUpdated_date());
+        existingHouse.setOwner(house.getOwner());
+        sessionFactory.getCurrentSession().save(existingHouse);
     }
 
     @Override
@@ -71,6 +87,5 @@ public class HouseDAOImpl implements HouseDAO {
         query.setMaxResults(3);
         return query.getSingleResult();
     }
-
 
 }

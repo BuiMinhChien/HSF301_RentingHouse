@@ -1,5 +1,6 @@
 package com.spring.mvc.controller;
 
+import com.spring.mvc.common.GetSrcInGoogleMapEmbededURLUtil;
 import com.spring.mvc.entity.*;
 import com.spring.mvc.service.*;
 import com.spring.mvc.common.FileUploadUtil;
@@ -50,19 +51,18 @@ public class CustomerController {
     private HouseService houseService;
     private AccountService accountService;
     private HouseRegisterService houseRegisterService;
-
+    private ContractService contractService;
     @Autowired
-    CustomerService customerService;
-
-
-    PasswordEncoder passwordEncoder;
+    private CustomerService customerService;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private FileUploadUtil fileUploadUtil;
 
     public CustomerController(NewsService newsService, TagForNewsService tagForNewsService,
                               TagService tagService, QrCode qrCode, HouseService houseService,
-                              AccountService accountService, HouseRegisterService houseRegisterService) {
+                              AccountService accountService, HouseRegisterService houseRegisterService,
+                              ContractService contractService) {
         this.newsService = newsService;
         this.tagForNewsService = tagForNewsService;
         this.tagService = tagService;
@@ -70,6 +70,7 @@ public class CustomerController {
         this.houseService = houseService;
         this.accountService = accountService;
         this.houseRegisterService = houseRegisterService;
+        this.contractService = contractService;
     }
 
     @GetMapping("/get_all_news")
@@ -149,8 +150,8 @@ public class CustomerController {
         //lay ra nguoi dang ky
         String username = principal.getName();
         Account account = accountService.findByUsername(username);
-//        String embedUrl = GetSrcInGoogleMapEmbededURLUtil.extractSrcFromIframe(auction.getAsset().getCoordinatesOnMap());
-//        model.addAttribute("embedUrl", embedUrl);
+        String embedUrl = GetSrcInGoogleMapEmbededURLUtil.extractSrcFromIframe(house.getCoordinates_on_map());
+        model.addAttribute("embedUrl", embedUrl);
         model.addAttribute("house", house);
         qrCode.setAmount(house.getContract().getPrice()+"");
         qrCode.setDescription("UserId " + account.getId() + " contract price " + house.getId());
@@ -165,120 +166,98 @@ public class CustomerController {
         return "customer/houseDetail";
     }
 
-//    @PostMapping("/registerAuction")
-//    public String registerAuction(@RequestParam(value = "validate", required = false) String validate,
-//                                  @RequestParam("houseId") int houseId, RedirectAttributes redirectAttributes,Principal principal) {
-//        if (houseId <= 0) {
-//            return "redirect:/customer/get_all_house";
-//        }
-//        House house = houseService.findById(houseId);
-//        if (house == null) {
-//            return "redirect:/customer/get_all_house";
-//        }
-//        //check xem nguoi dung da validate tai khoan chua
-//        String username = principal.getName();
-//        Account account = accountService.findByUsername(username);
-//        // Kiểm tra tài khoản đã xác thực chưa
-//        if (account.getVerify() == ) {
-//            if (validate != null) {
-//                // Cập nhật trạng thái đăng ký vào database
-//                AuctionRegister register = new AuctionRegister(auction, this_user, "Waiting for payment", null, null, null, LocalDateTime.now());
-//                auctionRegisterService.createAuctionRegister(register);
-//
-//                // Tạo thông báo sau khi đăng ký thành công
+    @PostMapping("/registerHouse")
+    public String registerHouse(@RequestParam(value = "validate", required = false) String validate,
+                                @RequestParam("houseId") int houseId, RedirectAttributes redirectAttributes,Principal principal) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof String);
+        redirectAttributes.addAttribute("isLoggedIn", isLoggedIn);
+        if (houseId <= 0) {
+            return "redirect:/customer/get_all_house";
+        }
+        House house = houseService.findById(houseId);
+        if (house == null) {
+            return "redirect:/customer/get_all_house";
+        }
+        //check xem nguoi dung da validate tai khoan chua
+        String username = principal.getName();
+        Account account = accountService.findByUsername(username);
+        // Kiểm tra tài khoản đã xác thực chưa
+        if (account.getVerify().equals("1")) {
+            if (validate != null) {
+                // Cập nhật trạng thái đăng ký vào database
+                HouseRegister register = new HouseRegister();
+                register.setHouse(house);
+                register.setAccount(account);
+                register.setResult(null);
+                register.setDeposit_status("Not transferred");
+                register.setRegistration_time(LocalDateTime.now().toString());
+                houseRegisterService.save(register);
+
+                // Tạo thông báo sau khi đăng ký thành công
 //                Notification notification = new Notification();
 //                notification.setContent("You have registered to participate in the auction, please transfer money to complete the procedure.");
 //                notification.setCreatedDate(LocalDateTime.now());
 //                notification.setReadStatus("unread"); // Trạng thái chưa đọc
-//
-//                // Lưu thông báo vào cơ sở dữ liệu và gửi SSE cho client
-//                notification.addAccount(this_user);
-//                this_user.addNotification(notification);
-//                notificationService.saveNotification(notification);
-//                notificationService.sendNotification(notification); // Gửi SSE tới client
-//
-//                redirectAttributes.addFlashAttribute("error", "Registration successful, please transfer the deposit and register fee");
-//            }
-//        } else {
-//            // Tài khoản chưa xác thực
-//            redirectAttributes.addFlashAttribute("error", "Please complete your personal information before registering for the auction");
-//            if (LocalDateTime.now().isAfter(auction.getRegistrationOpenDate()) && LocalDateTime.now().isBefore(auction.getRegistrationCloseDate())) {
-//                if (this_user.getVerify() == 1) {
-//                    //kiem tra xem nguoi dung da tick het chua
-//                    if (validate != null) {
-//                        //cap nhat trang thai vao database
-//                        AuctionRegister register = new AuctionRegister(auction, this_user, "Waiting for payment", null, null, null, LocalDateTime.now());
-//                        auctionRegisterService.createAuctionRegister(register);
-//                        redirectAttributes.addFlashAttribute("error", "Registration successful, please transfer the deposit and register fee");
-//                    }
-//                } else {
-//                    //gui thong bao tai khoan chua validate
-//                    redirectAttributes.addFlashAttribute("error", "Please complete your personal information before registering for the auction");
-//                }
-//            }
-//        }
-//
-//        return "redirect:/customer/viewAuctionDetail?auctionId=" + auctionId;
-//    }
 
-//
-//    @PostMapping("/transferDepositAndFee")
-//    public String transferDepositAndFee(@RequestParam(value = "transfer", required = false) String transfer,
-//                                        @RequestParam("auctionId") int auctionId,
-//                                        @RequestParam("auctionRegisterId") int auctionRegisterId, RedirectAttributes redirectAttributes) {
-//        if (auctionId <= 0) {
-//            return "redirect:/customer/get_all_auction";
-//        }
-//        AuctionSession auction = auctionService.getAuctionSessionById(auctionId);
-//        if (auction == null) {
-//            return "redirect:/customer/get_all_auction";
-//        }
-//        if (LocalDateTime.now().isAfter(auction.getRegistrationOpenDate()) && LocalDateTime.now().isBefore(auction.getRegistrationCloseDate())) {
-//            //check xem nguoi dung da chuyen tien chua
-//            if (transfer != null) {
-//                AuctionRegister auctionRegister = auctionRegisterService.getAuctionRegisterById(auctionRegisterId);
-//                auctionRegister.setRegisterStatus("Waiting for confirmation");
-//                auctionRegisterService.updateRegisterStatus(auctionRegister);
-//                redirectAttributes.addFlashAttribute("error", "Please wait while we confirm the transaction, the result will be sent to you via notification");
-//            } else {
-//                redirectAttributes.addFlashAttribute("error", "Please make sure to transfer the deposit and register fee before the auction registration deadline");
-//            }
-//            Account this_user = userDetailsService.accountAuthenticated();
-//            //check xem nguoi dung da chuyen tien chua
-//            if (transfer != null) {
-//                AuctionRegister auctionRegister = auctionRegisterService.getAuctionRegisterById(auctionRegisterId);
-//                auctionRegister.setRegisterStatus("dang cho xac nhan chuyen tien");
-//                auctionRegisterService.updateRegisterStatus(auctionRegister);
-//                redirectAttributes.addFlashAttribute("error", "Please wait while we confirm the transaction, the result will be sent to you via notification");
-//
-//                // Tạo thông báo sau khi đăng ký thành công
-//                Notification notification = new Notification();
-//                notification.setContent("You have transfer deposit and fee. Please wait while we confirm the transaction, the result will be sent to you via notification");
-//                notification.setCreatedDate(LocalDateTime.now());
-//                notification.setReadStatus("unread"); // Trạng thái chưa đọc
-//
-//                // Lưu thông báo vào cơ sở dữ liệu và gửi SSE cho client
+                // Lưu thông báo vào cơ sở dữ liệu và gửi SSE cho client
 //                notification.addAccount(this_user);
 //                this_user.addNotification(notification);
 //                notificationService.saveNotification(notification);
 //                notificationService.sendNotification(notification); // Gửi SSE tới client
-//            } else {
-//                redirectAttributes.addFlashAttribute("error", "Please make sure to transfer the deposit and register fee before the auction registration deadline");
-//                // Tạo thông báo sau khi đăng ký thành công
-//                Notification notification = new Notification();
-//                notification.setContent("Please make sure to transfer the deposit and register fee before the auction registration deadline");
-//                notification.setCreatedDate(LocalDateTime.now());
-//                notification.setReadStatus("unread"); // Trạng thái chưa đọc
-//
-//                // Lưu thông báo vào cơ sở dữ liệu và gửi SSE cho client
-//                notification.addAccount(this_user);
-//                this_user.addNotification(notification);
-//                notificationService.saveNotification(notification);
-//                notificationService.sendNotification(notification); // Gửi SSE tới client
-//            }
-//        }
-//        return "redirect:/customer/viewAuctionDetail?auctionId=" + auctionId;
-//    }
+
+                redirectAttributes.addFlashAttribute("error", "Registration successful, please transfer the register fee");
+            }
+        }
+        return "redirect:/customer/viewHouseDetail?houseId=" + houseId;
+    }
+
+
+    @PostMapping("/transferRegisterFee")
+    public String transferDepositAndFee(@RequestParam(value = "transfer", required = false) String transfer,
+                                        @RequestParam("houseId") int houseId,
+                                        @RequestParam(value = "move_in_date", required = false) String move_in_date,
+                                        @RequestParam("registerId") int registerId, RedirectAttributes redirectAttributes) {
+        if (houseId <= 0) {
+            return "redirect:/customer/get_all_house";
+        }
+        House house = houseService.findById(houseId);
+        if (house == null) {
+            return "redirect:/customer/get_all_house";
+        }
+        HouseRegister register = houseRegisterService.getByRegisterId(registerId);
+        if(register != null){
+            if (!house.getAvailable_status().equals("1")) {
+                //check xem nguoi dung da chuyen tien chua
+                if (transfer != null) {
+                    //KY KET HOP DONG
+                    Contract contract = contractService.getContractByHouseId(houseId);
+                    contract.setAccount(register.getAccount());
+                    if(move_in_date!=null && !move_in_date.isEmpty()) contract.setMove_in_date(move_in_date);
+                    contract.setSigned_date(LocalDateTime.now().toString());
+                    contractService.updateContract(contract);
+                    //THAY DOI REGISTER
+                    register.setResult("Successful");
+                    register.setDeposit_status("Transferred");
+                    houseRegisterService.update(register);
+                    house.setAvailable_status("1");
+                    //THAY DOI HOUSE
+                    houseService.update(house);
+                    redirectAttributes.addFlashAttribute("error", "Renting successfully");
+                } else {
+                    redirectAttributes.addFlashAttribute("error", "Please make sure to transfer the register fee as soon as possible");
+                }
+            }
+            else{
+                redirectAttributes.addFlashAttribute("error", "This house had been rented");
+            }
+        }
+        else{
+            redirectAttributes.addFlashAttribute("error", "You must register first");
+        }
+        return "redirect:/customer/viewHouseDetail?houseId=" + houseId;
+    }
+
     @GetMapping("/profile")
     public String showProfile(Model model, Principal principal) {
         // Lấy thông tin người dùng hiện tại từ tên đăng nhập (email)
