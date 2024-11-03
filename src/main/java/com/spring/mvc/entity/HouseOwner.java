@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Setter
 @Getter
 @Entity
@@ -35,6 +38,10 @@ public class HouseOwner {
 
     @Column(name = "dob")
     private String dob;
+
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    private List<Contract> contracts;
+
     @Override
     public String toString() {
         return "House_owner{" +
@@ -52,5 +59,12 @@ public class HouseOwner {
         this.phone = phone;
         this.address = address;
         this.name = name;
+    }
+
+    public void addContracts(Contract contract) {
+        if (this.contracts == null) {
+            this.contracts = new ArrayList<>();
+        }
+          this.contracts.add(contract);
     }
 }

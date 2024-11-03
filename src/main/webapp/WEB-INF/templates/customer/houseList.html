@@ -293,7 +293,7 @@ Author URL: http://w3layouts.com
                         <a class="nav-link" th:href="@{/}" style="font-size: 20px;">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/customer/get_all_asset}" style="font-size: 20px;">House</a>
+                        <a class="nav-link active" th:href="@{/customer/get_all_asset}" style="font-size: 20px;">House</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/customer/get_all_news}" style="font-size: 20px;">News</a>
@@ -330,8 +330,10 @@ Author URL: http://w3layouts.com
                             <i class="fa fa-user"></i>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li th:if="${isLoggedIn}" ><a class="dropdown-item" th:href="@{/customer/profile}">Profile</a></li>
-                            <li th:if="${isLoggedIn}" ><a class="dropdown-item" th:href="@{/customer/viewNotification}">Notifications</a></li>
+                            <li th:if="${isLoggedIn}"><a class="dropdown-item"
+                                                         th:href="@{/customer/profile}">Profile</a></li>
+                            <li th:if="${isLoggedIn}"><a class="dropdown-item" th:href="@{/customer/viewNotification}">Notifications</a>
+                            </li>
                             <li th:if="${!isLoggedIn}"><a class="dropdown-item" th:href="@{/login}">Login</a>
                             </li>
                             <li th:if="${!isLoggedIn}"><a class="dropdown-item" th:href="@{/register}">Register</a></li>
@@ -393,7 +395,7 @@ Author URL: http://w3layouts.com
                                         <a th:href="@{/customer/viewHouseDetail(houseId=${house.id})}"
                                            class="zoom d-block">
                                             <img class="card-img-bottom d-block"
-                                                 th:if="${house != null}"
+                                                 th:if="${house != null and house.images.size() > 0}"
                                                  th:src="${house.images.get(0).path}"
                                                  alt="Cover photo" style="height: 250px; width: 100%;">
                                         </a>
@@ -402,19 +404,23 @@ Author URL: http://w3layouts.com
                                         <a th:href="@{/customer/viewHouseDetail(houseId=${house.id})}"
                                            class="blog-desc"
                                            th:text="${house.name.length() > 40 ? house.name.substring(0, 40) + '...' : house.name}"
-                                           th:title="${house.name}"></a>
-                                        <span th:href="@{/customer/viewHouseDetail(houseId=${house.id})}"
+                                           th:title="${house.name}">
+                                        </a>
+                                        <span th:if="${house.contracts.size() > 0}"
+                                              th:href="@{/customer/viewHouseDetail(houseId=${house.id})}"
                                               class="blog-desc"
-                                              th:text="${house.contracts.get(0).price}"></span>
+                                              th:text="${house.contracts.get(0).price} + ' vnd/month'">
+                                        </span>
+
                                     </div>
                                     <div class="card-footer">
                                         <div>
-<!--                                            <div>-->
-<!--                                                <span class="meta-value">Starting price: </span>-->
-<!--                                                <span th:text="${auction.startingPrice}"-->
-<!--                                                      style="font-weight: bold; color: #f9351b;"></span>-->
-<!--                                                <span class="meta-value">(VNĐ) </span>-->
-<!--                                            </div>-->
+                                            <!--                                            <div>-->
+                                            <!--                                                <span class="meta-value">Starting price: </span>-->
+                                            <!--                                                <span th:text="${auction.startingPrice}"-->
+                                            <!--                                                      style="font-weight: bold; color: #f9351b;"></span>-->
+                                            <!--                                                <span class="meta-value">(VNĐ) </span>-->
+                                            <!--                                            </div>-->
                                         </div>
                                     </div>
                                 </div>
@@ -677,7 +683,6 @@ Author URL: http://w3layouts.com
     <button onclick="topFunction()" id="movetop" title="Go to top">
         <span class="fas fa-level-up-alt" aria-hidden="true"></span>
     </button>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
         // When the user scrolls down 20px from the top of the document, show the button
         window.onscroll = function () {

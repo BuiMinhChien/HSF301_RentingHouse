@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -35,5 +36,12 @@ public class Tag {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 '}';
+    }
+
+    public void addHouse(House house) {
+        if (this.houseList == null) {
+            this.houseList = new ArrayList<>();
+        }
+        this.houseList.add(house);
     }
 }

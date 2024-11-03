@@ -23,11 +23,11 @@ public class CustomerUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = accountService.findByUsername(username);
 
-            if (account == null && !username.equalsIgnoreCase(username)) {
+            if (account == null || !username.equalsIgnoreCase(username)) {
                 throw new UsernameNotFoundException("UserName not valid");
             }
 
-            if (account.getPassword() == null && account.getPassword().isEmpty()) {
+            if (account.getPassword() == null || account.getPassword().isEmpty()) {
                 throw new IllegalArgumentException("Password not valid");
             }
 

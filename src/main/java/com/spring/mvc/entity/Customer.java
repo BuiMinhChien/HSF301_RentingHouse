@@ -14,14 +14,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "id")
-    private Account account;
+//    @OneToOne
+//    @MapsId
+//    @JoinColumn(name = "id")
+//    private Account account;
 
     @Column(name = "full_name", columnDefinition = "NVARCHAR(100)")
     private String fullName;
@@ -41,7 +40,7 @@ public class Customer {
     @Column(name = "id_issuance_date")
     private String idIssuanceDate;
 
-    @Column(name = "id_issuance_place" , columnDefinition = "NVARCHAR(MAX)")
+    @Column(name = "id_issuance_place", columnDefinition = "NVARCHAR(MAX)")
     private String idIssuancePlace;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
