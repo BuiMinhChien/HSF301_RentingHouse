@@ -70,13 +70,12 @@ public class HouserRegisterController {
         String formattedDate = createdDate.format(formatter);
         House house = new House(houseform.getName(), houseform.getWard(), houseform.getDistrict(), houseform.getProvince(),
                                 houseform.getLocation(), houseform.getLand_space(), houseform.getLiving_space(), houseform.getNumber_bed_room(),
-                                houseform.getDescription(), houseform.getNumber_bath(), houseform.getCoordinates_on_map(),"1", formattedDate, account);
-        //Lưu HouseOwner vào database
-        HouseOwner houseOwner = new HouseOwner(houseform.getHouseOwnerPhone(),houseform.getHouseOwnerAddress(), houseform.getHouseOwnerName()) ;
+                                houseform.getDescription(), houseform.getNumber_bath(), houseform.getCoordinates_on_map(),"0", formattedDate, account);
+
         //Lưu  Contract
         Contract contract = new Contract(houseform.getPrice(), houseform.getLease_duration_day(), formattedDate);
         //Gắn các mối quan hệ
-        //--------------------------------------
+        //------------------------------------------------------------------
         //Amenities cho House (many-to-many)
         if (amenities != null) {
             for (Integer id : amenities) {
@@ -93,20 +92,55 @@ public class HouserRegisterController {
                 fireEquipment.addHouse(house);
             }
         }
-        //House cho HouseOwner
-        house.setOwner(houseOwner);
+        //Quét dữ liệu kiểm tra HouseOwner đã tồn tại hay chưa = email
+        HouseOwner houseOwner = houseOwnerService.findByEmail(houseform.getHouseOwnerEmail());
+        if(houseOwner == null){
+            //Lưu HouseOwner vào database nếu chưa tồn tại
+            houseOwner = new HouseOwner(houseform.getHouseOwnerPhone()) ;
+            //House cho HouseOwner
+            house.setOwner(houseOwner);
+            houseOwnerService.save(houseOwner);
+        }
         //Contract toi House
          contract.setHouse(house);
         //Contract toi HouseOwner
         contract.setOwner(houseOwner);
-        //Image to House
-        fileUploadUtil.UploadImagesForHouse(images, house);
+        //create_by to Contract
+        contract.setCreated_by(account);
         //Document to Contract
         fileUploadUtil.UploadDocumentForContract(documents, contract);
         //Luu lan luot tat ca
         houseOwnerService.save(houseOwner);
         houseService.save(house);
+        //Image to House
+        fileUploadUtil.UploadImagesForHouse(images, house);
         contractService.save(contract);
         return "house_listing_agent/house-register-success";
     }
+
+    @GetMapping()
+    public String homeAgent(Model model) {
+        List<House> houses =houseService.getAllHouses();
+        model.addAttribute("houses", houses);
+        return "house_listing_agent/HomeAgent";
+    }
+
+    @GetMapping("owner")
+    public String listOwner(Model model) {
+        List<HouseOwner> houseOwner = houseOwnerService.findAll();
+        model.addAttribute("houseOwner", houseOwner);
+        return "house_listing_agent/HomeAgent";
+    }
+    @GetMapping("owner-detail")
+    public String viewOwner(@RequestParam("id") int id, Model model, Principal principal) {
+        HouseOwner houseOwner = houseOwnerService.findById(id);
+        List<House> allHouses = houseService.findHousebyHouseOwner(houseOwner);
+        String username = principal.getName();
+        Account account = accountService.findByUsername(username);
+        model.addAttribute("houseOwner", houseOwner);
+        model.addAttribute("allHouses", allHouses);
+        model.addAttribute("staff", account);
+        return "house_listing_agent/houseOwner";
+    }
+
 }

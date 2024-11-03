@@ -23,7 +23,6 @@ public class FileUploadUtil {
     private String imageUploadDir = "src/main/resources/static/image/";
     private String documentUploadDir = "src/main/resources/static/document/";
     private static final String UPLOAD_IMAGE_DIRECTORY = "E:\\Semester5\\HFS301\\PROJECT\\HSF301_RentingHouse\\src\\main\\resources\\static\\image\\";
-    private static final String UPLOAD_DOCUMENT_DIRECTORY = "E:\\Semester5\\HFS301\\PROJECT\\HSF301_RentingHouse\\src\\main\\resources\\static\\document\\";
     private ImageService imageService;
     private HouseService houseService;
     private DocumentService documentService;
@@ -356,8 +355,8 @@ public class FileUploadUtil {
                     Image img = new Image();
                     img.setUploadDate(LocalDateTime.now().toString());
                     img.setPath("/image/" + imgName);
+                    house.addImages(img);
                     imageService.saveImage(img);
-                    img.setHouse(house);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -367,7 +366,7 @@ public class FileUploadUtil {
 
     public void UploadDocumentForContract(List<MultipartFile> documents, Contract contract) {
         //kiem tra xem thu muc da ton tai chua
-        File directory = new File(imageUploadDir);
+        File directory = new File(documentUploadDir);
         if (!directory.exists()) {
             directory.mkdirs(); //tao thu muc neu chua ton tai
         }
@@ -382,12 +381,12 @@ public class FileUploadUtil {
                     String fileExtension = originalFileName.substring(originalFileName.lastIndexOf('.'));
                     // Tạo đường dẫn file
                     String docName = "House_" + fileName + fileExtension;
-                    Path path = Paths.get(UPLOAD_DOCUMENT_DIRECTORY + docName);
+                    Path path = Paths.get(UPLOAD_IMAGE_DIRECTORY + docName);
                     // Kiểm tra file đã tồn tại hay chưa, nếu có thì thêm số phiên bản vào
                     int version = 1;
                     while (Files.exists(path)) {
                         docName = "House_" + fileName + "(" + version + ")" + fileExtension;
-                        path = Paths.get(UPLOAD_DOCUMENT_DIRECTORY + docName);
+                        path = Paths.get(UPLOAD_IMAGE_DIRECTORY + docName);
                         version++;
                     }
                     // Lưu tệp vào thư mục
