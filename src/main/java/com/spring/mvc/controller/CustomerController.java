@@ -56,7 +56,6 @@ public class CustomerController {
     private CustomerService customerService;
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
     private FileUploadUtil fileUploadUtil;
 
     public CustomerController(NewsService newsService, TagForNewsService tagForNewsService,
@@ -331,6 +330,7 @@ public class CustomerController {
 
 
     @PostMapping("/change-password")
+    @ResponseBody
     public Map<String, String> changePassword(@RequestParam("oldPassword") String oldPassword,
                                               @RequestParam("newPassword") String newPassword,
                                               @RequestParam("confirmPassword") String confirmPassword,

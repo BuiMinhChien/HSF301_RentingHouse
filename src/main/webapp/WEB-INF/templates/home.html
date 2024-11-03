@@ -123,7 +123,7 @@ Author URL: http://w3layouts.com
 <header id="site-header" class="fixed-top">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light stroke py-lg-0">
-            <h1><a class="navbar-brand" th:href="@{/customer/home}">
+            <h1><a class="navbar-brand" th:href="@{/home}">
                 Viet<span class="sub-color">Land</span>
             </a></h1>
             <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
@@ -135,13 +135,10 @@ Author URL: http://w3layouts.com
             <div class="collapse navbar-collapse" id="navbarScroll">
                 <ul class="navbar-nav mx-lg-auto my-2 my-lg-0 navbar-nav-scroll">
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/}" style="font-size: 20px;">Home</a>
+                        <a class="nav-link active" th:href="@{/home}" style="font-size: 20px;">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/customer/get_all_asset}" style="font-size: 20px;">Asset</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/customer/get_all_auction}" style="font-size: 20px;">Auction</a>
+                        <a class="nav-link" th:href="@{/customer/get_all_house}" style="font-size: 20px;">House</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/customer/get_all_news}" style="font-size: 20px;">News</a>
@@ -202,13 +199,13 @@ Author URL: http://w3layouts.com
                 <div class="container">
                     <div class="banner-info header-hero-19" style="padding: 30px; text-align: left;">
                         <p class="w3hny-tag"
-                           style="font-size: 1.5rem; color: #FF5722; font-weight: bold; margin-bottom: 10px;">VietLand
-                            Auction</p>
+                           style="font-size: 1.5rem; color: #FF5722; font-weight: bold; margin-bottom: 10px;">
+                            VietHouse</p>
                         <!-- Màu #e91e63 là màu hồng đậm tạo điểm nhấn -->
                         <h3 class="title-hero-19"
                             style="font-size: 2.5rem; font-weight: bold; line-height: 1.2; margin-bottom: 20px;">A
                             Trusted Platform for Land Auctions with Transparent Deals</h3>
-                        <a href="about.html" class="btn btn-style btn-primary mt-3"
+                        <a href="/about" class="btn btn-style btn-primary mt-3"
                            style="padding: 10px 20px; font-size: 1rem;">Read More <i
                                 class="fas fa-angle-double-right ms-2"></i></a>
                     </div>
@@ -352,8 +349,8 @@ Author URL: http://w3layouts.com
                 <div class="row footer-hny-grids sub-columns">
                     <div class="col-lg-3 sub-one-left">
                         <h6>About </h6>
-                        <p class="footer-phny pe-lg-5">VietLand Auction is a leading online platform for real estate
-                            auctions, offering a transparent and efficient way to buy and sell properties.</p>
+                        <p class="footer-phny pe-lg-5">VietHouse Platform
+                            A Trusted Platform for Renting House with Exciting Deals.</p>
                         <div class="columns-2 mt-4 pt-lg-2">
                             <ul class="social">
                                 <li><a href="#facebook"><span class="fab fa-facebook-f"></span></a>
