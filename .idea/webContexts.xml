@@ -8,6 +8,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/customer/houseList.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/customer" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/customer/profile.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/customer" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/home.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/templates" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/house_listing_agent/HomeAgent.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/house_listing_agent" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/house_listing_agent/house-register-form.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/house_listing_agent" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/newsWriter/CreateNews.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/newsWriter" />
       </map>

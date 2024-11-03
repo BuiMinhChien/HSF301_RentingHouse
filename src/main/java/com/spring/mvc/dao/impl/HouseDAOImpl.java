@@ -2,6 +2,7 @@ package com.spring.mvc.dao.impl;
 
 import com.spring.mvc.dao.HouseDAO;
 import com.spring.mvc.entity.House;
+import com.spring.mvc.entity.HouseOwner;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -87,6 +88,22 @@ public class HouseDAOImpl implements HouseDAO {
         Query<House> query = session.createQuery("from House order by updated_date desc", House.class);
         query.setMaxResults(3);
         return query.getSingleResult();
+    }
+
+    @Override
+    public List<House> findByHouseOwner(HouseOwner houseOwner) {
+        // Lấy session hiện tại từ sessionFactory
+        Session session = sessionFactory.getCurrentSession();
+
+        // Tạo câu truy vấn HQL để tìm các House theo HouseOwner
+        String hql = "FROM House h WHERE h.owner = :owner";
+
+        // Tạo query từ HQL
+        Query<House> query = session.createQuery(hql, House.class);
+        query.setParameter("owner", houseOwner);
+
+        // Thực thi truy vấn và trả về kết quả
+        return query.getResultList();
     }
 
 

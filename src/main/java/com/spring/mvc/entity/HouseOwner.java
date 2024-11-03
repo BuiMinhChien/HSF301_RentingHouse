@@ -55,10 +55,8 @@ public class HouseOwner {
                 '}';
     }
 
-    public HouseOwner(String phone, String address, String name) {
-        this.phone = phone;
-        this.address = address;
-        this.name = name;
+    public HouseOwner( String email) {
+        this.email = email;
     }
 
     public void addContracts(Contract contract) {

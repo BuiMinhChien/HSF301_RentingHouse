@@ -12,5 +12,7 @@ public interface HouseOwnerDAO {
     public HouseOwner findById(int id);
     public List<HouseOwner> findAll();
     public List<HouseOwner> findByName(String houseName);
+    public HouseOwner findByEmail(String email);
+
 
 }
