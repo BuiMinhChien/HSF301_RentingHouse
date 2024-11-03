@@ -62,12 +62,14 @@ CREATE TABLE Account (
 );
 
 CREATE TABLE Token (
-    id UNIQUEIDENTIFIER DEFAULT NEWID() PRIMARY KEY, 
-    token NVARCHAR(255) NOT NULL,                   
-    expiry_date DATETIME NOT NULL,                 
-    account_id INT,                                 
+    id INT IDENTITY(1,1) PRIMARY KEY,             
+    token NVARCHAR(255) NOT NULL,                  
+    expiry_date DATETIME NOT NULL,            
+    account_id INT,                                
+    
     CONSTRAINT FK_Account_Token FOREIGN KEY (account_id) REFERENCES Account(id) 
 );
+
 
 
 -- 4. Bảng "House" vì các bảng Image và Document sẽ tham chiếu tới
