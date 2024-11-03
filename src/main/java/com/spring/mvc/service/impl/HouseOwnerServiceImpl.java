@@ -17,4 +17,9 @@ public class HouseOwnerServiceImpl implements HouseOwnerService {
     public void save(HouseOwner houseOwner) {
         houseOwnerDAO.save(houseOwner);
     }
+
+    @Override
+    public HouseOwner findByEmail(String email) {
+        return null;
+    }
 }

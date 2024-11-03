@@ -31,10 +31,11 @@ public class FileUploadUtil {
 
 
     @Autowired
-    public FileUploadUtil(NewsService newsService, ImageService imageService, DocumentService documentService) {
+    public FileUploadUtil(NewsService newsService, ImageService imageService, DocumentService documentService, HouseService houseService) {
         this.newsService = newsService;
         this.imageService = imageService;
         this.documentService = documentService;
+        this.houseService = houseService;
     }
 
 
@@ -368,7 +369,7 @@ public class FileUploadUtil {
 
     public void UploadDocumentForContract(List<MultipartFile> documents, Contract contract) {
         //kiem tra xem thu muc da ton tai chua
-        File directory = new File(imageUploadDir);
+        File directory = new File(documentUploadDir);
         if (!directory.exists()) {
             directory.mkdirs(); //tao thu muc neu chua ton tai
         }
@@ -382,12 +383,12 @@ public class FileUploadUtil {
                     String fileName = originalFileName.substring(0, originalFileName.lastIndexOf('.'));
                     String fileExtension = originalFileName.substring(originalFileName.lastIndexOf('.'));
                     // Tạo đường dẫn file
-                    String docName = "House_" + fileName + fileExtension;
+                    String docName = "Contract_" + fileName + fileExtension;
                     Path path = Paths.get(UPLOAD_DOCUMENT_DIRECTORY + docName);
                     // Kiểm tra file đã tồn tại hay chưa, nếu có thì thêm số phiên bản vào
                     int version = 1;
                     while (Files.exists(path)) {
-                        docName = "House_" + fileName + "(" + version + ")" + fileExtension;
+                        docName = "Contract_" + fileName + "(" + version + ")" + fileExtension;
                         path = Paths.get(UPLOAD_DOCUMENT_DIRECTORY + docName);
                         version++;
                     }

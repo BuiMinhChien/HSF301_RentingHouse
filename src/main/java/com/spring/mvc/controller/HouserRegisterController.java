@@ -93,7 +93,7 @@ public class HouserRegisterController {
         //House cho HouseOwner
         house.setOwner(houseOwner);
         //Contract toi House
-         contract.setHouse(house);
+        contract.setHouse(house);
         //Contract toi HouseOwner
         contract.setOwner(houseOwner);
         //Image to House
