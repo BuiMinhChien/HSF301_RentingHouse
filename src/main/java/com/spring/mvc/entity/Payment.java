@@ -2,7 +2,7 @@ package com.spring.mvc.entity;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -19,7 +19,8 @@ public class Payment {
     @JoinColumn(name = "Customer_id", nullable = false)
     private Customer customer;
 
-    @jakarta.persistence.JoinColumn(name = "house_id")
+    @ManyToOne(fetch =FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinColumn(name = "house_id")
     private House house;
 
     private long paymentAmount;

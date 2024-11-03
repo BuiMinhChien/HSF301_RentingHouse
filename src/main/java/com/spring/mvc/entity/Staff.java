@@ -14,14 +14,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Staff {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "id")
-    private Account account;
+//    @OneToOne
+//    @MapsId
+//    @JoinColumn(name = "id")
+//    private Account account;
 
     @Column(name = "full_name", columnDefinition = "NVARCHAR(100)")
     private String fullName;

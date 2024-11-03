@@ -148,7 +148,7 @@ public class CustomerController {
 //        String embedUrl = GetSrcInGoogleMapEmbededURLUtil.extractSrcFromIframe(auction.getAsset().getCoordinatesOnMap());
 //        model.addAttribute("embedUrl", embedUrl);
         model.addAttribute("house", house);
-        qrCode.setAmount(house.getContracts().get(0).getPrice()+"");
+        qrCode.setAmount(house.getContract().getPrice()+"");
         qrCode.setDescription("UserId " + account.getId() + " contract price " + house.getId());
         model.addAttribute("qrCode", qrCode);
         HouseRegister register = houseRegisterService.getByHouseIdAccountId(houseId, account.getId());
