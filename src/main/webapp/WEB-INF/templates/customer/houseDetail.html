@@ -522,21 +522,21 @@ Author URL: http://w3layouts.com
                         <div class="sidebar-blog-category">
 
                             <!--button tham gia phien dau gia nam ơ day-->
-                            <div class="sidebar-sticky" th:if="${T(java.time.LocalDateTime).now().isAfter(auction.startTime)
-                            and (auction.actualEndTime != null ? T(java.time.LocalDateTime).now().isBefore(auction.actualEndTime) : true)}">
+<!--                            <div class="sidebar-sticky" th:if="${T(java.time.LocalDateTime).now().isAfter(auction.startTime)-->
+<!--                            and (auction.actualEndTime != null ? T(java.time.LocalDateTime).now().isBefore(auction.actualEndTime) : true)}">-->
                                 <div class="sidebar-sticky-fix">
-                                    <a th:href="@{/customer/joinAuctionDetail(auctionId=${auction.getAuctionId()})}">
-                                        <button class="btn btn-style btn-primary register-btn"
-                                                style="width: 100%; margin-bottom: 20px;">
-                                            Join auction
-                                        </button>
-                                    </a>
+<!--                                    <a th:href="@{/customer/joinAuctionDetail(auctionId=${auction.getAuctionId()})}">-->
+<!--                                        <button class="btn btn-style btn-primary register-btn"-->
+<!--                                                style="width: 100%; margin-bottom: 20px;">-->
+<!--                                            Join auction-->
+<!--                                        </button>-->
+<!--                                    </a>-->
                                 </div>
-                            </div>
+<!--                            </div>-->
                             <!--button dang ky tham gia dau gia nam ơ day-->
-                            <div class="sidebar-sticky" th:if="${auction.status == 'Upcoming'} and ${auction_register == null}
-                            and ${T(java.time.LocalDateTime).now().isAfter(auction.registrationOpenDate)}
-                            and ${T(java.time.LocalDateTime).now().isBefore(auction.registrationCloseDate)}">
+<!--                            <div class="sidebar-sticky" th:if="${auction.status == 'Upcoming'} and ${auction_register == null}-->
+<!--                            and ${T(java.time.LocalDateTime).now().isAfter(auction.registrationOpenDate)}-->
+<!--                            and ${T(java.time.LocalDateTime).now().isBefore(auction.registrationCloseDate)}">-->
                                 <div class="sidebar-sticky-fix">
                                     <button class="btn btn-style btn-primary register-btn"
                                             style="width: 100%; margin-bottom: 20px;"
@@ -544,7 +544,7 @@ Author URL: http://w3layouts.com
                                         auction
                                     </button>
                                 </div>
-                            </div>
+<!--                            </div>-->
                             <!-- Modal hien thi form xac nhan dang ky-->
                             <div class="modal fade" id="register_validate_form" tabindex="-1"
                                  aria-labelledby="exampleModalLabel"
@@ -600,10 +600,7 @@ Author URL: http://w3layouts.com
                                 </div>
                             </div>
                             <!--button tham gia dau gia nam o day-->
-                            <div class="sidebar-sticky" th:if="${auction.status == 'Upcoming'} and ${auction_register != null}
-                            and ${auction_register.getRegisterStatus() == 'Waiting for payment'}
-                            and ${T(java.time.LocalDateTime).now().isAfter(auction.registrationOpenDate)}
-                            and ${T(java.time.LocalDateTime).now().isBefore(auction.registrationCloseDate)}">
+                            <div class="sidebar-sticky">
                                 <div class="sidebar-sticky-fix">
                                     <button class="btn btn-style btn-primary register-btn"
                                             style="width: 100%; margin-bottom: 20px;"
