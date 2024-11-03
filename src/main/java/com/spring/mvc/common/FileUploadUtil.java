@@ -358,8 +358,9 @@ public class FileUploadUtil {
                     Image img = new Image();
                     img.setUploadDate(LocalDateTime.now().toString());
                     img.setPath("/image/" + imgName);
+//                    img.setHouse(house);
                     imageService.saveImage(img);
-                    img.setHouse(house);
+                    house.addImage(img);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -135,6 +135,10 @@ public class CustomerController {
     @GetMapping("/viewHouseDetail")
     public String getHouseById(@RequestParam(value = "error", required = false) String error, @RequestParam("houseId") int houseId,
                                Model model,Principal principal) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof String);
+        model.addAttribute("isLoggedIn", isLoggedIn);
+
         if (houseId <= 0) {
             return "redirect:/customer/get_all_house";
         }
