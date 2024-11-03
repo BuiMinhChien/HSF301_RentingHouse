@@ -60,6 +60,14 @@ CREATE TABLE Account (
     role_id INT FOREIGN KEY REFERENCES Role(id),
     registration_date VARCHAR(100)
 );
+CREATE TABLE Token (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    token VARCHAR(255) NOT NULL,
+    account_id INT,
+    expiry_date DATETIME,
+    FOREIGN KEY (account_id) REFERENCES Account(id)
+);
+
 
 -- 4. Bảng "House" vì các bảng Image và Document sẽ tham chiếu tới
 CREATE TABLE House (
