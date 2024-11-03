@@ -10,7 +10,8 @@ public interface AccountService {
     public boolean save(Account account);
     boolean existsByEmail(String email);
     Account findById(int id);
-    public void update(Account account);
-    public void changePassword(String username, String oldPassword, String newPassword);
-    public void updateProfile(Account account);
+     void update(Account account);
+     void changePassword(String username, String oldPassword, String newPassword);
+     void updateProfile(Account account);
+     void changePass(Account account);
 }

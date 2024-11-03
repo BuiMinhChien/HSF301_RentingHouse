@@ -4,12 +4,16 @@ package com.spring.mvc.controller;
 import com.spring.mvc.dto.UserRegisterDTO;
 import com.spring.mvc.entity.Account;
 import com.spring.mvc.entity.Role;
+import com.spring.mvc.entity.Token;
 import com.spring.mvc.service.AccountService;
+import com.spring.mvc.service.EmailService;
 import com.spring.mvc.service.RoleService;
+import com.spring.mvc.service.TokenService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +23,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.Optional;
 
 @Controller
 @RequestMapping
@@ -26,12 +33,17 @@ import java.security.Principal;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthController {
 
+    @Autowired
+    EmailService emailService;
 
     AccountService accountService;
 
     PasswordEncoder passwordEncoder;
 
     RoleService roleService;
+
+    @Autowired
+    TokenService tokenService;
 
     @GetMapping("/login")
     public String login(Principal principal, HttpServletRequest session) {
@@ -113,6 +125,7 @@ public class AuthController {
         // Gán vai trò (role) cho người dùng
         Role role = roleService.findRoleById(1);
         user.setRole(role);
+        user.setRegistrationDate(LocalDateTime.now().toString());
 
         accountService.save(user);
 
@@ -127,4 +140,90 @@ public class AuthController {
     public String customercareHome() {
         return "customercare/chatbot-settings";
     }
+
+    @GetMapping("/forgot-password")
+    public String showForgotPasswordPage() {
+        return "forgot-password";
+    }
+
+    @PostMapping("/forgot-password")
+    public String processForgotPassword(@RequestParam("email") String email, Model model) {
+        Account user = accountService.findByEmail(email);
+        if (user == null) {
+            model.addAttribute("error", "Email not valid!");
+            return "forgot-password";
+        }
+
+        // Tạo token đặt lại mật khẩu
+        String token = tokenService.createToken(user);
+        String resetUrl = "http://localhost:8080/reset-password?token=" + token;
+
+        // Gửi email với link đặt lại mật khẩu
+        emailService.sendEmail(email, "Reset Password", "Click the link to reset password: " + resetUrl);
+        model.addAttribute("message", "Link đặt lại mật khẩu đã được gửi đến email của bạn.");
+        return "forgot-password";
+    }
+
+    @GetMapping("/reset-password")
+    public String showResetPasswordPage(@RequestParam(value = "token", required = false) String token, Model model) {
+        if (token == null || token.isEmpty()) {
+            model.addAttribute("error", "Missing or invalid token!");
+            return "reset-password";
+        }
+        Token resetToken = tokenService.findToken(token).orElse(null);
+        if (resetToken.equals("") || resetToken.getExpiryDate().before(new Date())) {
+            model.addAttribute("error", "Token invalid!");
+            return "reset-password";
+        }
+        model.addAttribute("token", token);
+        return "reset-password";
+    }
+
+
+    @PostMapping("/reset-password")
+    public String processResetPassword(
+            @RequestParam(name = "token", required = true) String token,
+            @RequestParam("newPassword") String newPassword,
+            @RequestParam("confirmPassword") String confirmPassword,
+            Model model) {
+
+        if (token == null) {
+            model.addAttribute("error", "Missing required token.");
+            return "reset-password";
+        }
+
+        // Find the reset token
+        Token resetToken = tokenService.findToken(token).orElse(null);
+        if (resetToken == null) {
+            model.addAttribute("error", "Token không hợp lệ!");
+            return "reset-password";
+        }
+
+        // Check if token is expired
+        if (resetToken.getExpiryDate().before(new Date())) {
+            model.addAttribute("error", "Token đã hết hạn!");
+            return "reset-password";
+        }
+
+        // Check password match
+        if (!newPassword.equals(confirmPassword)) {
+            model.addAttribute("error", "Mật khẩu xác nhận không khớp!");
+            model.addAttribute("token", token); // Keep token for user
+            return "reset-password";
+        }
+
+        // Update password
+        Account account = resetToken.getAccount();
+        account.setPassword(newPassword);
+        accountService.changePass(account);
+
+        // Add success message and delete the token
+        model.addAttribute("message", "Mật khẩu đã được thay đổi thành công!");
+        tokenService.deleteToken(resetToken);
+
+        return "login";
+    }
+
+
+
 }

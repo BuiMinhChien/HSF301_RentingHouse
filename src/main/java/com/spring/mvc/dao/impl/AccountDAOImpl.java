@@ -40,7 +40,7 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     public Account findByEmail(String email) {
-        String hql = "FROM Account a WHERE a.email == email";
+        String hql = "FROM Account a WHERE a.email = : email";
         return sessionFactory.getCurrentSession().createQuery(hql, Account.class)
                 .setParameter("email", email)
                 .uniqueResult();
