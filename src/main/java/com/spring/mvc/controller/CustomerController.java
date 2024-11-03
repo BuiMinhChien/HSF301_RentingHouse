@@ -326,6 +326,10 @@ public class CustomerController {
         ProfileDTO profileDTO = new ProfileDTO();
         profileDTO.setCustomer(customer);
         profileDTO.setAccount(account);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof String);
+        model.addAttribute("isLoggedIn", isLoggedIn); // Truyền biến vào view
         model.addAttribute("profileDTO", profileDTO);
         // Trả về trang profile
         return "customer/profile";

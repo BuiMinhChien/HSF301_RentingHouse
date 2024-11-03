@@ -95,7 +95,7 @@ public class AccountServiceImpl implements AccountService {
             Account existingAccount = accountDAO.findById(account.getId());
             if (existingAccount != null) {
                 // Update fields if they are modified
-              //  existingAccount.setPassword(passwordEncoder.encode(account.getPassword())); // encode password if modified
+                //  existingAccount.setPassword(passwordEncoder.encode(account.getPassword())); // encode password if modified
                 existingAccount.setImage(account.getImage());
                 // Save the updated account
                 accountDAO.update(existingAccount);
@@ -132,7 +132,6 @@ public class AccountServiceImpl implements AccountService {
             Account existingAccount = accountDAO.findById(account.getId());
             if (existingAccount != null) {
                 // Update fields if they are modified
-
                 // Save the updated account
                 accountDAO.update(existingAccount);
             } else {
@@ -144,4 +143,21 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
+    @Override
+    public void changePass(Account account) {
+        try {
+            Account existingAccount = accountDAO.findById(account.getId());
+            if (existingAccount != null) {
+                // Update fields if they are modified
+                    existingAccount.setPassword(passwordEncoder.encode(account.getPassword()));
+                // Save the updated account
+                accountDAO.update(existingAccount);
+            } else {
+                throw new RuntimeException("Account not found");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw ex;
+        }
+    }
 }

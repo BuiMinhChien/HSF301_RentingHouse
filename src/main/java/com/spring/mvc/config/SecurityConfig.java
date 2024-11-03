@@ -35,7 +35,7 @@ public class SecurityConfig  {
                 .authorizeHttpRequests(configurer -> configurer
                         .requestMatchers("/image/**", "/document/**", "/dashboardStatic/**", "/assets_CustomerSide/**").permitAll()
                         .requestMatchers("/", "/home", "/login", "/access-denied", "/register",
-                                "/otp-success", "/forgot-password",
+                                "/reset-password**", "/forgot-password",
                                 "/customer/get_all_auction", "/customer/get_all_asset", "/customer/get_all_news")
                         .permitAll()
                         .requestMatchers("/customer/**").hasRole("CUSTOMER")
