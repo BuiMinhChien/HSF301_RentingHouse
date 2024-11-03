@@ -29,9 +29,6 @@ public class HouserRegisterController {
     private ContractService contractService;
     private FileUploadUtil fileUploadUtil;
 
-
-    private static final String UPLOAD_DIRECTORY = "E:\\Semester5\\HFS301\\PROJECT\\HSF301_RentingHouse\\src\\main\\resources\\static\\image";
-
     public HouserRegisterController(HouseService houseService, FireEquipmentService fireEquipmentService, AmenitiesService amenitiesService, ImageService imageService, AccountService accountService, HouseOwnerService houseOwnerService, ContractService contractService, FileUploadUtil fileUploadUtil) {
         this.houseService = houseService;
         this.fireEquipmentService = fireEquipmentService;
@@ -96,7 +93,7 @@ public class HouserRegisterController {
         //House cho HouseOwner
         house.setOwner(houseOwner);
         //Contract toi House
-         contract.setHouse(house);
+        contract.setHouse(house);
         //Contract toi HouseOwner
         contract.setOwner(houseOwner);
         //Image to House

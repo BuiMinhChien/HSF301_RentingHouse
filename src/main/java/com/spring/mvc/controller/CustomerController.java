@@ -130,13 +130,17 @@ public class CustomerController {
 
     @GetMapping("/viewHouseDetail")
     public String getHouseById(@RequestParam(value = "error", required = false) String error, @RequestParam("houseId") int houseId,
-                               Model model, Principal  principal) {
+                               Model model,Principal principal) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof String);
+        model.addAttribute("isLoggedIn", isLoggedIn);
+
         if (houseId <= 0) {
-            return "redirect:/customer/get_all_auction";
+            return "redirect:/customer/get_all_house";
         }
         House house = houseService.findById(houseId);
         if (house == null) {
-            return "redirect:/customer/get_all_auction";
+            return "redirect:/customer/get_all_house";
         }
         //lay ra nguoi dang ky
         String username = principal.getName();
@@ -157,62 +161,21 @@ public class CustomerController {
         return "customer/houseDetail";
     }
 
-//    @GetMapping("/joinAuctionDetail")
-//    public String accessAuction(@RequestParam String auctionId, Model model) {
-//        // Truy vấn Account now
-//        int auctionIdUsing = Integer.parseInt(auctionId);
-//        Account currentAccount = userDetailsService.accountAuthenticated();
-//
-//        if (currentAccount == null) {
-//            return getAuctionById("User account not found.", auctionIdUsing, model);
-//        }
-//
-//        // Kiểm tra xem người dùng có được phép truy cập phiên đấu giá không
-//        if (!auctionService.isUserAllowedToAccessAuction(auctionIdUsing, currentAccount.getAccountId())) {
-//            return getAuctionById("You are not allowed to access this auction.", auctionIdUsing, model);
-//        }
-//
-//        // Lấy thông tin phiên đấu giá
-//        AuctionSession auctionSession = auctionService.getAuctionSessionById(auctionIdUsing);
-//        List<Bid> bidList = bidService.getAllBidsByAuctionId(auctionIdUsing);
-//
-//        LocalDateTime now = LocalDateTime.now();
-//
-//        // Kiểm tra thời gian của phiên đấu giá
-//        if (now.isBefore(auctionSession.getStartTime())) {
-//            return getAuctionById("The auction has not started yet.", auctionIdUsing, model);
-//        } else if (auctionSession.getActualEndTime() != null && now.isAfter(auctionSession.getActualEndTime())) {
-//            return getAuctionById("The auction has already ended.", auctionIdUsing, model);
-//        }
-//
-//        AuctionSession auction = auctionService.getAuctionSessionById(auctionIdUsing);
-//        String embedUrl = GetSrcInGoogleMapEmbededURLUtil.extractSrcFromIframe(auction.getAsset().getCoordinatesOnMap());
-//        model.addAttribute("embedUrl", embedUrl);
-//        model.addAttribute("auction", auction);
-//
-//        // Truyền dữ liệu phiên đấu giá đến View
-//        model.addAttribute("auctionSession", auctionSession);
-//        model.addAttribute("accountCustomer", currentAccount);
-//        model.addAttribute("bidList", bidList);
-//
-//        // Trả về tên của view đấu giá
-//        return "customer/auctionPage";
-//    }
-//
 //    @PostMapping("/registerAuction")
 //    public String registerAuction(@RequestParam(value = "validate", required = false) String validate,
-//                                  @RequestParam("auctionId") int auctionId, RedirectAttributes redirectAttributes) {
-//        if (auctionId <= 0) {
-//            return "redirect:/customer/get_all_auction";
+//                                  @RequestParam("houseId") int houseId, RedirectAttributes redirectAttributes,Principal principal) {
+//        if (houseId <= 0) {
+//            return "redirect:/customer/get_all_house";
 //        }
-//        AuctionSession auction = auctionService.getAuctionSessionById(auctionId);
-//        if (auction == null) {
-//            return "redirect:/customer/get_all_auction";
+//        House house = houseService.findById(houseId);
+//        if (house == null) {
+//            return "redirect:/customer/get_all_house";
 //        }
 //        //check xem nguoi dung da validate tai khoan chua
-//        Account this_user = userDetailsService.accountAuthenticated();
+//        String username = principal.getName();
+//        Account account = accountService.findByUsername(username);
 //        // Kiểm tra tài khoản đã xác thực chưa
-//        if (this_user.getVerify() == 1) {
+//        if (account.getVerify() == ) {
 //            if (validate != null) {
 //                // Cập nhật trạng thái đăng ký vào database
 //                AuctionRegister register = new AuctionRegister(auction, this_user, "Waiting for payment", null, null, null, LocalDateTime.now());
@@ -253,7 +216,7 @@ public class CustomerController {
 //
 //        return "redirect:/customer/viewAuctionDetail?auctionId=" + auctionId;
 //    }
-//
+
 //
 //    @PostMapping("/transferDepositAndFee")
 //    public String transferDepositAndFee(@RequestParam(value = "transfer", required = false) String transfer,
