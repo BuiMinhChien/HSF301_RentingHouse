@@ -360,4 +360,12 @@ public class CustomerController {
         return response;
     }
 
+    @GetMapping("/viewRegisterHistory")
+    public String getRegisterHistory(Model model, Principal principal) {
+        Account account = accountService.findByUsername(principal.getName());
+        List<HouseRegister> registerList = houseRegisterService.getAllByAccountId(account.getId());
+        model.addAttribute("registerList", registerList);
+        return "customer/registerHistory";
+    }
+
 }
