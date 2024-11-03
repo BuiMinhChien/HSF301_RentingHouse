@@ -10,7 +10,7 @@ Author URL: http://w3layouts.com
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>RealHouzing - Real Estate Category Bootstrap Responsive Template | Blog :: W3layouts</title>
+    <title>List house</title>
     <!-- google fonts -->
     <link href="//fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Template CSS -->
@@ -357,8 +357,6 @@ Author URL: http://w3layouts.com
                 <div class="w3breadcrumb-left text-left">
                     <h2 class="inner-w3-title mt-sm-5 mt-4">
                         House Page </h2>
-
-
                 </div>
                 <div class="w3breadcrumb-right">
                     <ul class="breadcrumbs-custom-path">
@@ -388,7 +386,7 @@ Author URL: http://w3layouts.com
             <div class="row justify-content-center">
                 <!--/w3l-blopagew3-left-->
                 <div class="col-lg-8 blopagew3-left">
-                    <div th:fragment="auctionListFragment">
+                    <div th:fragment="houseListFragment">
                         <div class="row" id="auctionListContainer">
                             <div class="col-md-6 item" th:each="house : ${listHouse}" style="margin-bottom: 20px;">
                                 <div class="card">
@@ -461,60 +459,60 @@ Author URL: http://w3layouts.com
                                         </div>
                                         <form id="searchForm" action="#" method="get">
                                             <div class="form-group mb-3">
-                                                <input type="text" class="form-control" placeholder="Enter keywords..."
-                                                       name="keyword">
-                                            </div>
-                                            <div class="row mb-3">
-                                                <div class="col-6">
-                                                    <label for="fromDate">From</label>
-                                                    <div class="input-group">
-                                                        <input type="date" id="fromDate" name="fromDate"
-                                                               class="form-control">
-                                                    </div>
+                                                <label>Status</label><br>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="freeStatus" name="status" value="Free">
+                                                    <label class="form-check-label" for="freeStatus">Free</label>
                                                 </div>
-                                                <div class="col-6">
-                                                    <label for="toDate">To</label>
-                                                    <div class="input-group">
-                                                        <input type="date" id="toDate" name="toDate"
-                                                               class="form-control">
-                                                    </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="busyStatus" name="status" value="Busy">
+                                                    <label class="form-check-label" for="busyStatus">Busy</label>
                                                 </div>
                                             </div>
-                                            <button type="button" class="btn btn-primary btn-block"
-                                                    onclick="applyAuctionSearch()">Search
-                                            </button>
-                                            <button type="button" class="btn btn-primary btn-block"
-                                                    onclick="clearSearchAuctionsFilters()">Clear
-                                            </button>
+                                            <button type="button" class="btn btn-primary btn-block" onclick="applyHouseSearch()">Search</button>
+                                            <button type="button" class="btn btn-primary btn-block" onclick="clearSearchAuctionsFilters()">Clear</button>
                                         </form>
                                     </div>
 
-                                    <div class="sidebar-widget auction-status mb-4">
+                                    <div class="sidebar-widget auction-location mb-4">
                                         <div class="sidebar-title">
-                                            <h4>Auction Status</h4>
+                                            <h4>Location</h4>
                                         </div>
-                                        <form id="statusFilterForm" action="#" method="get">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="status"
-                                                       value="Upcoming" id="upcomingStatus">
-                                                <label for="upcomingStatus">Upcoming</label><br>
+                                        <form id="locationFilterForm" action="#" method="get">
+                                            <div class="row">
+                                                <div class="col-md-4 pr-1">
+                                                    <div class="form-group">
+                                                        <label for="tinh">Province</label>
+                                                        <select class="css_select form-control" id="tinh" name="tinh" title="Chọn Tỉnh Thành" required>
+                                                            <option value="0">Tỉnh Thành</option>
+                                                            <!-- Tùy chọn tỉnh thành sẽ được thêm bởi JavaScript -->
+                                                        </select>
+                                                        <span id="selectedTinh" class="selected-location"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 px-1">
+                                                    <div class="form-group">
+                                                        <label for="quan">District</label>
+                                                        <select class="css_select form-control" id="quan" name="quan" title="Chọn Quận Huyện">
+                                                            <option value="0">Quận Huyện</option>
+                                                            <!-- Tùy chọn quận huyện sẽ được thêm bởi JavaScript -->
+                                                        </select>
+                                                        <span id="selectedQuan" class="selected-location"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 pl-1">
+                                                    <div class="form-group">
+                                                        <label for="phuong">Ward</label>
+                                                        <select class="css_select form-control" id="phuong" name="phuong" title="Chọn Phường Xã">
+                                                            <option value="0">Phường Xã</option>
+                                                            <!-- Tùy chọn phường xã sẽ được thêm bởi JavaScript -->
+                                                        </select>
+                                                        <span id="selectedPhuong" class="selected-location"></span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="status"
-                                                       value="OnGoing" id="ongoingStatus">
-                                                <label for="ongoingStatus">OnGoing</label><br>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="status" value="Ended"
-                                                       id="endedStatus">
-                                                <label for="endedStatus">Ended</label><br>
-                                            </div>
-                                            <button class="btn btn-primary" type="button"
-                                                    onclick="applyAuctionSearch()">Filter
-                                            </button>
-                                            <button type="button" class="btn btn-primary"
-                                                    onclick="clearStatusFilters()">Clear
-                                            </button>
+                                            <button class="btn btn-primary mt-2" type="button" onclick="applyHouseSearch()">Filter</button>
+                                            <button class="btn btn-secondary mt-2" type="button" onclick="clearLocationFilters()">Clear</button>
                                         </form>
                                     </div>
                                 </div>
@@ -809,11 +807,66 @@ Author URL: http://w3layouts.com
 
 
 </script>
+<script>
+    $(document).ready(function() {
+        // Lấy tỉnh thành
+        $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function(data_tinh) {
+            if (data_tinh.error == 0) {
+                $.each(data_tinh.data, function(key_tinh, val_tinh) {
+                    // Gán full_name vào text của option
+                    $("#tinh").append('<option value="' + val_tinh.id + '">' + val_tinh.name + '</option>');
+                });
+
+                // Khi chọn tỉnh
+                $("#tinh").change(function(e) {
+                    var tinhText = $("#tinh option:selected").text();  // Lấy tên tỉnh
+                    $("#selectedTinh").text("Tỉnh: " + tinhText);
+
+                    var idtinh = $(this).val(); // Vẫn lấy ID để truy xuất quận huyện
+                    // Lấy quận huyện
+                    $.getJSON('https://esgoo.net/api-tinhthanh/2/' + idtinh + '.htm', function(data_quan) {
+                        if (data_quan.error == 0) {
+                            $("#quan").html('<option value="0">Quận Huyện</option>');
+                            $("#phuong").html('<option value="0">Phường Xã</option>');
+                            $.each(data_quan.data, function(key_quan, val_quan) {
+                                $("#quan").append('<option value="' + val_quan.id + '">' + val_quan.name + '</option>');
+                            });
+                        }
+                    });
+                });
+
+                // Khi chọn quận
+                $("#quan").change(function(e) {
+                    var quanText = $("#quan option:selected").text();  // Lấy tên quận
+                    $("#selectedQuan").text("Quận: " + quanText);
+
+                    var idquan = $(this).val();  // Vẫn lấy ID để truy xuất phường xã
+                    // Lấy phường xã
+                    $.getJSON('https://esgoo.net/api-tinhthanh/3/' + idquan + '.htm', function(data_phuong) {
+                        if (data_phuong.error == 0) {
+                            $("#phuong").html('<option value="0">Phường Xã</option>');
+                            $.each(data_phuong.data, function(key_phuong, val_phuong) {
+                                $("#phuong").append('<option value="' + val_phuong.id + '">' + val_phuong.name + '</option>');
+                            });
+                        }
+                    });
+                });
+
+                // Khi chọn phường
+                $("#phuong").change(function(e) {
+                    var phuongText = $("#phuong option:selected").text();  // Lấy tên phường
+                    $("#selectedPhuong").text("Phường: " + phuongText);
+                });
+            }
+        });
+    });
+</script>
 <!-- //disable body scroll which navbar is in active -->
 <!-- //bootstrap -->
+<script src="/https://esgoo.net/scripts/jquery.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script th:src="@{/assets_CustomerSide/js/bootstrap.min.js}"></script>
-<script th:src="@{/assets_CustomerSide/js/auctions.js}"></script>
+<script th:src="@{/assets_CustomerSide/js/house.js}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script th:src="@{/assets_CustomerSide/js/chatbot.js}"></script>
 <script th:src="@{/assets_CustomerSide/js/notification.js}"></script>

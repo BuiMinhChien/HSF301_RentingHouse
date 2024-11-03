@@ -24,7 +24,6 @@ public class FileUploadUtil {
     private String documentUploadDir = "src/main/resources/static/document/";
     private static final String UPLOAD_IMAGE_DIRECTORY = "D:\\FPT_Syllabus\\Ky_5\\HSF301_Hibernate_and_Spring_Framework\\Assignment\\HSF301_RentingHouse\\src\\main\\resources\\static\\image\\";
     private static final String UPLOAD_DOCUMENT_DIRECTORY = "D:\\FPT_Syllabus\\Ky_5\\HSF301_Hibernate_and_Spring_Framework\\Assignment\\HSF301_RentingHouse\\src\\main\\resources\\static\\document\\";
- //   private static final String UPLOAD_IMAGE_DIRECTORY = "D:\\Semester 5\\HSF301\\HSF301_RentingHouse\\src\\main\\resources\\static\\image\\";
     private ImageService imageService;
     private HouseService houseService;
     private DocumentService documentService;

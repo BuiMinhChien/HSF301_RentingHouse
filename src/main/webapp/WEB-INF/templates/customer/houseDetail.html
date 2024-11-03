@@ -9,7 +9,7 @@ Author URL: http://w3layouts.com
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>RealHouzing - Real Estate Category Bootstrap Responsive Template | Blog Single :: W3layouts</title>
+    <title>House detail</title>
     <!-- google fonts -->
     <link href="//fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Template CSS -->
@@ -198,7 +198,7 @@ Author URL: http://w3layouts.com
             padding: 0;
             margin-right: 20px;
             max-height: 300px; /* Giới hạn chiều cao */
-            overflow-y: auto;  /* Thêm thanh cuộn khi có nhiều thông báo */
+            overflow-y: auto; /* Thêm thanh cuộn khi có nhiều thông báo */
             scrollbar-width: none;
             z-index: 1050;
             min-width: 220px; /* Tăng chiều rộng của box notify */
@@ -354,7 +354,8 @@ Author URL: http://w3layouts.com
                         <a class="nav-link active" th:href="@{/}" style="font-size: 20px;">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" th:href="@{/customer/get_all_house}" style="font-size: 20px;">House</a>
+                        <a class="nav-link active" th:href="@{/customer/get_all_house}"
+                           style="font-size: 20px;">House</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/customer/get_all_news}" style="font-size: 20px;">News</a>
@@ -391,8 +392,10 @@ Author URL: http://w3layouts.com
                             <i class="fa fa-user"></i>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li th:if="${isLoggedIn}" ><a class="dropdown-item" th:href="@{/customer/profile}">Profile</a></li>
-                            <li th:if="${isLoggedIn}" ><a class="dropdown-item" th:href="@{/customer/viewNotification}">Notifications</a></li>
+                            <li th:if="${isLoggedIn}"><a class="dropdown-item"
+                                                         th:href="@{/customer/profile}">Profile</a></li>
+                            <li th:if="${isLoggedIn}"><a class="dropdown-item" th:href="@{/customer/viewNotification}">Notifications</a>
+                            </li>
                             <li th:if="${!isLoggedIn}"><a class="dropdown-item" th:href="@{/login}">Login</a>
                             </li>
                             <li th:if="${!isLoggedIn}"><a class="dropdown-item" th:href="@{/register}">Register</a></li>
@@ -414,12 +417,12 @@ Author URL: http://w3layouts.com
             <div class="w3breadcrumb-gids">
                 <div class="w3breadcrumb-left text-left">
                     <h2 class="inner-w3-title mt-sm-5 mt-4">
-                        Auction Detail </h2>
+                        House Detail </h2>
                 </div>
                 <div class="w3breadcrumb-right">
                     <ul class="breadcrumbs-custom-path">
                         <li><a href="index.html">Home</a></li>
-                        <li class="active"><span class="fas fa-angle-double-right mx-2"></span>Auction Detail</li>
+                        <li class="active"><span class="fas fa-angle-double-right mx-2"></span>House Detail</li>
                     </ul>
                 </div>
             </div>
@@ -436,84 +439,43 @@ Author URL: http://w3layouts.com
             <div class="row justify-content-center bloghny-page">
                 <!--/w3l-blopagew3-left-->
                 <div class="col-lg-7 blopagew3-left">
-                    <!--                    <div class="single-post-image mb-4">-->
-                    <!--                        <img th:src="${asset.images.get(0).path}" class="img-fluid w-100 radius-image"-->
-                    <!--                             alt="Cover photo">-->
-                    <!--                    </div>-->
                     <!--xem anh-->
                     <div id="image-gallery">
                         <div class="main-image">
-<!--                            <img th:if="${house != null and house.asset != null}"-->
-<!--                                 th:src="@{${auction.asset.getImages().get(0).path}}" alt="Main Asset Image"-->
-<!--                                 class="img-fluid"/>-->
+                            <img th:if="${house != null and house.images != null}"
+                                 th:src="@{${house.images.get(0).path}}" alt="Main Asset Image"
+                                 class="img-fluid"/>
                         </div>
-<!--                        <div class="thumbnail-images row">-->
-<!--                            &lt;!&ndash; Sử dụng th:each để lặp qua danh sách ảnh trong asset.listImage, bắt đầu từ vị trí 1 &ndash;&gt;-->
-<!--                            <div th:each="image, iterStat : ${auction.asset.getImages()}" th:if="${iterStat.index > 0}"-->
-<!--                                 class="col-md-3 mb-3">-->
-<!--                                <div class="thumbnail">-->
-<!--                                    <img th:src="@{${image.path}}" class="img-thumbnail" alt="Asset Image"/>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        <div th:if="${house != null and house.images != null}" class="thumbnail-images row">
+                            <!-- Sử dụng th:each để lặp qua danh sách ảnh trong asset.listImage, bắt đầu từ vị trí 1 -->
+                            <div th:each="image, iterStat : ${house.images}" th:if="${iterStat.index > 0}"
+                                 class="col-md-3 mb-3">
+                                <div class="thumbnail">
+                                    <img th:src="@{${image.path}}" class="img-thumbnail" alt="Asset Image"/>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!--xem tai lieu-->
                     <div class="row">
-                        <div class="col-md-3 mb-3">
+                        <div class="col-md-4 mb-4">
                             <button class="btn btn-toggle" id="view_description" style="width: 100%;">Description
                             </button>
                         </div>
-                        <div class="col-md-3 mb-3">
-                            <button class="btn btn-toggle" id="view_document" style="width: 100%;">Document</button>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <button class="btn btn-toggle" id="view_rule" style="width: 100%;">Rule</button>
+                        <div class="col-md-4 mb-4">
+                            <button class="btn btn-toggle" id="view_document" style="width: 100%;">Constract document
+                            </button>
                         </div>
                     </div>
-<!--                    <div class="single-post-content sidebar-widget" id="asset_description">-->
-<!--                        <div th:utext="${auction.asset.description}"></div>-->
-<!--                    </div>-->
-<!--                    <div class="single-post-content sidebar-widget" id="asset_document">-->
-<!--                        <div th:each="document : ${auction.asset.getDocuments()}" class="row">-->
-<!--                            <div class="col-md-12">-->
-<!--                                <a th:href="@{''+${document.path}}" target="_blank"-->
-<!--                                   style="cursor: pointer;">-->
-<!--                                    Asset Document-->
-<!--                                </a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-                    <!--                    <div class="single-post-content sidebar-widget" id="auction_rule">-->
-                    <!--                        <div th:each="document : ${auction.asset.getDocuments()}" class="row">-->
-                    <!--                            <div class="col-md-12">-->
-                    <!--                                <a th:href="@{''+${document.path}}" target="_blank"-->
-                    <!--                                   style="cursor: pointer;">-->
-                    <!--                                    Asset Document-->
-                    <!--                                </a>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
-                    <div class="single-post-content sidebar-widget" id="auction_rule">
-                        <h4 style="font-weight: bold;">Online Auction Rules</h4>
-                        <br>
-                        <ul>
-                            <li style="font-style: italic;">1. Comply with the laws on asset
-                                auctions.
-                            </li>
-                            <li style="font-style: italic;">2. Ensure the confidentiality of
-                                access accounts, auction participant information, and other
-                                information as required by law.
-                            </li>
-                            <li style="font-style: italic;">3. Ensure objectivity, transparency,
-                                safety, and cybersecurity.
-                            </li>
-                            <li style="font-style: italic;">4. Protect the lawful rights and
-                                interests of asset owners, auction participants, and related
-                                individuals or organizations.
-                            </li>
-                        </ul>
+                    <div class="single-post-content sidebar-widget" id="asset_description">
+                        <div th:utext="${house.description}"></div>
                     </div>
-
+                    <div class="single-post-content sidebar-widget" id="asset_document">
+                        <a th:href="@{''+${house.contract.document.path}}" target="_blank"
+                           style="cursor: pointer;">
+                            Asset Document
+                        </a>
+                    </div>
                 </div>
                 <!--//w3l-blopagew3-left-->
                 <!--/w3l-blopagew3-right-->
@@ -522,29 +484,25 @@ Author URL: http://w3layouts.com
                         <div class="sidebar-blog-category">
 
                             <!--button tham gia phien dau gia nam ơ day-->
-<!--                            <div class="sidebar-sticky" th:if="${T(java.time.LocalDateTime).now().isAfter(auction.startTime)-->
-<!--                            and (auction.actualEndTime != null ? T(java.time.LocalDateTime).now().isBefore(auction.actualEndTime) : true)}">-->
+                            <div class="sidebar-sticky">
                                 <div class="sidebar-sticky-fix">
-<!--                                    <a th:href="@{/customer/joinAuctionDetail(auctionId=${auction.getAuctionId()})}">-->
-<!--                                        <button class="btn btn-style btn-primary register-btn"-->
-<!--                                                style="width: 100%; margin-bottom: 20px;">-->
-<!--                                            Join auction-->
-<!--                                        </button>-->
-<!--                                    </a>-->
+                                    <!--                                    <a th:href="@{/customer/joinAuctionDetail(auctionId=${auction.getAuctionId()})}">-->
+                                    <!--                                        <button class="btn btn-style btn-primary register-btn"-->
+                                    <!--                                                style="width: 100%; margin-bottom: 20px;">-->
+                                    <!--                                            Join auction-->
+                                    <!--                                        </button>-->
+                                    <!--                                    </a>-->
                                 </div>
-<!--                            </div>-->
+                            </div>
                             <!--button dang ky tham gia dau gia nam ơ day-->
-<!--                            <div class="sidebar-sticky" th:if="${auction.status == 'Upcoming'} and ${auction_register == null}-->
-<!--                            and ${T(java.time.LocalDateTime).now().isAfter(auction.registrationOpenDate)}-->
-<!--                            and ${T(java.time.LocalDateTime).now().isBefore(auction.registrationCloseDate)}">-->
+                            <div class="sidebar-sticky" th:if="${register==null}">
                                 <div class="sidebar-sticky-fix">
                                     <button class="btn btn-style btn-primary register-btn"
                                             style="width: 100%; margin-bottom: 20px;"
-                                            data-bs-toggle="modal" data-bs-target="#register_validate_form">Register
-                                        auction
+                                            data-bs-toggle="modal" data-bs-target="#register_validate_form">Register house
                                     </button>
                                 </div>
-<!--                            </div>-->
+                            </div>
                             <!-- Modal hien thi form xac nhan dang ky-->
                             <div class="modal fade" id="register_validate_form" tabindex="-1"
                                  aria-labelledby="exampleModalLabel"
@@ -559,30 +517,28 @@ Author URL: http://w3layouts.com
                                         </div>
 
                                         <!-- Form bổ sung -->
-                                        <form th:action="@{/customer/registerAuction}" th:method="POST">
+                                        <form th:action="@{/customer/registerHouse}" th:method="POST">
                                             <div class="modal-body">
-                                                <h4 style="color: #f9351b">Online Auction Rules</h4>
+                                                <h4 style="color: #f9351b">Online Renting Rules</h4>
                                                 <br>
                                                 <ul>
-                                                    <li style="font-style: italic;">1. Comply with the laws on asset
-                                                        auctions.
+                                                    <li style="font-style: italic;">1. Follow housing rental laws and
+                                                        regulations.
                                                     </li>
-                                                    <li style="font-style: italic;">2. Ensure the confidentiality of
-                                                        access accounts, auction participant information, and other
-                                                        information as required by law.
+                                                    <li style="font-style: italic;">2. Keep tenant and owner information
+                                                        confidential.
                                                     </li>
-                                                    <li style="font-style: italic;">3. Ensure objectivity, transparency,
-                                                        safety, and cybersecurity.
+                                                    <li style="font-style: italic;">3. Ensure fair, transparent, and
+                                                        secure transactions.
                                                     </li>
-                                                    <li style="font-style: italic;">4. Protect the lawful rights and
-                                                        interests of asset owners, auction participants, and related
-                                                        individuals or organizations.
+                                                    <li style="font-style: italic;">4. Protect the rights and interests
+                                                        of both tenants and owners.
                                                     </li>
                                                 </ul>
                                                 <!--Agreement Confirmation-->
                                                 <div class="form-check">
-                                                    <input type="hidden" name="auctionId"
-                                                           th:value="${auction.auctionId}">
+                                                    <input type="hidden" name="houseId"
+                                                           th:value="${house.id}">
                                                     <input class="form-check-input" type="radio" id="agreeCheckbox"
                                                            style="margin-right: 10px;" name="validate" value="agree">
                                                     <label for="agreeCheckbox" style="color: #f9351b">I fully agree with
@@ -600,12 +556,12 @@ Author URL: http://w3layouts.com
                                 </div>
                             </div>
                             <!--button tham gia dau gia nam o day-->
-                            <div class="sidebar-sticky">
+                            <div class="sidebar-sticky" th:if="${register!=null and house.available_status!='1' and register.result!='Successful'}">
                                 <div class="sidebar-sticky-fix">
                                     <button class="btn btn-style btn-primary register-btn"
                                             style="width: 100%; margin-bottom: 20px;"
                                             data-bs-toggle="modal" data-bs-target="#transfer_deposit_fee">
-                                        Transfer deposit and register fee
+                                        Transfer register fee
                                     </button>
                                 </div>
                             </div>
@@ -616,11 +572,11 @@ Author URL: http://w3layouts.com
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Transfer deposit and register fee</h5>
+                                            <h5 class="modal-title">Transfer register fee</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                         </div>
-                                        <form th:action="@{/customer/transferDepositAndFee}" th:method="POST">
+                                        <form th:action="@{/customer/transferRegisterFee}" th:method="POST">
                                             <div class="modal-body">
                                                 <div style="text-align: center; width: 100%;">
                                                     <span style="font-style: italic; color: #f9351b;">Please do not change the transfer content</span>
@@ -630,16 +586,20 @@ Author URL: http://w3layouts.com
                                                      alt="QR code" style="width:100%;">
                                                 <!--xac nhan yeu cau-->
                                                 <div class="form-check">
-                                                    <input type="hidden" name="auctionId"
-                                                           th:value="${auction.auctionId}">
-                                                    <input type="hidden" name="auctionRegisterId"
-                                                           th:if="${auction_register != null}"
-                                                           th:value="${auction_register.getRegisterId()}">
+                                                    <input type="hidden" name="houseId"
+                                                           th:value="${house.id}">
+                                                    <input type="hidden" name="registerId"
+                                                           th:if="${register != null}"
+                                                           th:value="${register.id}">
                                                     <input class="form-check-input" type="radio" id="transferInput"
                                                            style="margin-right: 10px;" name="transfer" value="done">
-                                                    <label for="transferInput">
+                                                    <label for="transferInput" style="color: #f9351b">
                                                         Confirm the transfer
                                                     </label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Choose move in date: </label>
+                                                    <input type="datetime-local" name="move_in_date" class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -685,62 +645,108 @@ Author URL: http://w3layouts.com
                             <!--thong tin tai san-->
                             <div class="sidebar-widget popular-posts">
                                 <div class="sidebar-title">
-                                    <h4>Asset Information</h4>
+                                    <h4>House Information</h4>
                                 </div>
                                 <article style=" font-weight: bold; word-wrap: break-word; overflow-wrap: break-word;">
                                     <div class="row">
                                         <div class="col-md-12">
+                                            <label>Name: </label>
+                                            <span th:text="${house.name}"
+                                                  style="color: #f9351b;"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label>Province: </label>
+                                            <span th:text="${house.province}"
+                                                  style="color: #f9351b;"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label>District: </label>
+                                            <span th:text="${house.district}"
+                                                  style="color: #f9351b;"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label>Ward: </label>
+                                            <span th:text="${house.ward}"
+                                                  style="color: #f9351b;"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
                                             <label>Location: </label>
-                                            <span th:text="${auction.asset.location}"
+                                            <span th:text="${house.location}"
                                                   style="color: #f9351b;"></span>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label>Length (m): </label>
-                                            <span th:text="${auction.asset.length}"
+                                            <label>Land space: </label>
+                                            <span th:text="${house.land_space}"
                                                   style="color: #f9351b; font-weight: bold"></span>
                                         </div>
                                         <div class="col-md-6">
-                                            <label>Width (m): </label>
-                                            <span th:text="${auction.asset.width}"
+                                            <label>Living space: </label>
+                                            <span th:text="${house.living_space}"
+                                                  style="color: #f9351b; font-weight: bold"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Number bedrooms: </label>
+                                            <span th:text="${house.number_bed_room}"
+                                                  style="color: #f9351b; font-weight: bold"></span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Number baths: </label>
+                                            <span th:text="${house.number_bath}"
                                                   style="color: #f9351b; font-weight: bold"></span>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <label>Area <span>(m<sup>2</sup>): </span></label>
-                                            <span th:text="${auction.asset.area}"
+                                            <label>Available status: </label>
+                                            <span th:text="${house.available_status == '1' ? 'Busy' : 'Free'}"
                                                   style="color: #f9351b; font-weight: bold"></span>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <label>Local authority: </label>
-                                            <span th:text="${auction.asset.localAuthority != null ? auction.asset.localAuthority.localAuthorityName : 'null'}"
-                                                  style="color: #f9351b; font-weight: bold"></span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <label>Asset tags: </label>
-                                            <span th:each="tag, iterStat : ${auction.asset.getTags()}"
-                                                  th:text="${tag.tagName} + (${iterStat.last} ? '' : ', ')"
-                                                  th:title="${tag.description}"
+                                            <label>Fire equipments: </label>
+                                            <span th:each="fire, iterStat : ${house.fireEquipments}"
+                                                  th:text="${fire.name} + (${iterStat.last} ? '' : ', ')"
                                                   style="color: #f9351b; font-weight: bold;"></span>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <label>Status: </label>
-                                            <span th:text="${auction.asset.assetStatus}"
+                                            <label>Amenities: </label>
+                                            <span th:each="amenity, iterStat : ${house.amenities}"
+                                                  th:text="${amenity.name} + (${iterStat.last} ? '' : ', ')"
+                                                  style="color: #f9351b; font-weight: bold;"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Owner name: </label>
+                                            <span th:text="${house.owner.name}"
+                                                  style="color: #f9351b; font-weight: bold"></span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Phone number: </label>
+                                            <span th:text="${house.owner.phone}"
                                                   style="color: #f9351b; font-weight: bold"></span>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <label>Upload date: </label>
-                                            <span th:text="${auction.asset.createdDate}"
+                                            <span th:text="${house.updated_date}"
                                                   style="color: #f9351b; font-weight: bold"></span>
                                         </div>
                                     </div>
@@ -754,57 +760,23 @@ Author URL: http://w3layouts.com
                                 <article style=" font-weight: bold; word-wrap: break-word; overflow-wrap: break-word;">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <label>Owner: </label>
-                                            <span th:text="${house.contracts.get(0).account.username}"
+                                            <label>Price: </label>
+                                            <span th:text="${house.contract.price}"
                                                   style="color: #f9351b;"></span>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <label>Price: </label>
-                                            <span th:text="${house.contracts.get(0).price}"
-                                                  style="color: #f9351b; font-weight: bold;"></span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <label>Deposit: </label>
-                                            <span th:text="${house.contracts.get(0).deposit}"
-                                                  style="color: #f9351b; font-weight: bold;"></span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
                                             <label>Lease duration day: </label>
-                                            <span th:text="${house.contracts.get(0).lease_duration_day}"
-                                                  style="color: #f9351b; font-weight: bold"></span>
+                                            <span th:text="${house.contract.lease_duration_day}"
+                                                  style="color: #f9351b; font-weight: bold;"></span>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <label>Created date: </label>
-                                            <span th:text="${house.contracts.get(0).created_date != null ? house.contracts.get(0).created_date : 'null'}"
-                                                  style="color: #f9351b; font-weight: bold"></span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <label>Move in day: </label>
-                                            <span th:text="${house.contracts.get(0).move_in_date != null ? house.contracts.get(0).move_in_date : 'null'}"
-                                                  style="color: #f9351b; font-weight: bold"></span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <label>Signed date: </label>
-                                            <span th:text="${house.contracts.get(0).signed_date != null ? house.contracts.get(0).signed_date : 'null'}"
-                                                  style="color: #f9351b; font-weight: bold"></span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <label>Link house: </label>
-                                            <a th:href="@{/customer/viewHouseDetail(houseId=${house.id})}">here</a>
+                                            <label>Create date: </label>
+                                            <span th:text="${house.contract.created_date}"
+                                                  style="color: #f9351b; font-weight: bold;"></span>
                                         </div>
                                     </div>
                                 </article>
@@ -818,18 +790,17 @@ Author URL: http://w3layouts.com
                                             <h4>Google Map</h4>
                                         </div>
                                         <div>
-<!--                                            <iframe-->
-<!--                                                    th:src="${embedUrl}"-->
-<!--                                                    width=100%-->
-<!--                                                    height="300"-->
-<!--                                                    style="border:0;"-->
-<!--                                                    allowfullscreen=""-->
-<!--                                                    loading="lazy"-->
-<!--                                                    referrerpolicy="no-referrer-when-downgrade">-->
-<!--                                            </iframe>-->
+                                            <iframe
+                                                    th:src="${embedUrl}"
+                                                    width=100%
+                                                    height="300"
+                                                    style="border:0;"
+                                                    allowfullscreen=""
+                                                    loading="lazy"
+                                                    referrerpolicy="no-referrer-when-downgrade">
+                                            </iframe>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -837,7 +808,6 @@ Author URL: http://w3layouts.com
                 </div>
                 <!--//w3l-blopagew3-right-->
             </div>
-
         </div>
     </div>
 </section>
