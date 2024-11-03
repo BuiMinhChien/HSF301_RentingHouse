@@ -102,12 +102,11 @@ public class HouserRegisterController {
         //Image to House
         fileUploadUtil.UploadImagesForHouse(images, house);
         //Document to Contract
-
+        fileUploadUtil.UploadDocumentForContract(documents, contract);
         //Luu lan luot tat ca
         houseOwnerService.save(houseOwner);
-        contractService.save(contract);
         houseService.save(house);
+        contractService.save(contract);
         return "house_listing_agent/house-register-success";
     }
-
 }
