@@ -63,7 +63,7 @@ CREATE TABLE Account (
 
 CREATE TABLE Token (
     id INT IDENTITY(1,1) PRIMARY KEY,             
-    token NVARCHAR(255) NOT NULL,                  
+    token VARCHAR(255) NOT NULL,                  
     expiry_date DATETIME NOT NULL,            
     account_id INT,                                
     
