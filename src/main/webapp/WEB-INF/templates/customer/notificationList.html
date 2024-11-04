@@ -375,7 +375,7 @@ Author URL: http://w3layouts.com
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light stroke py-lg-0">
             <h1><a class="navbar-brand" th:href="@{/customer/home}">
-                Viet<span class="sub-color">Land</span>
+                Viet<span class="sub-color">House</span>
             </a></h1>
             <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false"
@@ -386,24 +386,19 @@ Author URL: http://w3layouts.com
             <div class="collapse navbar-collapse" id="navbarScroll">
                 <ul class="navbar-nav mx-lg-auto my-2 my-lg-0 navbar-nav-scroll">
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/}" style="font-size: 20px;">Home</a>
+                        <a class="nav-link active" th:href="@{/}" style="font-size: 20px;">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/customer/get_all_asset}" style="font-size: 20px;">Asset</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/customer/get_all_auction}" style="font-size: 20px;">Auction</a>
+                        <a class="nav-link" th:href="@{/customer/get_all_house}" style="font-size: 20px;">House</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/customer/get_all_news}" style="font-size: 20px;">News</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html" style="font-size: 20px;">About us</a>
+                        <a class="nav-link" th:href="@{/customer/aboutus}" style="font-size: 20px;">About us</a>
                     </li>
                 </ul>
 
-
-                <!--/clock-->
                 <div class="navbar-nav" id="clock-container">
                     <span class="nav-link" id="time"></span>
                     <span class="nav-link" id="date"></span>
@@ -420,23 +415,29 @@ Author URL: http://w3layouts.com
                         <li><a class="dropdown-item" href="#">Loading...</a></li>
                     </ul>
                 </div>
+                <!-- open/close -->
+                <!--//notify-->
+
+                <!-- Register and Login Buttons -->
+                <div class="auth-buttons">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-user"></i>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li th:if="${isLoggedIn}" ><a class="dropdown-item" th:href="@{/customer/profile}">Profile</a></li>
+                            <li th:if="${isLoggedIn}" ><a class="dropdown-item" th:href="@{/customer/viewNotification}">Notifications</a></li>
+                            <li th:if="${!isLoggedIn}"><a class="dropdown-item" th:href="@{/login}">Login</a>
+                            </li>
+                            <li th:if="${!isLoggedIn}"><a class="dropdown-item" th:href="@{/register}">Register</a></li>
+                            <li th:if="${isLoggedIn}"><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
 
             </div>
-            <!-- toggle switch for light and dark theme -->
-            <div class="mobile-position">
-                <nav class="navigation">
-                    <div class="theme-switch-wrapper">
-                        <label class="theme-switch" for="checkbox">
-                            <input type="checkbox" id="checkbox">
-                            <div class="mode-container">
-                                <i class="gg-sun"></i>
-                                <i class="gg-moon"></i>
-                            </div>
-                        </label>
-                    </div>
-                </nav>
-            </div>
-            <!-- //toggle switch for light and dark theme -->
+
         </nav>
     </div>
 </header>
@@ -491,12 +492,12 @@ Author URL: http://w3layouts.com
                                     <div class="action-buttons">
                                         <button th:if="${notification.getReadStatus() == 'unread'}"
                                                 class="btn btn-sm btn-outline-primary"
-                                                data-id="${notification.notificationId}"
+                                                th:attr="data-id=${notification.getNotificationId()}"
                                                 onclick="markAsRead2(this)">
                                             Mark as Read
                                         </button>
-                                        <a th:if="${notification.getAuctionId() != 0}"
-                                           th:href="@{/customer/viewAuctionDetail(auctionId=${notification.getAuctionId()})}"
+                                        <a th:if="${notification != 0}"
+                                           th:href="@{/customer/viewHouseDetail(houseId=${notification.houseId})}"
                                            class="btn btn-sm btn-outline-primary">
                                             View
                                         </a>

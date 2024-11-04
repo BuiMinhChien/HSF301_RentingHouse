@@ -36,7 +36,7 @@ public class SecurityConfig  {
                         .requestMatchers("/image/**", "/document/**", "/dashboardStatic/**", "/assets_CustomerSide/**").permitAll()
                         .requestMatchers("/", "/home", "/login", "/access-denied", "/register",
                                 "/reset-password**", "/forgot-password", "customer/viewHouseDetail", "/about",
-                                "/customer/viewNewsDetail", "/customer/get_all_house", "/customer/get_all_news")
+                                "/customer/viewNewsDetail**", "/customer/get_all_house", "/customer/get_all_news")
                         .permitAll()
                         .requestMatchers("/customer/**").hasRole("CUSTOMER")
                         .requestMatchers("/customer_care/**").hasRole("CUSTOMER_CARE")

@@ -2,6 +2,7 @@ package com.spring.mvc.service.impl;
 
 import com.spring.mvc.dao.AccountDAO;
 import com.spring.mvc.entity.Account;
+import com.spring.mvc.entity.Notification;
 import com.spring.mvc.entity.Role;
 import com.spring.mvc.service.AccountService;
 import com.spring.mvc.service.RoleService;
@@ -97,6 +98,25 @@ public class AccountServiceImpl implements AccountService {
                 // Update fields if they are modified
                 //  existingAccount.setPassword(passwordEncoder.encode(account.getPassword())); // encode password if modified
                 existingAccount.setImage(account.getImage());
+                // Save the updated account
+                accountDAO.update(existingAccount);
+            } else {
+                throw new RuntimeException("Account not found");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw ex;
+        }
+    }
+
+    @Override
+    public void updateWithNotification(Account account, Notification notification) {
+        try {
+            Account existingAccount = accountDAO.findById(account.getId());
+            if (existingAccount != null) {
+                // Update fields if they are modified
+                //  existingAccount.setPassword(passwordEncoder.encode(account.getPassword())); // encode password if modified
+                existingAccount.addNotification(notification);
                 // Save the updated account
                 accountDAO.update(existingAccount);
             } else {
