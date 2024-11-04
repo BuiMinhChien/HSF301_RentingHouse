@@ -39,7 +39,7 @@ function markAsRead(element) {
 }
 
 function markAsRead2(element) {
-    var notificationId = $(element).data('id'); // Correctly access the 'data-id' attribute
+    var notificationId = $(element).data('id');
     $.ajax({
         url: '/api/notifications/markAsRead', // Existing backend endpoint
         method: 'POST',

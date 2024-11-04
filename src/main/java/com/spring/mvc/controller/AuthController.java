@@ -84,11 +84,13 @@ public class AuthController {
     }
 
     @GetMapping("/customer/homepage")
-    public String customerHome(Model model) {
+    public String customerHome(Model model, Principal principal) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         boolean isLoggedIn = authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof String);
         model.addAttribute("isLoggedIn", isLoggedIn); // Truyền biến vào view
 
+        Account account = accountService.findByUsername(principal.getName());
+        model.addAttribute("accountId", account.getId());
         return "customer/homepage";
     }
 
