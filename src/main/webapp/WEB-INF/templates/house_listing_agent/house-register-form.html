@@ -5,7 +5,7 @@
     <link rel="apple-touch-icon" sizes="76x76" th:href="@{/dashboardStatic/img/apple-icon.png}">
     <link rel="icon" type="image/png" th:href="@{/dashboardStatic/img/favicon.png}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Đăng ký tài sản đấu giá</title>
+    <title>Register house</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
           name='viewport'/>
     <!--  dashboard template  -->
@@ -52,28 +52,28 @@
         </div>
         <div class="sidebar-wrapper">
             <ul class="nav">
-                <li class="active">
-                    <a th:href="@{/house-listing/owner}">
+                <li>
+                    <a th:href="@{/house-listing/profile}">
                         <i class="nc-icon nc-single-02"></i>
                         <p>Profile</p>
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{/property_agent/dashboard}">
+                    <a th:href="@{/house-listing}">
                         <i class="nc-icon nc-bank"></i>
-                        <p>Dashboard</p>
+                        <p>HomePage</p>
                     </a>
                 </li>
-                <li class="active ">
-                    <a th:href="@{/property_agent/register_form}">
+                <li class="active">
+                    <a th:href="@{/house-listing/ownerlist}">
                         <i class="nc-icon nc-single-copy-04"></i>
-                        <p>Register asset for auction</p>
+                        <p>House Owner</p>
                     </a>
                 </li>
-                <li>
-                    <a th:href="@{/property_agent/get_all_asset}">
+                <li class="active">
+                    <a th:href="@{/house-listing/register-form}">
                         <i class="nc-icon nc-bullet-list-67"></i>
-                        <p>Asset list</p>
+                        <p>Upload House Renting</p>
                     </a>
                 </li>
                 <li>
@@ -85,13 +85,12 @@
             </ul>
         </div>
     </div>
-
     <!--  End side navbar  -->
     <div class="main-panel"> <!--  Day la phan ben phai cua trang  -->
         <!-- Top Navbar, SUA TIEU DE TRANG CHO PHU HOP -->
         <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
             <div class="container-fluid">
-                <span class="navbar-brand">VietLand Auction</span>
+                <span class="navbar-brand">VietHouse</span>
             </div>
         </nav>
         <!-- End Top Navbar -->
@@ -155,28 +154,28 @@
                                         <div class="form-group">
                                             <label for="land_space">Land space</label>
                                             <input type="number" th:field="*{land_space}" id="land_space" class="form-control"
-                                                   required step="0.01" min="0.01" max="9999.99" placeholder="#.##">
+                                                   required placeholder="#.##">
                                         </div>
                                     </div>
                                     <div class="col-md-3 px-1">
                                         <div class="form-group">
                                             <label for="living_space">Living space</label>
                                             <input type="number" th:field="*{living_space}" id="living_space" class="form-control"
-                                                   required step="0.01" min="0.01" max="9999.99" placeholder="#.##">
+                                                   required  placeholder="#.##">
                                         </div>
                                     </div>
                                     <div class="col-md-3 pl-1">
                                         <div class="form-group">
                                             <label for="area">Number of bed room</label>
                                             <input type="number" th:field="*{number_bed_room}" id="area" class="form-control"
-                                                   required step="0.0001" min="0.0001" max="99999999.9999" placeholder="#.####">
+                                                   required  placeholder="#.####">
                                         </div>
                                     </div>
                                     <div class="col-md-3 pr-1">
                                         <div class="form-group">
                                             <label for="number_bath">Number of Bath</label>
                                             <input type="number" th:field="*{number_bath}" id="number_bath" class="form-control"
-                                                   required step="0.01" min="0.01" max="9999.99" placeholder="#.##">
+                                                   required step="0.01" placeholder="#.##">
                                         </div>
                                     </div>
                                 </div>
@@ -225,8 +224,8 @@
                                         <div>
                                             <label for="images">Choose images</label>
                                             <input  type="file" name="images" id="images" class="form-control" multiple
-                                                   required
-                                                   accept="image/png, image/jpeg, image/jpg, image/gif">
+                                                    required
+                                                    accept="image/png, image/jpeg, image/jpg, image/gif">
                                         </div>
                                     </div>
                                 </div>
@@ -246,37 +245,37 @@
                                         <div class="form-group">
                                             <label for="house_owner_name">House Owner Name</label>
                                             <input type="text" th:field="*{houseOwnerEmail}" id="house_owner_name" class="form-control"
-                                                   required step="0.01" min="0.01" max="9999.99" placeholder="#.##">
+                                                   required step="0.01"  placeholder="#.##">
                                         </div>
                                     </div>
-<!--                                    <div class="col-md-4 px-1">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="house_owner_address">House Owner Address</label>-->
-<!--                                            <input type="text" th:field="*{houseOwnerAddress}" id="house_owner_address" class="form-control"-->
-<!--                                                   required step="0.01" min="0.01" max="9999.99" placeholder="#.##">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="col-md-4 pl-1">-->
-<!--                                        <div class="form-group">-->
-<!--                                            <label for="house_Owner_Phone">House Owner Phone</label>-->
-<!--                                            <input type="text" th:field="*{houseOwnerPhone}" id="house_Owner_Phone" class="form-control"-->
-<!--                                                   required step="0.0001" min="0.0001" max="99999999.9999" placeholder="#.####">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
+                                    <!--                                    <div class="col-md-4 px-1">-->
+                                    <!--                                        <div class="form-group">-->
+                                    <!--                                            <label for="house_owner_address">House Owner Address</label>-->
+                                    <!--                                            <input type="text" th:field="*{houseOwnerAddress}" id="house_owner_address" class="form-control"-->
+                                    <!--                                                   required step="0.01" min="0.01" max="9999.99" placeholder="#.##">-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+                                    <!--                                    <div class="col-md-4 pl-1">-->
+                                    <!--                                        <div class="form-group">-->
+                                    <!--                                            <label for="house_Owner_Phone">House Owner Phone</label>-->
+                                    <!--                                            <input type="text" th:field="*{houseOwnerPhone}" id="house_Owner_Phone" class="form-control"-->
+                                    <!--                                                   required step="0.0001" min="0.0001" max="99999999.9999" placeholder="#.####">-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 pr-1">
                                         <div class="form-group">
                                             <label for="price">Price</label>
                                             <input type="number" th:field="*{price}" id="price" class="form-control"
-                                                   required step="0.01" min="0.01" max="9999.99" placeholder="#.##">
+                                                   required step="0.01"  placeholder="#.##">
                                         </div>
                                     </div>
                                     <div class="col-md-6 px-1">
                                         <div class="form-group">
-                                            <label for="house_owner_address">Lease Duration Day</label>
+                                            <label for="lease_duration_day">Lease Duration Day</label>
                                             <input type="number" th:field="*{lease_duration_day}" id="lease_duration_day" class="form-control"
-                                                   required step="0.01" min="0.01" max="9999.99" placeholder="#.##">
+                                                   required step="0.01"  placeholder="#.##">
                                         </div>
                                     </div>
                                 </div>
@@ -419,10 +418,10 @@
     });
 </script>
 <script src="/https://esgoo.net/scripts/jquery.js"></script>
-    <style type="text/css">
-        .css_select_div { text-align: center; }
-        .css_select { display: inline-table; width: 25%; padding: 5px; margin: 5px 2%; border: solid 1px #686868; border-radius: 5px; }
-        .result { margin-top: 10px; font-weight: bold; }
-    </style>
+<style type="text/css">
+    .css_select_div { text-align: center; }
+    .css_select { display: inline-table; width: 25%; padding: 5px; margin: 5px 2%; border: solid 1px #686868; border-radius: 5px; }
+    .result { margin-top: 10px; font-weight: bold; }
+</style>
 </body>
 </html>

@@ -50,27 +50,27 @@
         <div class="sidebar-wrapper">
             <ul class="nav">
                 <li>
-                    <a th:href="@{/property_agent/profile}">
+                    <a th:href="@{/house-listing/profile}">
                         <i class="nc-icon nc-single-02"></i>
                         <p>Profile</p>
                     </a>
                 </li>
-                <li class="active ">
-                    <a th:href="@{/property_agent/dashboard}">
+                <li>
+                    <a th:href="@{/house-listing}">
                         <i class="nc-icon nc-bank"></i>
                         <p>HomePage</p>
                     </a>
                 </li>
-                <li>
-                    <a th:href="@{/property_agent/register_form}">
+                <li class="active">
+                    <a th:href="@{/house-listing/ownerlist}">
                         <i class="nc-icon nc-single-copy-04"></i>
                         <p>House Owner</p>
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{/property_agent/get_all_asset}">
+                    <a th:href="@{/house-listing/register-form}">
                         <i class="nc-icon nc-bullet-list-67"></i>
-                        <p>House Renting</p>
+                        <p>Upload House Renting</p>
                     </a>
                 </li>
                 <li>
@@ -142,7 +142,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Gender</label>
-                                                <input type="text" class="form-control" th:text="${houseOwner.gender}" readonly>
+                                                <input type="text" class="form-control" th:value="${houseOwner.gender}" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -152,6 +152,8 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <a th:href="@{/house-listing/update-owner(id=${houseOwner.id})}">Update HouseOwner's Profile</a>
+
                                 </form>
                             </div>
                         </div>
