@@ -113,7 +113,8 @@ CREATE TABLE [Notification] (
     id INT PRIMARY KEY IDENTITY(1,1),
     content NVARCHAR(MAX) NOT NULL,
     created_date VARCHAR(100),
-    read_status NVARCHAR(100)
+    read_status NVARCHAR(100),
+house_id INT FOREIGN KEY REFERENCES House(id)
 );
 CREATE TABLE Account_Notification (
     notification_id INT FOREIGN KEY REFERENCES Notification(id),
