@@ -100,7 +100,8 @@
                         <table class="table table-striped" id="table2">
                             <thead>
                             <tr>
-                                <th>House</th>
+                                <th>House ID</th>
+                                <th>House name</th>
                                 <th>Location</th>
                                 <th>Owner</th>
                                 <th>OwnerID</th>
@@ -109,6 +110,10 @@
                             </thead>
                             <tbody>
                             <tr th:each="item : ${houses}">
+                                <td>
+                                    <a th:href="@{/house-listing/house-detail/{id}(id=${item.id})}" th:text="${item.id}"></a>
+
+                                </td>
                                 <td><span th:text="${item.name}"></span></td>
                                 <td><span th:text="${item.location}"></span></td>
                                 <td><span th:text="${item.owner.name}"></span></td>

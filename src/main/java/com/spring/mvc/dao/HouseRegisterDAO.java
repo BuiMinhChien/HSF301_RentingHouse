@@ -14,5 +14,5 @@ public interface HouseRegisterDAO {
     public HouseRegister getByRegisterId(int id);
     public HouseRegister getByHouseIdAccountId(int houseId, int accountId);
     public List<HouseRegister> getAllByAccountId(int accountId);
-
+    public List<HouseRegister> getAllByHouseId(int houseId);
 }

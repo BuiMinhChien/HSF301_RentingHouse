@@ -27,11 +27,13 @@ public class HouserRegisterController {
     private HouseOwnerService houseOwnerService;
     private ContractService contractService;
     private FileUploadUtil fileUploadUtil;
+    private HouseRegisterService houseRegisterService;
 
 
     private static final String UPLOAD_DIRECTORY = "E:\\Semester5\\HFS301\\PROJECT\\HSF301_RentingHouse\\src\\main\\resources\\static\\image";
 
-    public HouserRegisterController(HouseService houseService, FireEquipmentService fireEquipmentService, AmenitiesService amenitiesService, ImageService imageService, AccountService accountService, HouseOwnerService houseOwnerService, ContractService contractService, FileUploadUtil fileUploadUtil) {
+    public HouserRegisterController(HouseRegisterService houseRegisterService, HouseService houseService, FireEquipmentService fireEquipmentService, AmenitiesService amenitiesService, ImageService imageService, AccountService accountService, HouseOwnerService houseOwnerService, ContractService contractService, FileUploadUtil fileUploadUtil) {
+        this.houseRegisterService = houseRegisterService;
         this.houseService = houseService;
         this.fireEquipmentService = fireEquipmentService;
         this.amenitiesService = amenitiesService;
@@ -179,11 +181,16 @@ public class HouserRegisterController {
     }
 
     @GetMapping("house-detail/{id}")
-    public String showHouseDetail(@PathVariable("id") int id, Model model) {
+    public String showHouseDetail(@PathVariable("id") int id, Model model, Principal principal) {
         House house = houseService.findById(id);
         model.addAttribute("house", house);
         HouseOwner houseOwner = house.getOwner();
         model.addAttribute("houseOwner", houseOwner);
-       return "house_detail/houseOwnerDetail";
+        String username = principal.getName();
+        Account account = accountService.findByUsername(username);
+        model.addAttribute("staff", account);
+        List<HouseRegister> houseRegister = houseRegisterService.getAllByHouseId(house.getId());
+        model.addAttribute("houseRegister", houseRegister);
+       return "house_listing_agent/HouseDetail";
     }
 }
