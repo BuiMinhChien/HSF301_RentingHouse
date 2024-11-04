@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/notifications")
@@ -30,16 +31,17 @@ public class NotificationController {
         return notificationService.getNotificationsForAccount(account);
     }
 
-    // Đánh dấu thông báo là đã đọc
     @PostMapping("/markAsRead")
-    public ResponseEntity<?> markAsRead(@RequestParam int notificationId) {
+    public ResponseEntity<?> markAsRead(@RequestBody Map<String, Integer> payload) {
+        int notificationId = payload.get("notificationId");
         notificationService.markNotificationAsRead(notificationId);
         return ResponseEntity.ok().build();
     }
 
+
     // Stream thông báo mới theo thời gian thực bằng SSE
     @GetMapping("/stream/{clientId}")
-    public SseEmitter streamNotifications(@PathVariable int clientId) {
+    public SseEmitter streamNotifications(@PathVariable("clientId") int clientId) {
         SseEmitter emitter = new SseEmitter(Long.MAX_VALUE);
         notificationService.addEmitter(clientId, emitter);
 

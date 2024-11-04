@@ -149,4 +149,12 @@ public class House {
     }
 
 
+    public void addImages(Image image) {
+        if (this.images == null) {
+            this.images = new ArrayList<>();
+        }
+        this.images.add(image);
+        image.setHouse(this);
+    }
+
 }

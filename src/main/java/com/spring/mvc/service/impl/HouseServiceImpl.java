@@ -2,6 +2,7 @@ package com.spring.mvc.service.impl;
 
 import com.spring.mvc.dao.HouseDAO;
 import com.spring.mvc.entity.House;
+import com.spring.mvc.entity.HouseOwner;
 import com.spring.mvc.entity.News;
 import com.spring.mvc.service.HouseService;
 import org.springframework.stereotype.Service;
@@ -67,7 +68,17 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
+    public List<House> filterHouses(String status, String province, String district, String ward) {
+        return houseDAO.filterHouses(status, province, district, ward);
+    }
+
+    @Override
+    public List<House> findHousebyHouseOwner(HouseOwner houseOwner) {
+        return houseDAO.findByHouseOwner(houseOwner);
+    }
+    @Override
     public List<House> getAllHouses() {
         return houseDAO.findAll();
     }
+
 }

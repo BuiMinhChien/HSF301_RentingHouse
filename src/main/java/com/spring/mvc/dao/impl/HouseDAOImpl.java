@@ -2,6 +2,7 @@ package com.spring.mvc.dao.impl;
 
 import com.spring.mvc.dao.HouseDAO;
 import com.spring.mvc.entity.House;
+import com.spring.mvc.entity.HouseOwner;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository(value = "houseDAO")
@@ -86,6 +88,76 @@ public class HouseDAOImpl implements HouseDAO {
         Query<House> query = session.createQuery("from House order by updated_date desc", House.class);
         query.setMaxResults(3);
         return query.getSingleResult();
+    }
+
+    @Override
+    public List<House> findByHouseOwner(HouseOwner houseOwner) {
+        // Lấy session hiện tại từ sessionFactory
+        Session session = sessionFactory.getCurrentSession();
+
+        // Tạo câu truy vấn HQL để tìm các House theo HouseOwner
+        String hql = "FROM House h WHERE h.owner = :owner";
+
+        // Tạo query từ HQL
+        Query<House> query = session.createQuery(hql, House.class);
+        query.setParameter("owner", houseOwner);
+
+        // Thực thi truy vấn và trả về kết quả
+        return query.getResultList();
+    }
+
+
+    public List<House> filterHouses(String status, String province, String district, String ward) {
+        Session session = sessionFactory.getCurrentSession();
+
+        // Khởi tạo câu truy vấn cơ bản
+        StringBuilder hql = new StringBuilder("FROM House h WHERE 1=1");
+
+        // Khai báo các biến truy vấn động
+        Integer statusValue = null;
+        if (status != null && !status.isEmpty()) {
+            if (status.equalsIgnoreCase("Free")) {
+                statusValue = 0;
+            } else if (status.equalsIgnoreCase("Busy")) {
+                statusValue = 1;
+            }
+            hql.append(" AND h.available_status = :status");
+        }
+
+        if (province != null && !province.isEmpty() && !province.equals("Tỉnh Thành")) {
+            System.out.println(province);
+            hql.append(" AND h.province LIKE :province");
+        }
+
+        if (district != null && !district.isEmpty() && !district.equals("Quận Huyện")) {
+            System.out.println(district);
+            hql.append(" AND h.district LIKE :district");
+        }
+
+        if (ward != null && !ward.isEmpty() && !ward.equals("Phường Xã")) {
+            System.out.println(ward);
+            hql.append(" AND h.ward LIKE :ward");
+        }
+
+        // Tạo query từ câu truy vấn HQL đã xây dựng
+        Query<House> query = session.createQuery(hql.toString(), House.class);
+
+        // Gán các giá trị tham số
+        if (statusValue != null) {
+            query.setParameter("status", statusValue.intValue());
+        }
+        if (province != null && !province.isEmpty() && !province.equals("Tỉnh Thành")) {
+            query.setParameter("province", "%"+province+"%");
+        }
+        if (district != null && !district.isEmpty() && !district.equals("Quận Huyện")) {
+            query.setParameter("district", "%"+district+"%");
+        }
+        if (ward != null && !ward.isEmpty() && !ward.equals("Phường Xã")) {
+            query.setParameter("ward", "%"+ward+"%");
+        }
+        System.out.println(query.getQueryString());
+        // Thực thi truy vấn và trả về kết quả
+        return query.getResultList();
     }
 
 }

@@ -1,0 +1,643 @@
+[33mcommit 2667e2745f8c7961afdd4c4ce101ba6a5d0592fa[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mTungPV[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: f202e11 72ce802
+Author: CoderFPT <139433806+CoderFPT@users.noreply.github.com>
+Date:   Sun Nov 3 13:56:49 2024 +0700
+
+    Merge branch 'GiapTD'
+
+[33mcommit 72ce80274d899334c7cfe7da99b09091a95521ec[m[33m ([m[1;31morigin/GiapTD[m[33m)[m
+Author: CoderFPT <139433806+CoderFPT@users.noreply.github.com>
+Date:   Sun Nov 3 13:55:59 2024 +0700
+
+    Mum mum
+
+[33mcommit f202e110e65bfcc34d436fc5e73760a0c674402c[m
+Merge: d1ae67f 33555ce
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sun Nov 3 13:50:16 2024 +0700
+
+    Merge branch 'main' of https://github.com/BuiMinhChien/HSF301_RentingHouse
+
+[33mcommit d1ae67f075bf39fb2623b5a0364d613dfb7f1b4f[m
+Merge: 3090f41 9597964
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sun Nov 3 13:49:30 2024 +0700
+
+    Merge branch 'TungPV'
+
+[33mcommit 959796438811e804e82be3fb3b0c772a4340cf67[m[33m ([m[1;31morigin/TungPV[m[33m)[m
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sun Nov 3 13:49:03 2024 +0700
+
+    Update
+
+[33mcommit 33555ced482c898e089554ca646c9472dccb0db9[m
+Merge: 3090f41 13cd344
+Author: Lê Đoàn Đức Chung <chunglddhe181800@fpt.edu.vn>
+Date:   Sun Nov 3 13:42:40 2024 +0700
+
+    Merge pull request #6 from BuiMinhChien/ChungLDD
+    
+    Chung ldd
+
+[33mcommit 13cd344ef2dd475018a7dd42f909d91a0895b8b1[m[33m ([m[1;31morigin/ChungLDD[m[33m)[m
+Merge: bddc150 3090f41
+Author: Jong <chunglddhe181800@fpt.edu.vn>
+Date:   Sun Nov 3 13:38:30 2024 +0700
+
+    merge branch 'main' of https://github.com/BuiMinhChien/HSF301_RentingHouse into ChungLDD
+
+[33mcommit bddc15083dff87d9f0310474be74d1ade564afa2[m
+Author: Jong <chunglddhe181800@fpt.edu.vn>
+Date:   Sun Nov 3 13:38:15 2024 +0700
+
+    cau hinh email
+
+[33mcommit 3090f41f0dd329e832aea9929f28857762b0347a[m
+Merge: 58c01c8 ab13f53
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sun Nov 3 13:36:59 2024 +0700
+
+    Merge branch 'main' of https://github.com/BuiMinhChien/HSF301_RentingHouse
+
+[33mcommit 58c01c840353e37e27a4405d3486978e7a262602[m
+Merge: f80e32f 47c7037
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sun Nov 3 13:36:10 2024 +0700
+
+    update
+
+[33mcommit 47c703745093a4613d593fbcf96153ae75554897[m
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sun Nov 3 13:29:50 2024 +0700
+
+    update
+
+[33mcommit ab13f53e9b3de6fd960968f3eb8e80fdc3385f97[m
+Author: Lê Đoàn Đức Chung <chunglddhe181800@fpt.edu.vn>
+Date:   Sun Nov 3 12:41:58 2024 +0700
+
+    Update SQL_For_HSF301_Assignment.sql
+
+[33mcommit cb70a3d6f8028c3080e59d27f34798e731148af2[m
+Author: Lê Đoàn Đức Chung <chunglddhe181800@fpt.edu.vn>
+Date:   Sun Nov 3 12:38:42 2024 +0700
+
+    Update SQL_For_HSF301_Assignment.sql
+
+[33mcommit 9e5bcb0d761adac79aa42a40a35d5eda12b91235[m
+Author: Lê Đoàn Đức Chung <chunglddhe181800@fpt.edu.vn>
+Date:   Sun Nov 3 12:28:39 2024 +0700
+
+    Update SQL_For_HSF301_Assignment.sql
+
+[33mcommit f80e32fa20de7ba64179033497c7803845f3285e[m
+Merge: c03d80f ee25f92
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sun Nov 3 12:05:41 2024 +0700
+
+    Update
+
+[33mcommit ee25f9289fb29ed078f6957eeeae2422e7be5bdb[m
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sun Nov 3 12:01:23 2024 +0700
+
+    Update
+
+[33mcommit c03d80fd3e1d577f548af08274697b10b362daed[m
+Author: Lê Đoàn Đức Chung <chunglddhe181800@fpt.edu.vn>
+Date:   Sun Nov 3 11:54:03 2024 +0700
+
+    Update SQL_For_HSF301_Assignment.sql
+
+[33mcommit f06367495b60850590f6da26bf7884939b4b4ae5[m
+Author: CoderFPT <139433806+CoderFPT@users.noreply.github.com>
+Date:   Sun Nov 3 11:43:10 2024 +0700
+
+    Done
+
+[33mcommit fa839906df925fa3a5fc8d6373e6accb5aa663a0[m
+Merge: ff28aed b7f9fea
+Author: Jong <chunglddhe181800@fpt.edu.vn>
+Date:   Sun Nov 3 09:27:41 2024 +0700
+
+    mErge branch 'main' of https://github.com/BuiMinhChien/HSF301_RentingHouse into ChungLDD
+
+[33mcommit ff28aed16f80b2478de2fe804d72dffc4c5edf02[m
+Author: Jong <chunglddhe181800@fpt.edu.vn>
+Date:   Sun Nov 3 09:27:25 2024 +0700
+
+    commit
+
+[33mcommit b7f9fea055256a680846e47c418ef2e485277595[m
+Author: CoderFPT <139433806+CoderFPT@users.noreply.github.com>
+Date:   Sun Nov 3 09:23:39 2024 +0700
+
+    Done
+
+[33mcommit 19d33b1770d27fa19cb6bde17be5f0f720155ed9[m
+Author: CoderFPT <139433806+CoderFPT@users.noreply.github.com>
+Date:   Sat Nov 2 23:48:01 2024 +0700
+
+    Done
+
+[33mcommit f7ab005cfb33f6480ff29a3e33325ed6cb1ec003[m
+Merge: 540993e 30ffb89
+Author: CoderFPT <139433806+CoderFPT@users.noreply.github.com>
+Date:   Sat Nov 2 23:45:11 2024 +0700
+
+    Done
+
+[33mcommit 30ffb890ce821c76a3520476570603d4e90726e9[m
+Author: CoderFPT <139433806+CoderFPT@users.noreply.github.com>
+Date:   Sat Nov 2 23:43:39 2024 +0700
+
+    Done
+
+[33mcommit 6da057290d046d8bf45545e864d0c7a0f4078cc5[m
+Author: CoderFPT <139433806+CoderFPT@users.noreply.github.com>
+Date:   Sat Nov 2 23:38:53 2024 +0700
+
+    Done
+
+[33mcommit 540993e46de720c381227fb6ca3cfbd3e9de2c2b[m
+Merge: 4333bab 01cc9bb
+Author: Bui Minh Chien <chien181004@gmail.com>
+Date:   Sat Nov 2 23:37:19 2024 +0700
+
+    xu ly xung dot
+
+[33mcommit 4333babd4152bf2c32cae9653466b8b39b1a2bad[m
+Author: Bui Minh Chien <chien181004@gmail.com>
+Date:   Sat Nov 2 23:33:46 2024 +0700
+
+    lam trang house detail
+
+[33mcommit 01cc9bbea06d02940ac31a6030e0864033c5297b[m
+Merge: 5fd3ffd 7064624
+Author: Lê Đoàn Đức Chung <chunglddhe181800@fpt.edu.vn>
+Date:   Sat Nov 2 23:12:09 2024 +0700
+
+    Merge pull request #5 from BuiMinhChien/ChungLDD
+    
+    ChungLDD
+
+[33mcommit 7064624a27e4bcab7131e6e2917c41ed6e5350c6[m
+Merge: eaf7f19 5fd3ffd
+Author: Jong <chunglddhe181800@fpt.edu.vn>
+Date:   Sat Nov 2 22:45:01 2024 +0700
+
+    update
+
+[33mcommit eaf7f19d23c317114c8c68382b9af75872680d1a[m
+Author: Jong <chunglddhe181800@fpt.edu.vn>
+Date:   Sat Nov 2 22:42:18 2024 +0700
+
+    update profile
+
+[33mcommit 5fd3ffd1143b170b4246d183072444f609afdf73[m
+Merge: dd6bf52 fee558f
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sat Nov 2 22:02:13 2024 +0700
+
+    Update
+
+[33mcommit fee558f661fe9963c0a3cdc5d5ffe779f1501cae[m
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sat Nov 2 21:58:08 2024 +0700
+
+    Update
+
+[33mcommit dd6bf5206449d5dae6ec5643851235203f87aa6e[m
+Merge: 06ee525 5e3bb2b
+Author: CoderFPT <139433806+CoderFPT@users.noreply.github.com>
+Date:   Sat Nov 2 21:50:58 2024 +0700
+
+    Merge branch 'main' of https://github.com/BuiMinhChien/HSF301_RentingHouse
+
+[33mcommit 06ee52595bcc70fadcbfb7e6b22e4ddba8f84442[m
+Author: CoderFPT <139433806+CoderFPT@users.noreply.github.com>
+Date:   Sat Nov 2 21:50:34 2024 +0700
+
+    Done
+
+[33mcommit 5e3bb2bf3cd2af3978873e8e7104ba1582f762fe[m
+Author: Bui Minh Chien <chien181004@gmail.com>
+Date:   Sat Nov 2 21:49:29 2024 +0700
+
+    hoan thien news
+
+[33mcommit 5ebc01f4ee8b3a393962d051869bcb5201ad8234[m
+Merge: 0c83ba7 5b5950c
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sat Nov 2 20:52:14 2024 +0700
+
+    Update
+
+[33mcommit 5e3b0802c353eacc16d570dec3588653bf75f277[m
+Merge: ca75c21 5b5950c
+Author: Jong <chunglddhe181800@fpt.edu.vn>
+Date:   Sat Nov 2 20:34:18 2024 +0700
+
+    Merge branch 'main' of https://github.com/BuiMinhChien/HSF301_RentingHouse into ChungLDD
+
+[33mcommit 0c83ba7e3422960c62f0604fad601d1cc5c1b5ca[m
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sat Nov 2 20:31:19 2024 +0700
+
+    Update
+
+[33mcommit ca75c2175f13fe3415a86c6a23761f0dbe9083fe[m
+Author: Jong <chunglddhe181800@fpt.edu.vn>
+Date:   Sat Nov 2 20:31:06 2024 +0700
+
+    update
+
+[33mcommit 5b5950cc0f19f316032d6e1e007687355ef5f826[m
+Merge: 2f517cc 4788034
+Author: Bui Minh Chien <chien181004@gmail.com>
+Date:   Sat Nov 2 20:29:14 2024 +0700
+
+    Merge branch 'main' of https://github.com/BuiMinhChien/HSF301_RentingHouse
+
+[33mcommit 2f517ccc1fb0bbc5f296bd2b48afc9f372265900[m
+Author: Bui Minh Chien <chien181004@gmail.com>
+Date:   Sat Nov 2 20:29:00 2024 +0700
+
+    hoan thien upload anh
+
+[33mcommit 478803476ecaf01af5891c1aacff7549559c2b01[m
+Merge: 73d77e4 f0c5c48
+Author: CoderFPT <139433806+CoderFPT@users.noreply.github.com>
+Date:   Sat Nov 2 19:52:49 2024 +0700
+
+    Done
+
+[33mcommit f0c5c48e595e7cf918a0081e5c47e1c604f1cdd2[m
+Author: CoderFPT <139433806+CoderFPT@users.noreply.github.com>
+Date:   Sat Nov 2 19:47:42 2024 +0700
+
+    Done Chatbot
+
+[33mcommit 73d77e483e8f80e4d35ab7e58357a19e16d2a96b[m
+Merge: c713ba5 f982abd
+Author: Bui Minh Chien <chien181004@gmail.com>
+Date:   Sat Nov 2 19:46:59 2024 +0700
+
+    Merge branch 'main' of https://github.com/BuiMinhChien/HSF301_RentingHouse
+
+[33mcommit c713ba5bc7eb7b759616f71dd5b4180fc999baa2[m
+Author: Bui Minh Chien <chien181004@gmail.com>
+Date:   Sat Nov 2 19:46:38 2024 +0700
+
+    lat vat
+
+[33mcommit f982abd36a07f106f2a88ec46d6ff638aa06e496[m
+Author: Lê Đoàn Đức Chung <chunglddhe181800@fpt.edu.vn>
+Date:   Sat Nov 2 19:44:37 2024 +0700
+
+    Update SQL_For_HSF301_Assignment.sql
+
+[33mcommit 270d626b46c4cfd169d6813aef9fdee34a36b40e[m
+Author: Lê Đoàn Đức Chung <chunglddhe181800@fpt.edu.vn>
+Date:   Sat Nov 2 19:41:40 2024 +0700
+
+    Update SQL_For_HSF301_Assignment.sql
+
+[33mcommit 460ac46c75e1801ca841e41c8b4e71b793c71f51[m
+Author: Lê Đoàn Đức Chung <chunglddhe181800@fpt.edu.vn>
+Date:   Sat Nov 2 19:36:32 2024 +0700
+
+    Update SQL_For_HSF301_Assignment.sql
+
+[33mcommit 08fcc8504f6d3b9eb9925e4a5fc3d7dd16a56022[m
+Merge: c9a42e4 9869449
+Author: Bui Minh Chien <chien181004@gmail.com>
+Date:   Sat Nov 2 18:58:30 2024 +0700
+
+    lay cach tai anh
+
+[33mcommit c9a42e442fc107b063bf05e507ea2e6094e51b27[m
+Author: Bui Minh Chien <chien181004@gmail.com>
+Date:   Sat Nov 2 18:37:57 2024 +0700
+
+    lat vat
+
+[33mcommit 836bdb48a1eb83d6ec864ae8ae4fc5cc58eaf147[m
+Merge: b9e256e 9869449
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sat Nov 2 18:16:15 2024 +0700
+
+    Update
+
+[33mcommit b9e256e4c29af09fe13d6bb2d7656166bc86676d[m
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sat Nov 2 18:12:36 2024 +0700
+
+    Update
+
+[33mcommit 986944978faed05f31337e02fd3eb2a40d1265be[m
+Merge: 91f385d 4778e47
+Author: Lê Đoàn Đức Chung <chunglddhe181800@fpt.edu.vn>
+Date:   Sat Nov 2 18:06:14 2024 +0700
+
+    Merge pull request #4 from BuiMinhChien/ChungLDD
+    
+    ChungLDD
+
+[33mcommit 4778e4731dfdaa56cc848370c6179fe103df2c94[m
+Author: Jong <chunglddhe181800@fpt.edu.vn>
+Date:   Sat Nov 2 18:05:01 2024 +0700
+
+    Update security
+
+[33mcommit aebc4cff2423ed00dfedfaf5243aebf2682876d0[m
+Merge: 35530e9 91f385d
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sat Nov 2 15:35:31 2024 +0700
+
+    update
+
+[33mcommit 35530e99b662cb112ad940a594b9238cd3ef16af[m
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sat Nov 2 15:28:49 2024 +0700
+
+    Update
+
+[33mcommit 14c8d83ae49d4f643ab812690b56c1efd5823acc[m
+Merge: 4810aa3 91f385d
+Author: Jong <chunglddhe181800@fpt.edu.vn>
+Date:   Sat Nov 2 15:02:50 2024 +0700
+
+    Merge branch 'main' of https://github.com/BuiMinhChien/HSF301_RentingHouse into ChungLDD
+    
+    t
+
+[33mcommit 4810aa30b1aa396060aaa848d4958cc559425f0e[m
+Author: Jong <chunglddhe181800@fpt.edu.vn>
+Date:   Sat Nov 2 15:01:31 2024 +0700
+
+    update
+
+[33mcommit 91f385dc554da3286c2d94f8026afefae581acab[m
+Author: Bui Minh Chien <chien181004@gmail.com>
+Date:   Sat Nov 2 14:46:40 2024 +0700
+
+    xu ly loi upload anh
+
+[33mcommit 1467dd807b620429e0724e4c2abb12b820225261[m
+Merge: 71cd799 4f837a5
+Author: Bui Minh Chien <chien181004@gmail.com>
+Date:   Sat Nov 2 13:26:19 2024 +0700
+
+    xu ly xung dot
+
+[33mcommit 71cd7995bf8258554d5c7b2fd09786dfa90a8730[m
+Author: Bui Minh Chien <chien181004@gmail.com>
+Date:   Sat Nov 2 12:27:35 2024 +0700
+
+    lam news writer
+
+[33mcommit a163701e90e986f4fa367b7396cc1a0423266aac[m
+Merge: 99718a5 4f837a5
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sat Nov 2 10:42:22 2024 +0700
+
+    Merge remote-tracking branch 'origin' into TungPV # Please enter a
+    commit message to explain why this merge is necessary,
+
+[33mcommit 4f837a5e7cd952179b023d00e1947add4c683972[m
+Merge: 76338e5 4888aa5
+Author: Lê Đoàn Đức Chung <chunglddhe181800@fpt.edu.vn>
+Date:   Sat Nov 2 10:28:17 2024 +0700
+
+    Merge pull request #3 from BuiMinhChien/ChungLDD
+    
+    Update security
+
+[33mcommit 4888aa55607e54ae0018c8a20f618f68853673d8[m
+Author: Jong <chunglddhe181800@fpt.edu.vn>
+Date:   Sat Nov 2 10:27:22 2024 +0700
+
+    Update security
+
+[33mcommit 99718a5eef47456e3e7525a6504643c113ec6d51[m
+Merge: 76338e5 f62c1db
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sat Nov 2 10:12:51 2024 +0700
+
+    dasd
+
+[33mcommit f62c1db074f90b1ad957c6741e888ce8b99150c7[m[33m ([m[1;32mChungLDD[m[33m)[m
+Author: Jong <chunglddhe181800@fpt.edu.vn>
+Date:   Sat Nov 2 10:07:39 2024 +0700
+
+    Update security
+
+[33mcommit 76338e5ec6912e18c764fee68079e5b4e90715af[m
+Merge: 490e164 c1b842a
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sat Nov 2 09:58:06 2024 +0700
+
+    cak
+
+[33mcommit c1b842a8d4bdb89ea2f40ced991188bd2d3a2b04[m
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sat Nov 2 09:52:21 2024 +0700
+
+    lol
+
+[33mcommit 490e164cbbf2709b76dfe4e0906886eaeba1d45f[m
+Author: CoderFPT <139433806+CoderFPT@users.noreply.github.com>
+Date:   Sat Nov 2 05:07:15 2024 +0700
+
+    Tung lOn
+
+[33mcommit 1b7b1e4c187b9e9f527e26477ff44d517681e72a[m
+Merge: 5f59b06 9970fb2
+Author: CoderFPT <139433806+CoderFPT@users.noreply.github.com>
+Date:   Sat Nov 2 04:53:11 2024 +0700
+
+    Merge branch 'GiapTD'
+
+[33mcommit 5f59b068e7c4d3e5304249228ca86a157a2351a3[m
+Merge: 7442b2f 186fe35
+Author: CoderFPT <139433806+CoderFPT@users.noreply.github.com>
+Date:   Sat Nov 2 04:52:31 2024 +0700
+
+    Merge branch 'main' of https://github.com/BuiMinhChien/HSF301_RentingHouse
+
+[33mcommit 9970fb2d97c17cf2f24c6bb0ee7c8a5d7f5ccac2[m
+Author: CoderFPT <139433806+CoderFPT@users.noreply.github.com>
+Date:   Sat Nov 2 04:51:21 2024 +0700
+
+    Done
+
+[33mcommit 186fe350946e37cc2e54f5ef399f634b7c572469[m
+Merge: 722c198 4ae20ac
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sat Nov 2 03:20:26 2024 +0700
+
+    Merge branch 'main' into TungPV
+
+[33mcommit 4ae20ac3c4ec13acd5546efac38faa08bdc3294f[m
+Merge: 3507f15 32170a3
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sat Nov 2 03:11:51 2024 +0700
+
+    Done
+
+[33mcommit 722c198020787593ac8b373450bfb27397cc3cfb[m
+Merge: 3507f15 32170a3
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sat Nov 2 03:11:51 2024 +0700
+
+    Done
+
+[33mcommit 3507f15309de22f0e44089e42b580506a3a5dd9f[m
+Author: Tung Pham <tungpvhe186583@fpt.edu.vn>
+Date:   Sat Nov 2 03:04:53 2024 +0700
+
+    Update
+
+[33mcommit 7442b2f2e7178e7f45abfb0b06a4f7267e3aca8c[m
+Merge: 32170a3 73ce302
+Author: CoderFPT <139433806+CoderFPT@users.noreply.github.com>
+Date:   Sat Nov 2 02:50:32 2024 +0700
+
+    Merge branch 'giaptd'
+
+[33mcommit 73ce30292568e7c4d263c31c86d96fd06f7d1def[m
+Author: CoderFPT <139433806+CoderFPT@users.noreply.github.com>
+Date:   Sat Nov 2 02:50:01 2024 +0700
+
+    Done
+
+[33mcommit 32170a329bca5c510c588d43844e43d64d5aa16b[m
+Merge: 2af9d56 19882e8
+Author: Lê Đoàn Đức Chung <chunglddhe181800@fpt.edu.vn>
+Date:   Sat Nov 2 02:44:00 2024 +0700
+
+    Merge pull request #2 from BuiMinhChien/ChungLDD
+    
+    Update security
+
+[33mcommit 19882e8f4c19a647629e1d74975aaad5d6e6d574[m
+Author: Jong <chunglddhe181800@fpt.edu.vn>
+Date:   Sat Nov 2 02:43:11 2024 +0700
+
+    Update security
+
+[33mcommit 2af9d56892c66e60973ad1f74c68cb45f816b80a[m
+Author: Lê Đoàn Đức Chung <chunglddhe181800@fpt.edu.vn>
+Date:   Sat Nov 2 00:09:20 2024 +0700
+
+    Update SQL_For_HSF301_Assignment.sql
+
+[33mcommit 0385230da2e0e6fa2ac320c87126cc32fe1f9e0f[m
+Author: Lê Đoàn Đức Chung <chunglddhe181800@fpt.edu.vn>
+Date:   Sat Nov 2 00:01:13 2024 +0700
+
+    Update SQL_For_HSF301_Assignment.sql
+
+[33mcommit 9dd555a10efe7ea29f9240d862166aadc27faf83[m
+Author: Lê Đoàn Đức Chung <chunglddhe181800@fpt.edu.vn>
+Date:   Fri Nov 1 23:39:23 2024 +0700
+
+    Update SQL_For_HSF301_Assignment.sql
+
+[33mcommit 055b07f67e64ee6f05b0133b00f4f607444cdce8[m
+Author: Lê Đoàn Đức Chung <chunglddhe181800@fpt.edu.vn>
+Date:   Fri Nov 1 22:54:04 2024 +0700
+
+    Update SQL_For_HSF301_Assignment.sql
+
+[33mcommit 5ae332cb25bb857d9517c97d01e70a9cad3e93a8[m
+Merge: b3bdf7d 16e4786
+Author: CoderFPT <139433806+CoderFPT@users.noreply.github.com>
+Date:   Fri Nov 1 22:24:12 2024 +0700
+
+    Merge branch 'main' of https://github.com/BuiMinhChien/HSF301_RentingHouse
+
+[33mcommit b3bdf7d477f1605283a55753624a0f26f0601e4a[m
+Author: CoderFPT <139433806+CoderFPT@users.noreply.github.com>
+Date:   Fri Nov 1 22:23:15 2024 +0700
+
+    Done Account Service
+
+[33mcommit 16e478611c788b286d29fb61f31179694d0faf5a[m
+Merge: e7bed79 887a135
+Author: Bui Minh Chien <chien181004@gmail.com>
+Date:   Fri Nov 1 22:03:21 2024 +0700
+
+    Merge branch 'main' of https://github.com/BuiMinhChien/HSF301_RentingHouse
+
+[33mcommit e7bed79197e2500ec63af53ba34126634c223988[m
+Author: Bui Minh Chien <chien181004@gmail.com>
+Date:   Fri Nov 1 22:02:23 2024 +0700
+
+    them file dao
+
+[33mcommit 887a13528d75274a236a2f93196c398f198eb3f5[m
+Author: CoderFPT <139433806+CoderFPT@users.noreply.github.com>
+Date:   Fri Nov 1 22:00:17 2024 +0700
+
+    AccountDAO
+
+[33mcommit 0c1b043751e54a5b8bcc82a02d1ff655af517006[m
+Author: Bui Minh Chien <chien181004@gmail.com>
+Date:   Fri Nov 1 16:27:57 2024 +0700
+
+    tao dao va service
+
+[33mcommit 0c71f10ceaa81e7ed1881df8bf4ed960567b6b8a[m
+Merge: 3273aec c7a831c
+Author: Bui Minh Chien <chien181004@gmail.com>
+Date:   Fri Nov 1 11:10:13 2024 +0700
+
+    Merge branch 'main' of https://github.com/BuiMinhChien/HSF301_RentingHouse
+
+[33mcommit 3273aecd7978d5bbda9ce6c60f294e6dc5c90bb6[m
+Author: Bui Minh Chien <chien181004@gmail.com>
+Date:   Fri Nov 1 11:09:41 2024 +0700
+
+    sua lat vat
+
+[33mcommit c7a831c44872b1613c5c1b209d45bb0e721d7344[m
+Merge: 1ec13c1 37191d7
+Author: Lê Đoàn Đức Chung <chunglddhe181800@fpt.edu.vn>
+Date:   Wed Oct 30 17:50:07 2024 +0700
+
+    Merge pull request #1 from BuiMinhChien/ChungLDD
+    
+    Chung ldd
+
+[33mcommit 37191d743ccbd604b2fcb31d7740b47f49a72cbd[m
+Author: Jong <chunglddhe181800@fpt.edu.vn>
+Date:   Wed Oct 30 17:49:22 2024 +0700
+
+    Update SQL_For_HSF301_Assignment.sql
+
+[33mcommit 9807ade3c5b7ac4010d71b2e7316d9c37145392a[m
+Author: Lê Đoàn Đức Chung <chunglddhe181800@fpt.edu.vn>
+Date:   Wed Oct 30 16:12:19 2024 +0700
+
+    Update SQL_For_HSF301_Assignment.sql
+
+[33mcommit 1ec13c1be451260c908f96d896ebb43d2095f61d[m
+Author: Lê Đoàn Đức Chung <chunglddhe181800@fpt.edu.vn>
+Date:   Wed Oct 30 16:12:19 2024 +0700
+
+    Update SQL_For_HSF301_Assignment.sql
+
+[33mcommit 6c20ce215ab227f25b858f964eddd3ab1cea010a[m
+Author: Bui Minh Chien <chien181004@gmail.com>
+Date:   Wed Oct 30 15:48:45 2024 +0700
+
+    khoi tao entity
+
+[33mcommit bf251dae62e9b08a6785fafd57cd5f261b46af53[m
+Author: Bui Minh Chien <chien181004@gmail.com>
+Date:   Tue Oct 29 23:28:26 2024 +0700
+
+    cau hinh du an

@@ -1,6 +1,7 @@
 package com.spring.mvc.controller;
 
 import com.spring.mvc.common.GetSrcInGoogleMapEmbededURLUtil;
+import com.spring.mvc.dto.NotificationDTO;
 import com.spring.mvc.entity.*;
 import com.spring.mvc.service.*;
 import com.spring.mvc.common.FileUploadUtil;
@@ -51,6 +52,7 @@ public class CustomerController {
     private HouseService houseService;
     private AccountService accountService;
     private HouseRegisterService houseRegisterService;
+    private NotificationService notificationService;
     private ContractService contractService;
     @Autowired
     private CustomerService customerService;
@@ -61,7 +63,7 @@ public class CustomerController {
     public CustomerController(NewsService newsService, TagForNewsService tagForNewsService,
                               TagService tagService, QrCode qrCode, HouseService houseService,
                               AccountService accountService, HouseRegisterService houseRegisterService,
-                              ContractService contractService) {
+                              ContractService contractService, NotificationService notificationService) {
         this.newsService = newsService;
         this.tagForNewsService = tagForNewsService;
         this.tagService = tagService;
@@ -70,6 +72,7 @@ public class CustomerController {
         this.accountService = accountService;
         this.houseRegisterService = houseRegisterService;
         this.contractService = contractService;
+        this.notificationService = notificationService;
     }
 
     @GetMapping("/get_all_news")
@@ -90,24 +93,19 @@ public class CustomerController {
     }
 
     @GetMapping("/get_all_house")
-    public String getAllHouse(Model model) {
+    public String getAllHouse(Model model, Principal principal) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         boolean isLoggedIn = authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof String);
         model.addAttribute("isLoggedIn", isLoggedIn);
         List<House> houseList = houseService.getAllHouses();
+
+        Account account = accountService.findByUsername(principal.getName());
+        model.addAttribute("accountId", account.getId());
+
+
         model.addAttribute("listHouse", houseList);
         return "customer/houseList";
     }
-
-//    @GetMapping("/filter_news")
-//    public String filterNews(
-//            @RequestParam(required = false) List<Integer> tagIds,
-//            @RequestParam(required = false) String keyword,
-//            Model model) {
-//        List<News> filteredNews = newsService.filterNews(tagIds, keyword);
-//        model.addAttribute("listNews", filteredNews);
-//        return "customer/newsList :: newsListFragment";
-//    }
 
     @GetMapping("/viewNewsDetail")
     public String getNewsById(@RequestParam("newsId") int newsId, Model model) {
@@ -134,7 +132,7 @@ public class CustomerController {
 
     @GetMapping("/viewHouseDetail")
     public String getHouseById(@RequestParam(value = "error", required = false) String error, @RequestParam("houseId") int houseId,
-                               Model model,Principal principal) {
+                               Model model, Principal principal) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         boolean isLoggedIn = authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof String);
         model.addAttribute("isLoggedIn", isLoggedIn);
@@ -162,6 +160,7 @@ public class CustomerController {
         if (error != null) {
             model.addAttribute("error", error);
         }
+        model.addAttribute("accountId", account.getId());
         return "customer/houseDetail";
     }
 
@@ -194,16 +193,16 @@ public class CustomerController {
                 houseRegisterService.save(register);
 
                 // Tạo thông báo sau khi đăng ký thành công
-//                Notification notification = new Notification();
-//                notification.setContent("You have registered to participate in the auction, please transfer money to complete the procedure.");
-//                notification.setCreatedDate(LocalDateTime.now());
-//                notification.setReadStatus("unread"); // Trạng thái chưa đọc
+                Notification notification = new Notification();
+                notification.setContent("You have registered to rent house, please transfer money to complete the procedure.");
+                notification.setCreated_date(LocalDateTime.now().toString());
+                notification.setRead_status("unread"); // Trạng thái chưa đọc
 
                 // Lưu thông báo vào cơ sở dữ liệu và gửi SSE cho client
-//                notification.addAccount(this_user);
-//                this_user.addNotification(notification);
-//                notificationService.saveNotification(notification);
-//                notificationService.sendNotification(notification); // Gửi SSE tới client
+                notification.addAccount(account);
+                account.addNotification(notification);
+                notificationService.saveNotification(notification);
+                notificationService.sendNotification(notification); // Gửi SSE tới client
 
                 redirectAttributes.addFlashAttribute("error", "Registration successful, please transfer the register fee");
             }
@@ -216,7 +215,8 @@ public class CustomerController {
     public String transferDepositAndFee(@RequestParam(value = "transfer", required = false) String transfer,
                                         @RequestParam("houseId") int houseId,
                                         @RequestParam(value = "move_in_date", required = false) String move_in_date,
-                                        @RequestParam("registerId") int registerId, RedirectAttributes redirectAttributes) {
+                                        @RequestParam("registerId") int registerId, RedirectAttributes redirectAttributes,
+                                        Principal principal) {
         if (houseId <= 0) {
             return "redirect:/customer/get_all_house";
         }
@@ -225,6 +225,8 @@ public class CustomerController {
             return "redirect:/customer/get_all_house";
         }
         HouseRegister register = houseRegisterService.getByRegisterId(registerId);
+        String username = principal.getName();
+        Account account = accountService.findByUsername(username);
         if(register != null){
             if (!house.getAvailable_status().equals("1")) {
                 //check xem nguoi dung da chuyen tien chua
@@ -242,9 +244,33 @@ public class CustomerController {
                     house.setAvailable_status("1");
                     //THAY DOI HOUSE
                     houseService.update(house);
+                    // Tạo thông báo sau khi đăng ký thành công
+                    Notification notification = new Notification();
+                    notification.setContent("You have transfer deposit successful!");
+                    notification.setCreated_date(LocalDateTime.now().toString());
+                    notification.setRead_status("unread"); // Trạng thái chưa đọc
+                    notification.setHouse(house);
+                    notification.addAccount(account);
+
+                    // Lưu thông báo vào cơ sở dữ liệu và gửi SSE cho client
+                    notificationService.saveNotification(notification);
+                    accountService.updateWithNotification(account, notification);
+                    notificationService.sendNotification(notification); // Gửi SSE tới client
                     redirectAttributes.addFlashAttribute("error", "Renting successfully");
                 } else {
                     redirectAttributes.addFlashAttribute("error", "Please make sure to transfer the register fee as soon as possible");
+                    // Tạo thông báo sau khi đăng ký thành công
+                    Notification notification = new Notification();
+                    notification.setContent("Please make sure to transfer to complete the register fee!");
+                    notification.setCreated_date(LocalDateTime.now().toString());
+                    notification.setRead_status("unread"); // Trạng thái chưa đọc
+
+                    // Lưu thông báo vào cơ sở dữ liệu và gửi SSE cho client
+                    account.addNotification(notification);
+                    notification.addAccount(account);
+                    notificationService.saveNotification(notification);
+                    notificationService.sendNotification(notification); // Gửi SSE tới client
+                    redirectAttributes.addFlashAttribute("error", "Renting successfully");
                 }
             }
             else{
@@ -330,7 +356,6 @@ public class CustomerController {
 
 
     @PostMapping("/change-password")
-    @ResponseBody
     public Map<String, String> changePassword(@RequestParam("oldPassword") String oldPassword,
                                               @RequestParam("newPassword") String newPassword,
                                               @RequestParam("confirmPassword") String confirmPassword,
@@ -360,6 +385,22 @@ public class CustomerController {
         return response;
     }
 
+    @GetMapping("/filter_houses")
+    public String filterHouses(
+            @RequestParam(value = "status", required = false) String status,
+            @RequestParam(value = "province", required = false) String province,
+            @RequestParam(value = "district", required = false) String district,
+            @RequestParam(value = "ward", required = false) String ward,
+            Model model) {
+        // Gọi service để lấy danh sách nhà dựa vào các bộ lọc
+        List<House> filteredHouses = houseService.filterHouses(status, province, district, ward);
+        System.out.println(filteredHouses.size());
+        // Thêm danh sách nhà đã lọc vào model
+        model.addAttribute("listHouse", filteredHouses);
+
+        // Trả về fragment để cập nhật danh sách nhà trong giao diện
+        return "customer/houseList :: houseListFragment";
+    }
     @GetMapping("/viewRegisterHistory")
     public String getRegisterHistory(Model model, Principal principal) {
         Account account = accountService.findByUsername(principal.getName());
@@ -368,4 +409,12 @@ public class CustomerController {
         return "customer/registerHistory";
     }
 
+    @GetMapping("/viewNotification")
+    public String getNotificationList(Model model, Principal principal) {
+        String username = principal.getName();
+        Account account = accountService.findByUsername(username);
+        List<NotificationDTO> notificationDTOList = notificationService.getNotificationsForAccount(account) ;
+        model.addAttribute("notifications", notificationDTOList);
+        return "customer/notificationList";
+    }
 }

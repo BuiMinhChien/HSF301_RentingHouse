@@ -3,14 +3,12 @@ package com.spring.mvc.controller;
 import com.spring.mvc.common.FileUploadUtil;
 import com.spring.mvc.dto.NewsDTO;
 import com.spring.mvc.entity.Account;
-import com.spring.mvc.entity.Image;
 import com.spring.mvc.entity.News;
 import com.spring.mvc.entity.TagForNews;
 import com.spring.mvc.service.AccountService;
 import com.spring.mvc.service.ImageService;
 import com.spring.mvc.service.NewsService;
 import com.spring.mvc.service.TagForNewsService;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -44,10 +38,6 @@ public class NewsWriterController {
         this.accountService = accountService;
         this.imageService = imageService;
         this.fileUploadUtil = fileUploadUtil;
-    }
-    @GetMapping("/dashboard")
-    public String dashboard( Model model) {
-        return "newsWriter/Dashboard";
     }
 
 //    @GetMapping("/profile")

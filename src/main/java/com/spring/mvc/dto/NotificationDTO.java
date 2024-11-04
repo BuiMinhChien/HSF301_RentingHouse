@@ -16,4 +16,5 @@ public class NotificationDTO {
     private String content;
     private String createdDate;
     private String readStatus;
+    private int houseId;
 }

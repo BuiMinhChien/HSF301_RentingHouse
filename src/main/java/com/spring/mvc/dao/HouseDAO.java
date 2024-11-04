@@ -1,6 +1,7 @@
 package com.spring.mvc.dao;
 
 import com.spring.mvc.entity.House;
+import com.spring.mvc.entity.HouseOwner;
 
 import java.util.List;
 
@@ -12,4 +13,5 @@ public interface HouseDAO {
     public List<House> findAll();
     public House findByName(String name);
     public House findTop3ByOrderByUpdatedDateDesc();
+    public List<House> findByHouseOwner(HouseOwner houseOwner);
 }
