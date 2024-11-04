@@ -50,27 +50,27 @@
         <div class="sidebar-wrapper">
             <ul class="nav">
                 <li>
-                    <a th:href="@{/property_agent/profile}">
+                    <a th:href="@{/house-listing/profile}">
                         <i class="nc-icon nc-single-02"></i>
                         <p>Profile</p>
                     </a>
                 </li>
-                <li class="active ">
-                    <a th:href="@{/property_agent/dashboard}">
+                <li>
+                    <a th:href="@{/house-listing}">
                         <i class="nc-icon nc-bank"></i>
                         <p>HomePage</p>
                     </a>
                 </li>
-                <li>
-                    <a th:href="@{/property_agent/register_form}">
+                <li class="active">
+                    <a th:href="@{/house-listing/ownerlist}">
                         <i class="nc-icon nc-single-copy-04"></i>
                         <p>House Owner</p>
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{/property_agent/get_all_asset}">
+                    <a th:href="@{/house-listing/register-form}">
                         <i class="nc-icon nc-bullet-list-67"></i>
-                        <p>House Renting</p>
+                        <p>Upload House Renting</p>
                     </a>
                 </li>
                 <li>
@@ -94,11 +94,127 @@
         <!-- Noi dung cua trang se nam trong phan content nay -->
         <div class="content">
             <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">House Detail</h4>
+                                </div>
+                                <div class="card-body">
+<!--                                    Hiển thị thông tin về ngôi nhà-->
+                                    <form>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>House ID</label>
+                                                    <input type="text" class="form-control" th:value="${house.id}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>House Name</label>
+                                                    <input type="text" class="form-control" th:value="${house.name}" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Province</label>
+                                                    <input type="text" class="form-control" th:value="${house.province}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>District</label>
+                                                    <input type="email" class="form-control" th:value="${house.district}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Ward</label>
+                                                    <input type="email" class="form-control" th:value="${house.ward}" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Location</label>
+                                                    <input type="text" class="form-control" th:value="${house.location}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Land Space</label>
+                                                    <input type="email" class="form-control" th:value="${house.land_space}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Living Space</label>
+                                                    <input type="email" class="form-control" th:value="${house.living_space}" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Bedroom</label>
+                                                    <input type="text" class="form-control" th:value="${house.number_bed_room}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Bathroom</label>
+                                                    <input type="email" class="form-control" th:value="${house.number_bath}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Coodirnate on map</label>
+                                                    <input type="email" class="form-control" th:value="${house.coordinates_on_map}" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Create by</label>
+                                                    <input type="text" class="form-control" th:value="${staff.email}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Available_status</label>
+                                                    <input type="email" class="form-control"
+                                                           th:value="${house.available_status == '1' ? 'Busy' : 'Free'}"
+                                                           th:style="${house.available_status == '1' ? 'color: red;' : 'color: green;'}"
+                                                           readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Update Date</label>
+                                                    <input type="email" class="form-control" th:value="${house.updated_date}" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div th:each="item2 : ${house.images}">
+                                            <img th:src="${item2.path}" alt="">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!--                Kết thúc-->
+                <!--  Hiển thị thông tin HouseOwner-->
                 <div class="row">
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">House Owner Profile</h4>
+                                <h4 class="card-title">House Owner</h4>
                             </div>
                             <div class="card-body">
                                 <form>
@@ -142,7 +258,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Gender</label>
-                                                <input type="text" class="form-control" th:text="${houseOwner.gender}" readonly>
+                                                <input type="text" class="form-control" th:value="${houseOwner.gender}" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -152,113 +268,36 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <a th:href="@{/house-listing/update-owner(id=${houseOwner.id})}">Update HouseOwner's Profile</a>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div th:each="item : ${allHouses}">
+                <!-- Kết thúc-->
+                <!--   Hiển thị thông tin về HouseRegister-->
+                <div th:each="item :${houseRegister}">
                 <div class="row">
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Owner's House</h4>
+                                <h4 class="card-title">House Register</h4>
                             </div>
                             <div class="card-body">
                                 <form>
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>House Name</label>
-                                                <input type="text" class="form-control" th:value="${item.name}" readonly>
+                                                <label>Tenant</label>
+                                                <input type="text" class="form-control" th:value="${item.account.username}" readonly>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Province</label>
-                                                <input type="text" class="form-control" th:value="${item.province}" readonly>
+                                                <label>Email</label>
+                                                <input type="email" class="form-control" th:value="${item}" readonly>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>District</label>
-                                                <input type="email" class="form-control" th:value="${item.district}" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>Ward</label>
-                                            <input type="email" class="form-control" th:value="${item.ward}" readonly>
-                                        </div>
-                                    </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Location</label>
-                                                <input type="text" class="form-control" th:value="${item.location}" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Land Space</label>
-                                                <input type="email" class="form-control" th:value="${item.land_space}" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Living Space</label>
-                                                <input type="email" class="form-control" th:value="${item.living_space}" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Bedroom</label>
-                                                <input type="text" class="form-control" th:value="${item.number_bed_room}" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Bathroom</label>
-                                                <input type="email" class="form-control" th:value="${item.number_bath}" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Coodirnate on map</label>
-                                                <input type="email" class="form-control" th:value="${item.coordinates_on_map}" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Create by</label>
-                                                <input type="text" class="form-control" th:value="${staff.email}" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Available_status</label>
-                                                <input type="email" class="form-control"
-                                                       th:value="${item.available_status == '1' ? 'Busy' : 'Free'}"
-                                                       th:style="${item.available_status == '1' ? 'color: red;' : 'color: green;'}"
-                                                       readonly>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Update Date</label>
-                                                <input type="email" class="form-control" th:value="${item.updated_date}" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div th:each="item2 : ${item.images}">
-                                        <img th:src="${item2.path}" alt="">
                                     </div>
                                 </form>
                             </div>
@@ -266,6 +305,7 @@
                     </div>
                 </div>
                 </div>
+                <!-- Kết thúc -->
             </div>
         </div>
 

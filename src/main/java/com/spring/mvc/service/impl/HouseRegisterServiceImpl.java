@@ -65,4 +65,10 @@ public class HouseRegisterServiceImpl implements HouseRegisterService {
             throw ex;
         }
     }
+
+    @Override
+    public List<HouseRegister> getAllByHouseId(int houseId) {
+        return houseRegisterDAO.getAllByHouseId(houseId);
+    }
+
 }

@@ -2,6 +2,7 @@ package com.spring.mvc.controller;
 
 import com.spring.mvc.common.FileUploadUtil;
 import com.spring.mvc.dto.HouseRegisterDTO;
+import com.spring.mvc.dto.UpdateOwnerDTO;
 import com.spring.mvc.entity.*;
 import com.spring.mvc.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
-@RequestMapping("/house-listing")
+@RequestMapping("house-listing")
 public class HouserRegisterController {
     private HouseService houseService;
     private FireEquipmentService fireEquipmentService;
@@ -28,8 +29,13 @@ public class HouserRegisterController {
     private HouseOwnerService houseOwnerService;
     private ContractService contractService;
     private FileUploadUtil fileUploadUtil;
+    private HouseRegisterService houseRegisterService;
 
-    public HouserRegisterController(HouseService houseService, FireEquipmentService fireEquipmentService, AmenitiesService amenitiesService, ImageService imageService, AccountService accountService, HouseOwnerService houseOwnerService, ContractService contractService, FileUploadUtil fileUploadUtil) {
+
+    private static final String UPLOAD_DIRECTORY = "E:\\Semester5\\HFS301\\PROJECT\\HSF301_RentingHouse\\src\\main\\resources\\static\\image";
+
+    public HouserRegisterController(HouseRegisterService houseRegisterService, HouseService houseService, FireEquipmentService fireEquipmentService, AmenitiesService amenitiesService, ImageService imageService, AccountService accountService, HouseOwnerService houseOwnerService, ContractService contractService, FileUploadUtil fileUploadUtil) {
+        this.houseRegisterService = houseRegisterService;
         this.houseService = houseService;
         this.fireEquipmentService = fireEquipmentService;
         this.amenitiesService = amenitiesService;
@@ -93,7 +99,7 @@ public class HouserRegisterController {
         HouseOwner houseOwner = houseOwnerService.findByEmail(houseform.getHouseOwnerEmail());
         if(houseOwner == null){
             //Lưu HouseOwner vào database nếu chưa tồn tại
-            houseOwner = new HouseOwner(houseform.getHouseOwnerPhone()) ;
+            houseOwner = new HouseOwner(houseform.getHouseOwnerEmail()) ;
             //House cho HouseOwner
             house.setOwner(houseOwner);
             houseOwnerService.save(houseOwner);
@@ -112,7 +118,7 @@ public class HouserRegisterController {
         //Image to House
         fileUploadUtil.UploadImagesForHouse(images, house);
         contractService.save(contract);
-        return "house_listing_agent/house-register-success";
+        return "house-listing";
     }
 
     @GetMapping()
@@ -122,11 +128,11 @@ public class HouserRegisterController {
         return "house_listing_agent/HomeAgent";
     }
 
-    @GetMapping("owner")
+    @GetMapping("ownerlist")
     public String listOwner(Model model) {
         List<HouseOwner> houseOwner = houseOwnerService.findAll();
         model.addAttribute("houseOwner", houseOwner);
-        return "house_listing_agent/HomeAgent";
+        return "house_listing_agent/listing-HouseOwner";
     }
     @GetMapping("owner-detail")
     public String viewOwner(@RequestParam("id") int id, Model model, Principal principal) {
@@ -137,7 +143,57 @@ public class HouserRegisterController {
         model.addAttribute("houseOwner", houseOwner);
         model.addAttribute("allHouses", allHouses);
         model.addAttribute("staff", account);
-        return "house_listing_agent/houseOwner";
+        return "house_listing_agent/houseOwnerDetail";
+    }
+
+
+    @GetMapping("/update-owner")
+    public String showUpdateForm(@RequestParam("id") int id, Model model) {
+        HouseOwner houseOwner = houseOwnerService.findById(id);
+        // Chuyển đổi `HouseOwner` thành `HouseOwnerDTO`
+        UpdateOwnerDTO houseOwnerDTO = new UpdateOwnerDTO();
+        houseOwnerDTO.setId(houseOwner.getId());
+        houseOwnerDTO.setName(houseOwner.getName());
+        houseOwnerDTO.setAddress(houseOwner.getAddress());
+        houseOwnerDTO.setPhone(houseOwner.getPhone());
+        houseOwnerDTO.setEmail(houseOwner.getEmail());
+        houseOwnerDTO.setGender(houseOwner.getGender());
+        houseOwnerDTO.setDob(houseOwner.getDob());
+        model.addAttribute("houseOwner", houseOwnerDTO);
+        return "house_listing_agent/UpdateHomeOwner"; // Tên template HTML
+    }
+
+    @PostMapping("/update-owner")
+    public String updateHouseOwner(@ModelAttribute("houseOwner") UpdateOwnerDTO houseOwnerDTO) {
+        // Chuyển đổi `HouseOwnerDTO` thành `HouseOwner`
+        HouseOwner houseOwner = houseOwnerService.findById(houseOwnerDTO.getId());
+        System.out.println(houseOwnerDTO.toString());
+        if (houseOwner != null) {
+            houseOwner.setName(houseOwnerDTO.getName());
+            houseOwner.setAddress(houseOwnerDTO.getAddress());
+            houseOwner.setPhone(houseOwnerDTO.getPhone());
+            houseOwner.setEmail(houseOwnerDTO.getEmail());
+            houseOwner.setGender(houseOwnerDTO.getGender());
+            houseOwner.setDob(houseOwnerDTO.getDob());
+            houseOwnerService.update(houseOwner);
+            // Chuyển hướng đến trang owner-detail với ID của HouseOwner vừa được cập nhật
+            return "redirect:/house-listing/owner-detail?id=" + houseOwner.getId();
+        }
+       return "redirect:/house-listing/ownerlist";
+    }
+
+    @GetMapping("house-detail/{id}")
+    public String showHouseDetail(@PathVariable("id") int id, Model model, Principal principal) {
+        House house = houseService.findById(id);
+        model.addAttribute("house", house);
+        HouseOwner houseOwner = house.getOwner();
+        model.addAttribute("houseOwner", houseOwner);
+        String username = principal.getName();
+        Account account = accountService.findByUsername(username);
+        model.addAttribute("staff", account);
+        List<HouseRegister> houseRegister = houseRegisterService.getAllByHouseId(house.getId());
+        model.addAttribute("houseRegister", houseRegister);
+       return "house_listing_agent/HouseDetail";
     }
 
 }

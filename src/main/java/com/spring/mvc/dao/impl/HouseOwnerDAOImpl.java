@@ -1,6 +1,7 @@
 package com.spring.mvc.dao.impl;
 
 import com.spring.mvc.dao.HouseOwnerDAO;
+import com.spring.mvc.entity.Account;
 import com.spring.mvc.entity.House;
 import com.spring.mvc.entity.HouseOwner;
 import jakarta.persistence.NoResultException;
@@ -31,7 +32,17 @@ public class HouseOwnerDAOImpl implements HouseOwnerDAO {
 
     @Override
     public void update(HouseOwner houseOwner) {
-        sessionFactory.getCurrentSession().save(houseOwner);
+        Session session = sessionFactory.getCurrentSession();
+        HouseOwner existing = session.get(HouseOwner.class, houseOwner.getId());
+        if (existing != null) {
+            existing.setAddress(houseOwner.getAddress());
+            existing.setName(houseOwner.getName());
+            existing.setPhone(houseOwner.getPhone());
+            existing.setGender(houseOwner.getGender());
+            existing.setEmail(houseOwner.getEmail());
+            existing.setDob(houseOwner.getDob());
+            session.update(existing);
+        }
     }
 
     @Override
@@ -67,7 +78,10 @@ public class HouseOwnerDAOImpl implements HouseOwnerDAO {
     @Override
     public HouseOwner findByEmail(String email) {
         Session session = sessionFactory.getCurrentSession();
-        return session.get(HouseOwner.class, email);
+        String hql = "FROM HouseOwner ho WHERE ho.email = : email";
+        return sessionFactory.getCurrentSession().createQuery(hql, HouseOwner.class)
+                .setParameter("email", email)
+                .uniqueResult();
     }
 
 

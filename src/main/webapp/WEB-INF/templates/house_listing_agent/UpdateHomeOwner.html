@@ -55,13 +55,13 @@
                         <p>Profile</p>
                     </a>
                 </li>
-                <li class="active">
+                <li>
                     <a th:href="@{/house-listing}">
                         <i class="nc-icon nc-bank"></i>
                         <p>HomePage</p>
                     </a>
                 </li>
-                <li>
+                <li class="active">
                     <a th:href="@{/house-listing/ownerlist}">
                         <i class="nc-icon nc-single-copy-04"></i>
                         <p>House Owner</p>
@@ -87,54 +87,80 @@
         <!-- Top Navbar, SUA TIEU DE TRANG CHO PHU HOP -->
         <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
             <div class="container-fluid">
-                <span class="navbar-brand">RentingHouse</span>
+                <span class="navbar-brand">House Renting</span>
             </div>
         </nav>
+        <!-- End Top Navbar -->
+        <!-- Noi dung cua trang se nam trong phan content nay -->
         <div class="content">
-            <section class="section">
-                <div class="card">
-                    <div class="card-header">
-                        Hồ sơ chờ xét duyệt
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-striped" id="table2">
-                            <thead>
-                            <tr>
-                                <th>House ID</th>
-                                <th>House name</th>
-                                <th>Location</th>
-                                <th>Owner</th>
-                                <th>OwnerID</th>
-                                <th>Status</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="item : ${houses}">
-                                <td>
-                                    <a th:href="@{/house-listing/house-detail/{id}(id=${item.id})}" th:text="${item.id}"></a>
-
-                                </td>
-                                <td><span th:text="${item.name}"></span></td>
-                                <td><span th:text="${item.location}"></span></td>
-                                <td><span th:text="${item.owner.name}"></span></td>
-                                <td>
-                                    <a th:href="@{/house-listing/owner-detail(id=${item.owner.id})}" th:text="${item.owner.id}"></a>
-
-                                </td>
-
-                                <td>
-                                    <span th:text="${item.available_status == '1' ? 'Busy' : 'Free'}"
-                                          th:class="${item.available_status == '1'? 'text-danger' : 'text-primary'}">
-                                    </span>
-                                </td>
-
-                            </tr>
-                            </tbody>
-                        </table>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">House Owner Profile</h4>
+                            </div>
+                            <div class="card-body">
+                                <form th:action="@{/house-listing/update-owner}" th:method="post" th:object="${houseOwner}">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>ID number</label>
+                                                <input type="text" class="form-control" th:field="${houseOwner.id}" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Full Name</label>
+                                                <input type="text" class="form-control"  th:field="${houseOwner.name}" >
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <input type="email" class="form-control" th:field="${houseOwner.email}" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Phone Number</label>
+                                                <input type="text" class="form-control" th:field="${houseOwner.phone}" >
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Address</label>
+                                                <input type="text" class="form-control" th:field="${houseOwner.address}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Gender</label>
+                                                <input type="text" class="form-control" th:field="${houseOwner.gender}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Date of Birth</label>
+                                                <input type="date" class="form-control" th:field="${houseOwner.dob}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit">Save</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
+
         <!-- Het phan noi dung cua trang -->
     </div>
 </div>
