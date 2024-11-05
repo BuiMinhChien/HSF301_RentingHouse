@@ -305,7 +305,7 @@ INSERT INTO Staff (id, full_name, gender, date_of_birth, address, phone_number) 
 --15. Thêm dữ liệu mẫu vào bảng Customer
 
 INSERT INTO [dbo].[Customer] 
-       ([account_id], 
+       ([id], 
        [full_name], 
        [gender], 
        [date_of_birth], 
