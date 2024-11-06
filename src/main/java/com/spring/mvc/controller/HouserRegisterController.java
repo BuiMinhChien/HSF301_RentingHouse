@@ -161,6 +161,7 @@ public class HouserRegisterController {
         return "house_listing_agent/UpdateHomeOwner"; // Tên template HTML
     }
 
+    
     @PostMapping("/update-owner")
     public String updateHouseOwner(@ModelAttribute("houseOwner") UpdateOwnerDTO houseOwnerDTO) {
         // Chuyển đổi `HouseOwnerDTO` thành `HouseOwner`
