@@ -393,10 +393,10 @@ public class CustomerController {
             @RequestParam(value = "ward", required = false) String ward,
             Model model) {
         // Gọi service để lấy danh sách nhà dựa vào các bộ lọc
-        List<House> filteredHouses = houseService.filterHouses(status, province, district, ward);
-        System.out.println(filteredHouses.size());
-        // Thêm danh sách nhà đã lọc vào model
-        model.addAttribute("listHouse", filteredHouses);
+//        List<House> filteredHouses = houseService.filterHouses(status, province, district, ward);
+//        System.out.println(filteredHouses.size());
+//        // Thêm danh sách nhà đã lọc vào model
+//        model.addAttribute("listHouse", filteredHouses);
 
         // Trả về fragment để cập nhật danh sách nhà trong giao diện
         return "customer/houseList :: houseListFragment";

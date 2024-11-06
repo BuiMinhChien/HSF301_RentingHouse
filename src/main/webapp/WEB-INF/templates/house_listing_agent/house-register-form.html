@@ -59,12 +59,12 @@
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{/house-listing}">
+                    <a th:href="@{/house-listing/home}">
                         <i class="nc-icon nc-bank"></i>
                         <p>HomePage</p>
                     </a>
                 </li>
-                <li class="active">
+                <li >
                     <a th:href="@{/house-listing/ownerlist}">
                         <i class="nc-icon nc-single-copy-04"></i>
                         <p>House Owner</p>
@@ -116,7 +116,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4 pr-1">
-                                        <div class="form-group">
+                                        <div class="form-group" style="width: 80%">
                                             <label for="tinh">Province</label>
                                             <select th:field="*{province}"  class="css_select" id="tinh" name="tinh" title="Chọn Tỉnh Thành" required step="0.01" min="0.01" max="9999.99" placeholder="Tỉnh/Thành phố ">
                                                 <option value="0">Tỉnh Thành</option>
@@ -124,7 +124,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4 px-1">
-                                        <div class="form-group">
+                                        <div class="form-group" style="width: 80%">
                                             <label for="quan">District</label>
                                             <select th:field="*{district}" class="css_select" id="quan" name="quan" title="Chọn Quận Huyện">
                                                 <option value="0">Quận Huyện</option>
@@ -132,7 +132,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4 pl-1">
-                                        <div class="form-group">
+                                        <div class="form-group" style="width: 80%">
                                             <label for="area">Ward</label>
                                             <select th:field="*{ward}" class="css_select" id="phuong" name="phuong" title="Chọn Phường Xã">
                                                 <option value="0">Phường Xã</option>
@@ -201,7 +201,7 @@
 
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <label>Choose fire equipment</label>
+                                        <h3>Choose fire equipment</h3>
                                         <div th:each="equipment : ${fireEquipments}">
                                             <input type="checkbox" name="fireEquipments" th:id="'equipment-' + ${equipment.id}"
                                                    th:value="${equipment.id}" class="form-control" />
@@ -211,7 +211,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <label>Choose amenities</label>
+                                        <h3>Choose amenities</h3>
                                         <div th:each="amenity : ${listAmenities}">
                                             <input type="checkbox" name="amenities" th:id="'amenity-' + ${amenity.id}"
                                                    th:value="${amenity.id}" class="form-control" />
@@ -224,8 +224,7 @@
                                         <div>
                                             <label for="images">Choose images</label>
                                             <input  type="file" name="images" id="images" class="form-control" multiple
-                                                    required
-                                                    accept="image/png, image/jpeg, image/jpg, image/gif">
+                                                    required>
                                         </div>
                                     </div>
                                 </div>
@@ -235,7 +234,6 @@
                                             <label for="documents">Choose rule document</label>
                                             <input type="file"  name="documents" id="documents" class="form-control"
                                                    multiple
-                                                   accept=".pdf,.doc,.docx,.xls,.xlsx,.txt"
                                                    required>
                                         </div>
                                     </div>
