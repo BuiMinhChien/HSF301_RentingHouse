@@ -58,6 +58,7 @@ public class CustomerController {
     private CustomerService customerService;
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
     private FileUploadUtil fileUploadUtil;
 
     public CustomerController(NewsService newsService, TagForNewsService tagForNewsService,
@@ -305,8 +306,9 @@ public class CustomerController {
     @PostMapping("/update")
     public String updateProfile(
             @ModelAttribute("customerDTO") ProfileDTO profileDTO,
-            @RequestParam("idCardFrontImage") List<MultipartFile> idCardFrontImage,
-            @RequestParam("idCardBackImage") List<MultipartFile> idCardBackImage, Model model, Principal principal) throws IOException {
+//            @RequestParam("idCardFrontImage") List<MultipartFile> idCardFrontImage,
+//            @RequestParam("idCardBackImage") List<MultipartFile> idCardBackImage,
+            Model model, Principal principal) throws IOException {
         // Extract customer and account from DTO
         Account account = accountService.findByUsername(principal.getName());
         Customer customer = customerService.findCustomerById(account.getId());
@@ -322,8 +324,8 @@ public class CustomerController {
             customer.setDateOfBirth(profileDTO.getCustomer().getDateOfBirth());
             customer.setIdIssuanceDate(profileDTO.getCustomer().getIdIssuanceDate());
             customer.setIdIssuancePlace(profileDTO.getCustomer().getIdIssuancePlace());
-            fileUploadUtil.UploadImagesForCard(idCardFrontImage, customer);
-            fileUploadUtil.UploadImagesForCard(idCardBackImage, customer);
+//            fileUploadUtil.UploadImagesForCard(idCardFrontImage, customer);
+//            fileUploadUtil.UploadImagesForCard(idCardBackImage, customer);
             customerService.update(customer);
         }
         else
@@ -356,6 +358,7 @@ public class CustomerController {
 
 
     @PostMapping("/change-password")
+    @ResponseBody
     public Map<String, String> changePassword(@RequestParam("oldPassword") String oldPassword,
                                               @RequestParam("newPassword") String newPassword,
                                               @RequestParam("confirmPassword") String confirmPassword,

@@ -6,6 +6,7 @@ package com.spring.mvc;
 
 import com.spring.mvc.service.EmailService;
 import com.spring.mvc.service.impl.EmailServiceImpl;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -140,7 +141,7 @@ public class SpringWebConfig implements WebMvcConfigurer, ApplicationContextAwar
 
 	@Bean
 	public EmailService emailService() {
-		// Khởi tạo EmailServiceImpl với email và mật khẩu của bạn
-		return new EmailServiceImpl("chunglddhe181800@fpt.edu.vn", "efgdrspexinqcwhy");
+		// Khởi tạo EmailServiceImpl với email và mật khẩu từ cấu hình
+		return new EmailServiceImpl("fapbmcprj301@gmail.com", "vzfqauqysltljfjc");
 	}
 }

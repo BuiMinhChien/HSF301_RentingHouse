@@ -169,8 +169,7 @@ public class AccountServiceImpl implements AccountService {
             Account existingAccount = accountDAO.findById(account.getId());
             if (existingAccount != null) {
                 // Update fields if they are modified
-                    existingAccount.setPassword(passwordEncoder.encode(account.getPassword()));
-                // Save the updated account
+                existingAccount.setPassword(passwordEncoder.encode(account.getPassword()));
                 accountDAO.update(existingAccount);
             } else {
                 throw new RuntimeException("Account not found");

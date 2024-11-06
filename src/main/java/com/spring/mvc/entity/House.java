@@ -60,7 +60,7 @@ public class House {
     @Column(name = "updated_date")
     private String updated_date;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToOne(fetch = FetchType.   EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "owner_by")
     private HouseOwner owner;
 

@@ -4,6 +4,7 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/access-denied.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/templates" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/customer/homepage.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/customer" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/customer/houseDetail.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/customer" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/customer/houseList.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/customer" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/customer/notificationList.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/customer" />
