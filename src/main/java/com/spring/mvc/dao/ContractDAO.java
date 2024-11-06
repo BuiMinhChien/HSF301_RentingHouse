@@ -8,5 +8,7 @@ public interface ContractDAO {
     public void save(Contract contract);
     public List<Contract> getAllContract();
     public Contract getContractById(int id);
+    public Contract getContractByHouseId(int houseId);
     public void deleteContractById(int id);
+    public void updateContract(Contract contract);
 }

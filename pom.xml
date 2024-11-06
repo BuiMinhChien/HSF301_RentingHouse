@@ -6,7 +6,7 @@
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>HSF301_Assignment_RentingHouse Maven Webapp</name>
-    <url>http://maven.apache.org2</url>
+    <url>http://maven.apache.org</url>
     <properties>
         <spring.version>6.1.13</spring.version>
         <thymeleaf.version>3.1.2.RELEASE</thymeleaf.version>
@@ -18,7 +18,7 @@
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>javax.mail-api</artifactId>
-            <version>1.6.2</version>
+            <version>1.6.0</version>
         </dependency>
         <dependency>
             <groupId>com.sun.mail</groupId>

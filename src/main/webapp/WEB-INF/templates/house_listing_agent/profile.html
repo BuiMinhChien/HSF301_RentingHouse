@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" th:href="@{/dashboardStatic/img/favicon.png}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>
-        Dashboard
+        Profile
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
           name='viewport'/>
@@ -51,26 +51,26 @@
         <div class="sidebar-wrapper">
             <ul class="nav">
                 <li class="active">
-                    <a th:href="@{/news_writer/profile}">
+                    <a >
                         <i class="nc-icon nc-single-02"></i>
                         <p>Profile</p>
                     </a>
                 </li>
                 <li>
 
-                    <a th:href="@{/news_writer/dashboard}">
+                    <a >
                         <i class="nc-icon nc-bank"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{/news_writer/create_news}">
+                    <a >
                         <i class="nc-icon nc-single-copy-04"></i>
                         <p>Create news</p>
                     </a>
                 </li>
                 <li>
-                    <a th:href="@{/news_writer/get_all_news_list}">
+                    <a >
                         <i class="nc-icon nc-bullet-list-67"></i>
                         <p>News list</p>
                     </a>
@@ -89,7 +89,7 @@
         <!-- Top Navbar, SUA TIEU DE TRANG CHO PHU HOP -->
         <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
             <div class="container-fluid">
-                <span class="navbar-brand">VietLand Auction</span>
+                <span class="navbar-brand">VietHouse</span>
             </div>
         </nav>
         <!-- End Top Navbar -->
@@ -99,7 +99,7 @@
                 <div class="col-md-12">
                     <div class="card card-user">
                         <div class="card-header">
-                            <h5 class="card-title">News writer information</h5>
+                            <h5 class="card-title">Property Agent information</h5>
                         </div>
                         <!-- Account fields and avatar -->
                         <div class="card-body">
@@ -107,26 +107,21 @@
                                 <!-- Avatar column -->
                                 <div class="col-md-4">
                                     <div th:object="${staffDTO}">
-                                        <div style="justify-content: center; align-content: center; text-align: center">
-                                            <form th:action="@{/news_writer/uploadAvatar}" method="post" enctype="multipart/form-data">
-
-                                                <a href="#">
-                                                    <img th:src="*{account.avatar_image.getPath()}" alt="Avatar Image" style="margin: 5px" class="img-fluid rounded-circle" width="300" height="300">
-                                                </a>
-                                                    <!-- Input field to choose an avatar image -->
-                                                    <input type="file"  name="avatar" id="avatar" class="form-control" accept="image/png, image/jpeg, image/jpg" required>
-
-                                                <!-- Submit button to upload the image -->
-                                                <button type="submit"  style="margin: 10px" class="btn btn-primary mt-3">Upload Avatar</button>
-                                            </form>
-
-                                        </div>
+                                        <a href="#">
+                                            <img th:src="*{account.image.path}" alt="Avatar Image" class="img-fluid rounded-circle" width="300" height="300">
+                                        </a>
                                     </div>
+                                    <form th:action="@{/house-listing/uploadAvatar}" method="post" enctype="multipart/form-data">
+                                            <!-- Input field to choose an avatar image -->
+                                            <input type="file"  name="avatar" id="avatar" class="form-control" accept="image/png, image/jpeg, image/jpg" required>
+                                        <!-- Submit button to upload the image -->
+                                        <button type="submit"  style="margin: 10px" class="btn btn-primary mt-3">Upload Avatar</button>
+                                    </form>
                                 </div>
                                 <!-- Fields column -->
                                 <div class="col-md-8">
                                     <div class="row" th:object="${staffDTO}">
-                                        <input type="hidden" class="form-control" th:field="*{account.accountId}" name="accountId" readonly >
+                                        <input type="hidden" class="form-control" th:field="*{account.id}" name="accountId" readonly >
                                         <div class="col-md-6 pr-1">
                                             <div class="form-group">
                                                 <label>Username</label>
@@ -143,11 +138,11 @@
 
                                     <!-- Customer fields -->
                                     <div class="row" th:object="${staffDTO}">
-                                        <input type="hidden" class="form-control" th:field="*{staffId}" name="staffId" readonly >
+                                        <input type="hidden" class="form-control" th:field="*{account.id}" name="staffId" readonly >
                                         <div class="col-md-6 pr-1">
                                             <div class="form-group">
                                                 <label>Gender</label>
-                                                <select class="form-control" th:field="*{gender}" name="gender" readonly >
+                                                <select class="form-control" th:field="*{account.staff.gender}" name="gender" readonly >
                                                     <option value="M">Male</option>
                                                     <option value="F">Female</option>
                                                     <option value="O">Other</option>
@@ -179,7 +174,7 @@
                                         </div>
                                     </div>
 
-                                    <!-- Address -->
+                                    <!-- Address, etc. -->
                                     <div class="row" th:object="${staffDTO}">
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -188,16 +183,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Change Password Button -->
-                                    <div class="col-md-12 text-center">
-                                        <!-- Button to trigger Change Password modal -->
-                                        <button type="button" class="btn btn-secondary btn-round" style="color: white" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
-                                            Change Password
-                                        </button>
-                                    </div>
                                 </div>
                                 <!-- End fields column -->
-
+                                <!-- Change Password Button -->
+                                <div class="col-md-12 text-center">
+                                    <!-- Button to trigger Change Password modal -->
+                                    <button type="button" class="btn btn-secondary btn-round" style="color: white" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                                        Change Password
+                                    </button>
+                                </div>
 
                                 <!-- Change Password Modal -->
                                 <div class="row modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
@@ -237,7 +231,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <script>
                                     document.getElementById('changePasswordForm').addEventListener('submit', function(event) {
                                         event.preventDefault();
@@ -245,7 +238,7 @@
                                         const form = event.target;
                                         const formData = new FormData(form);
 
-                                        fetch('/profile/change-password', {
+                                        fetch('/house-listing/change-password', {
                                             method: 'POST',
                                             body: formData
                                         })
@@ -255,20 +248,31 @@
                                                 const successDisplay = document.getElementById("passwordSuccess");
 
                                                 if (data.status === 'success') {
+                                                    // Display success message
                                                     successDisplay.style.display = 'block';
-                                                    errorDisplay.style.display = 'none';
                                                     successDisplay.innerText = data.message;
+
+                                                    // Hide error message, if any
+                                                    errorDisplay.style.display = 'none';
+
+                                                    // Clear form inputs on success
                                                     form.reset();
                                                 } else {
-                                                    successDisplay.style.display = 'none';
+                                                    // Show error message in the modal
                                                     errorDisplay.style.display = 'block';
                                                     errorDisplay.innerText = data.message;
+
+                                                    // Hide success message
+                                                    successDisplay.style.display = 'none';
                                                 }
                                             })
-                                            .catch(error => {
-                                                console.error('Error:', error);
-                                            });
+                                        console.error('Error:', error);
+                                        // Display a generic error message
+                                        const errorDisplay = document.getElementById("passwordError");
+                                        errorDisplay.style.display = 'block';
+                                        errorDisplay.innerText = 'An error occurred. Please try again.';
                                     });
+
                                 </script>
                                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
                             </div>
@@ -279,8 +283,6 @@
         </div>
     </div>
 </div>
-
-
 
 <!---------------------------------------KHONG DUOC SUA------------------------------------------------------>
 <!--   Core JS Files   -->

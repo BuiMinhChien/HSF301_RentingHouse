@@ -29,10 +29,11 @@ public class FileUploadUtil {
 
 
     @Autowired
-    public FileUploadUtil(NewsService newsService, ImageService imageService, DocumentService documentService) {
+    public FileUploadUtil(NewsService newsService, ImageService imageService, DocumentService documentService, HouseService houseService) {
         this.newsService = newsService;
         this.imageService = imageService;
         this.documentService = documentService;
+        this.houseService = houseService;
     }
 
 

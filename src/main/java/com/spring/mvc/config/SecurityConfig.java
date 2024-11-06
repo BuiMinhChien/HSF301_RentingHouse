@@ -35,13 +35,13 @@ public class SecurityConfig  {
                 .authorizeHttpRequests(configurer -> configurer
                         .requestMatchers("/image/**", "/document/**", "/dashboardStatic/**", "/assets_CustomerSide/**").permitAll()
                         .requestMatchers("/", "/home", "/login", "/access-denied", "/register",
-                                "/reset-password**", "/forgot-password",
-                                "/customer/get_all_auction", "/customer/get_all_asset", "/customer/get_all_news")
+                                "/reset-password**", "/forgot-password", "customer/viewHouseDetail", "/about",
+                                "/customer/viewNewsDetail**", "/customer/get_all_house", "/customer/get_all_news")
                         .permitAll()
                         .requestMatchers("/customer/**").hasRole("CUSTOMER")
                         .requestMatchers("/customer_care/**").hasRole("CUSTOMER_CARE")
                         .requestMatchers("/news_writer/**").hasRole("NEWS_WRITER")
-                        .requestMatchers("/house-listing/register-form/**").hasRole("HOUSE_LISTING_AGENT")
+                        .requestMatchers("/house-listing/**").hasRole("HOUSE_LISTING_AGENT")
                         .anyRequest().authenticated()
                 )
 

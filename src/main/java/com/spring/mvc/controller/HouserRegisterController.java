@@ -5,6 +5,7 @@ import com.spring.mvc.dto.HouseRegisterDTO;
 import com.spring.mvc.dto.UpdateOwnerDTO;
 import com.spring.mvc.entity.*;
 import com.spring.mvc.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
-@RequestMapping("house-listing")
+@RequestMapping("/house-listing")
 public class HouserRegisterController {
     private HouseService houseService;
     private FireEquipmentService fireEquipmentService;
@@ -103,7 +104,7 @@ public class HouserRegisterController {
             houseOwnerService.save(houseOwner);
         }
         //Contract toi House
-         contract.setHouse(house);
+        contract.setHouse(house);
         //Contract toi HouseOwner
         contract.setOwner(houseOwner);
         //create_by to Contract
@@ -161,7 +162,7 @@ public class HouserRegisterController {
         return "house_listing_agent/UpdateHomeOwner"; // Tên template HTML
     }
 
-    
+
     @PostMapping("/update-owner")
     public String updateHouseOwner(@ModelAttribute("houseOwner") UpdateOwnerDTO houseOwnerDTO) {
         // Chuyển đổi `HouseOwnerDTO` thành `HouseOwner`

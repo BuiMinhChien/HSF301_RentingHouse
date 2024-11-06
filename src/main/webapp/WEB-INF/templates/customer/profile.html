@@ -9,7 +9,7 @@ Author URL: http://w3layouts.com
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>RealHouzing - Real Estate Category Bootstrap Responsive Template | Blog :: W3layouts</title>
+    <title>Profile</title>
     <!-- google fonts -->
     <link href="//fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Template CSS -->
@@ -331,7 +331,7 @@ Author URL: http://w3layouts.com
                                 <!-- Customer fields -->
                                 <div class="row">
                                     <input type="hidden" class="form-control" readonly="" th:field="*{customer.id}">
-                                    <input type="hidden" class="form-control" readonly="" th:field="*{customer.account.id}">
+                                    <input type="hidden" class="form-control" readonly="" th:field="*{account.customer.id}">
 
                                     <div class="col-md-6 pr-1">
                                         <div class="form-group">
@@ -489,22 +489,29 @@ Author URL: http://w3layouts.com
                                                 const successDisplay = document.getElementById("passwordSuccess");
 
                                                 if (data.status === 'success') {
+                                                    // Display success message
                                                     successDisplay.style.display = 'block';
-                                                    errorDisplay.style.display = 'none';
                                                     successDisplay.innerText = data.message;
-                                                    form.reset(); // Clear form inputs on success
-                                                    setTimeout(() => {
-                                                        $('#changePasswordModal').modal('hide'); // Close modal after success
-                                                    }, 2000); // Delay to allow user to see success message
+
+                                                    // Hide error message, if any
+                                                    errorDisplay.style.display = 'none';
+
+                                                    // Clear form inputs on success
+                                                    form.reset();
                                                 } else {
-                                                    successDisplay.style.display = 'none';
+                                                    // Show error message in the modal
                                                     errorDisplay.style.display = 'block';
                                                     errorDisplay.innerText = data.message;
+
+                                                    // Hide success message
+                                                    successDisplay.style.display = 'none';
                                                 }
                                             })
-                                            .catch(error => {
-                                                console.error('Error:', error);
-                                            });
+                                        console.error('Error:', error);
+                                        // Display a generic error message
+                                        const errorDisplay = document.getElementById("passwordError");
+                                        errorDisplay.style.display = 'block';
+                                        errorDisplay.innerText = 'An error occurred. Please try again.';
                                     });
 
                                 </script>

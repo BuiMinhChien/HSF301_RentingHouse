@@ -53,6 +53,17 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
+    public Contract getContractByHouseId(int houseId) {
+        try {
+            Contract contract = contractDAO.getContractByHouseId(houseId);
+            return contract;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public boolean deleteContractById(int id) {
         try {
             contractDAO.deleteContractById(id);
@@ -61,5 +72,14 @@ public class ContractServiceImpl implements ContractService {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public void updateContract(Contract contract) {
+        try {
+            contractDAO.updateContract(contract);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

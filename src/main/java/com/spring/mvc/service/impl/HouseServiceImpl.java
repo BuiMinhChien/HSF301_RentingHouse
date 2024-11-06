@@ -35,7 +35,11 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     public void update(House house) {
-
+        try {
+            houseDAO.update(house);
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
 
     @Override
@@ -50,12 +54,22 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     public House findByName(String name) {
-        return null;
+        try {
+            House house = houseDAO.findByName(name);
+            return house;
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
 
     @Override
     public House findTop3ByOrderByUpdatedDateDesc() {
-        return null;
+        return houseDAO.findTop3ByOrderByUpdatedDateDesc();
+    }
+
+    @Override
+    public List<House> filterHouses(String status, String province, String district, String ward) {
+        return houseDAO.filterHouses(status, province, district, ward);
     }
 
     @Override

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Service(value = "notificationService")
 @Transactional(propagation = Propagation.REQUIRED)
@@ -30,7 +31,8 @@ public class NotificationServiceImpl implements NotificationService {
         return new NotificationDTO(notification.getId(),
                 notification.getContent(),
                 notification.getCreated_date(),
-                notification.getRead_status());    }
+                notification.getRead_status(),
+                notification.getHouse().getId());    }
 
     @Override
     public void saveNotification(Notification notification) {
@@ -39,7 +41,8 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public List<NotificationDTO> getNotificationsForAccount(Account account) {
-        return List.of();
+        List<Notification> notifications = notificationDAO.findByAccountIdOrderByCreatedDateDesc(account.getId());
+        return notifications.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
