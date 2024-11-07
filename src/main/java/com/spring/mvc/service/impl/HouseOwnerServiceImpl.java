@@ -35,5 +35,10 @@ public class HouseOwnerServiceImpl implements HouseOwnerService {
         return houseOwnerDAO.findById(id);
     }
 
+    @Override
+    public void update(HouseOwner houseOwner) {
+        houseOwnerDAO.update(houseOwner);
+    }
+
 
 }

@@ -9,5 +9,6 @@ public interface HouseOwnerService {
     public HouseOwner findByEmail(String email);
     public List<HouseOwner> findAll();
     public HouseOwner findById(int id);
+    public void update(HouseOwner houseOwner);
 }
 

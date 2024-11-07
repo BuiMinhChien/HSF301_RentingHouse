@@ -60,4 +60,13 @@ public class HouseRegisterDAOImpl implements HouseRegisterDAO {
         List<HouseRegister> list = sessionFactory.getCurrentSession().createQuery(hql, HouseRegister.class).setParameter("accountId", accountId).getResultList();
         return list;
     }
+
+    @Override
+    public List<HouseRegister> getAllByHouseId(int houseId) {
+        String hql = "FROM HouseRegister hr WHERE hr.house.id = :houseId";
+        return sessionFactory.getCurrentSession().createQuery(hql, HouseRegister.class)
+                .setParameter("houseId", houseId)
+                .getResultList();
+    }
+
 }

@@ -14,4 +14,5 @@ public interface HouseService {
     public House findByName(String name);
     public House findTop3ByOrderByUpdatedDateDesc();
     public List<House> findHousebyHouseOwner(HouseOwner houseOwner);
+    public List<House> filterHouses(String status, String province, String district, String ward);
 }

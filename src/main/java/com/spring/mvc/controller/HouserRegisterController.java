@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -18,7 +19,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
-@RequestMapping("/house-listing")
+@RequestMapping("house-listing")
 public class HouserRegisterController {
     private HouseService houseService;
     private FireEquipmentService fireEquipmentService;
@@ -71,8 +72,8 @@ public class HouserRegisterController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDate = createdDate.format(formatter);
         House house = new House(houseform.getName(), houseform.getWard(), houseform.getDistrict(), houseform.getProvince(),
-                houseform.getLocation(), houseform.getLand_space(), houseform.getLiving_space(), houseform.getNumber_bed_room(),
-                houseform.getDescription(), houseform.getNumber_bath(), houseform.getCoordinates_on_map(),"0", formattedDate, account);
+                                houseform.getLocation(), houseform.getLand_space(), houseform.getLiving_space(), houseform.getNumber_bed_room(),
+                                houseform.getDescription(), houseform.getNumber_bath(), houseform.getCoordinates_on_map(),"0", formattedDate, account);
 
         //Lưu các thuộc tính phụ cho Contract trước
         Contract contract = new Contract(houseform.getPrice(), houseform.getLease_duration_day(), formattedDate);
@@ -179,7 +180,7 @@ public class HouserRegisterController {
             // Chuyển hướng đến trang owner-detail với ID của HouseOwner vừa được cập nhật
             return "redirect:/house-listing/owner-detail?id=" + houseOwner.getId();
         }
-        return "redirect:/house-listing/ownerlist";
+       return "redirect:/house-listing/ownerlist";
     }
 
     @GetMapping("house-detail/{id}")
@@ -193,6 +194,7 @@ public class HouserRegisterController {
         model.addAttribute("staff", account);
         List<HouseRegister> houseRegister = houseRegisterService.getAllByHouseId(house.getId());
         model.addAttribute("houseRegister", houseRegister);
-        return "house_listing_agent/HouseDetail";
+       return "house_listing_agent/HouseDetail";
     }
+
 }

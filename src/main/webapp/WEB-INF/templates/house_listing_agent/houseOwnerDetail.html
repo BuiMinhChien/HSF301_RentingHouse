@@ -160,113 +160,113 @@
                     </div>
                 </div>
                 <div th:each="item : ${allHouses}">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Owner's House</h4>
-                                </div>
-                                <div class="card-body">
-                                    <form>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label>House Name</label>
-                                                    <input type="text" class="form-control" th:value="${item.name}" readonly>
-                                                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Owner's House</h4>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>House Name</label>
+                                                <input type="text" class="form-control" th:value="${item.name}" readonly>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group"  style="width: 80%">
-                                                    <label>Province</label>
-                                                    <input type="text" class="form-control" th:value="${item.province}" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group" style="width: 80%">
-                                                    <label>District</label>
-                                                    <input type="email" class="form-control" th:value="${item.district}" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group" style="width: 80%">
-                                                    <label>Ward</label>
-                                                    <input type="email" class="form-control" th:value="${item.ward}" readonly>
-                                                </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group"  style="width: 80%">
+                                                <label>Province</label>
+                                                <input type="text" class="form-control" th:value="${item.province}" readonly>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label>Location</label>
-                                                    <input type="text" class="form-control" th:value="${item.location}" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label>Land Space</label>
-                                                    <input type="number" min="1" class="form-control" th:value="${item.land_space}" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label>Living Space</label>
-                                                    <input type="number" min="1" class="form-control" th:value="${item.living_space}" readonly>
-                                                </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group" style="width: 80%">
+                                                <label>District</label>
+                                                <input type="email" class="form-control" th:value="${item.district}" readonly>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label>Bedroom</label>
-                                                    <input type="number" min="1" class="form-control" th:value="${item.number_bed_room}" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label>Bathroom</label>
-                                                    <input type="number" min="1" class="form-control" th:value="${item.number_bath}" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label>Coodirnate on map</label>
-                                                    <input type="email" class="form-control" th:value="${item.coordinates_on_map}" readonly>
-                                                </div>
+                                        <div class="col-md-4">
+                                        <div class="form-group" style="width: 80%">
+                                            <label>Ward</label>
+                                            <input type="email" class="form-control" th:value="${item.ward}" readonly>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Location</label>
+                                                <input type="text" class="form-control" th:value="${item.location}" readonly>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label>Create by</label>
-                                                    <input type="text" class="form-control" th:value="${staff.email}" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label>Available_status</label>
-                                                    <input type="email" class="form-control"
-                                                           th:value="${item.available_status == '1' ? 'Busy' : 'Free'}"
-                                                           th:style="${item.available_status == '1' ? 'color: red;' : 'color: green;'}"
-                                                           readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label>Update Date</label>
-                                                    <input type="email" class="form-control" th:value="${item.updated_date}" readonly>
-                                                </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Land Space</label>
+                                                <input type="number" min="1" class="form-control" th:value="${item.land_space}" readonly>
                                             </div>
                                         </div>
-                                        <div th:each="item2 : ${item.images}">
-                                            <img th:src="${item2.path}" alt="">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Living Space</label>
+                                                <input type="number" min="1" class="form-control" th:value="${item.living_space}" readonly>
+                                            </div>
                                         </div>
-                                    </form>
-                                </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Bedroom</label>
+                                                <input type="number" min="1" class="form-control" th:value="${item.number_bed_room}" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Bathroom</label>
+                                                <input type="number" min="1" class="form-control" th:value="${item.number_bath}" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Coodirnate on map</label>
+                                                <input type="email" class="form-control" th:value="${item.coordinates_on_map}" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Create by</label>
+                                                <input type="text" class="form-control" th:value="${staff.email}" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Available_status</label>
+                                                <input type="email" class="form-control"
+                                                       th:value="${item.available_status == '1' ? 'Busy' : 'Free'}"
+                                                       th:style="${item.available_status == '1' ? 'color: red;' : 'color: green;'}"
+                                                       readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Update Date</label>
+                                                <input type="email" class="form-control" th:value="${item.updated_date}" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div th:each="item2 : ${item.images}">
+                                        <img th:src="${item2.path}" alt="">
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </div>
