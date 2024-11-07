@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository(value = "houseDAO")
@@ -63,13 +62,10 @@ public class HouseDAOImpl implements HouseDAO {
 
     @Override
     public List<House> findAll() {
-        // Sử dụng JOIN FETCH để lấy tất cả các mối quan hệ EAGER của House
-        TypedQuery<House> query = sessionFactory.getCurrentSession().createQuery(
-                "SELECT h FROM House h ",
-                House.class
-        );
-        List<House> houses = query.getResultList();
-        return houses;
+        // Lấy Session hiện tại từ sessionFactory
+        Session session = sessionFactory.getCurrentSession();
+        // Tạo truy vấn HQL để lấy toàn bộ danh sách House
+        return session.createQuery("from House", House.class).getResultList();
     }
 
     @Override

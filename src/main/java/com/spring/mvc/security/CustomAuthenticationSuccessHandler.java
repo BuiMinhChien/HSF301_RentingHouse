@@ -28,7 +28,7 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
         if (roles.contains("ROLE_NEWS_WRITER")) {
             response.sendRedirect("/news_writer/create_news");
         } else if (roles.contains("ROLE_HOUSE_LISTING_AGENT")) {
-            response.sendRedirect("/house-listing");
+            response.sendRedirect("/house-listing/home");
         } else if (roles.contains("ROLE_CUSTOMER_CARE")) {
             response.sendRedirect("/customer-care/home");
         } else if (roles.contains("ROLE_CUSTOMER")) {

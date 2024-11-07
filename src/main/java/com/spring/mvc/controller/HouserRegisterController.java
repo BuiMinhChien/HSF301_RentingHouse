@@ -75,7 +75,7 @@ public class HouserRegisterController {
                                 houseform.getLocation(), houseform.getLand_space(), houseform.getLiving_space(), houseform.getNumber_bed_room(),
                                 houseform.getDescription(), houseform.getNumber_bath(), houseform.getCoordinates_on_map(),"0", formattedDate, account);
 
-        //Lưu  Contract
+        //Lưu các thuộc tính phụ cho Contract trước
         Contract contract = new Contract(houseform.getPrice(), houseform.getLease_duration_day(), formattedDate);
         //Gắn các mối quan hệ
         //------------------------------------------------------------------
@@ -99,7 +99,7 @@ public class HouserRegisterController {
         HouseOwner houseOwner = houseOwnerService.findByEmail(houseform.getHouseOwnerEmail());
         if(houseOwner == null){
             //Lưu HouseOwner vào database nếu chưa tồn tại
-            houseOwner = new HouseOwner(houseform.getHouseOwnerEmail()) ;
+            houseOwner = new HouseOwner(houseform.getHouseOwnerEmail());
             //House cho HouseOwner
             house.setOwner(houseOwner);
             houseOwnerService.save(houseOwner);
@@ -113,15 +113,15 @@ public class HouserRegisterController {
         //Document to Contract
         fileUploadUtil.UploadDocumentForContract(documents, contract);
         //Luu lan luot tat ca
-        houseOwnerService.save(houseOwner);
+        house.setOwner(houseOwner);
         houseService.save(house);
         //Image to House
         fileUploadUtil.UploadImagesForHouse(images, house);
         contractService.save(contract);
-        return "house-listing";
+        return "redirect:/house-listing/ownerlist";
     }
 
-    @GetMapping()
+    @GetMapping("/home")
     public String homeAgent(Model model) {
         List<House> houses =houseService.getAllHouses();
         model.addAttribute("houses", houses);
@@ -162,6 +162,7 @@ public class HouserRegisterController {
         model.addAttribute("houseOwner", houseOwnerDTO);
         return "house_listing_agent/UpdateHomeOwner"; // Tên template HTML
     }
+
 
     @PostMapping("/update-owner")
     public String updateHouseOwner(@ModelAttribute("houseOwner") UpdateOwnerDTO houseOwnerDTO) {

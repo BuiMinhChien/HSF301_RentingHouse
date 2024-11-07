@@ -55,13 +55,13 @@
                         <p>Profile</p>
                     </a>
                 </li>
-                <li class="active">
-                    <a th:href="@{/house-listing}">
+                <li >
+                    <a th:href="@{/house-listing/home}">
                         <i class="nc-icon nc-bank"></i>
                         <p>HomePage</p>
                     </a>
                 </li>
-                <li>
+                <li class="active">
                     <a th:href="@{/house-listing/ownerlist}">
                         <i class="nc-icon nc-single-copy-04"></i>
                         <p>House Owner</p>
@@ -178,19 +178,19 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <div class="form-group">
+                                            <div class="form-group"  style="width: 80%">
                                                 <label>Province</label>
                                                 <input type="text" class="form-control" th:value="${item.province}" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="form-group">
+                                            <div class="form-group" style="width: 80%">
                                                 <label>District</label>
                                                 <input type="email" class="form-control" th:value="${item.district}" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                        <div class="form-group">
+                                        <div class="form-group" style="width: 80%">
                                             <label>Ward</label>
                                             <input type="email" class="form-control" th:value="${item.ward}" readonly>
                                         </div>
@@ -206,13 +206,13 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Land Space</label>
-                                                <input type="email" class="form-control" th:value="${item.land_space}" readonly>
+                                                <input type="number" min="1" class="form-control" th:value="${item.land_space}" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Living Space</label>
-                                                <input type="email" class="form-control" th:value="${item.living_space}" readonly>
+                                                <input type="number" min="1" class="form-control" th:value="${item.living_space}" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -220,13 +220,13 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Bedroom</label>
-                                                <input type="text" class="form-control" th:value="${item.number_bed_room}" readonly>
+                                                <input type="number" min="1" class="form-control" th:value="${item.number_bed_room}" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Bathroom</label>
-                                                <input type="email" class="form-control" th:value="${item.number_bath}" readonly>
+                                                <input type="number" min="1" class="form-control" th:value="${item.number_bath}" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
