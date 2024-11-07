@@ -29,11 +29,11 @@ public class HouseRegisterDTO {
      String coordinates_on_map;//House
      String available_status;//House
      String updated_date;//House
-     String HouseOwnerName;//HouseOwner
+     String HouseOwnerEmail;//HouseOwner
      String HouseOwnerPhone;//HouseOwner
      String HouseOwnerAddress;//HouseOwner
      Account updated_by;
-//     List<Tag> tagList;
+     //     List<Tag> tagList;
 //     List<Amenities> amenities;
 //     List<FireEquipments> fireEquipments;
 //     List<MultipartFile> images;
