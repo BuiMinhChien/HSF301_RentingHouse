@@ -55,13 +55,13 @@
             <p>Profile</p>
           </a>
         </li>
-        <li class="active">
+        <li>
           <a th:href="@{/house-listing/home}">
             <i class="nc-icon nc-bank"></i>
             <p>HomePage</p>
           </a>
         </li>
-        <li>
+        <li class="active">
           <a th:href="@{/house-listing/ownerlist}">
             <i class="nc-icon nc-single-copy-04"></i>
             <p>House Owner</p>
@@ -94,40 +94,34 @@
       <section class="section">
         <div class="card">
           <div class="card-header">
-            Hồ sơ chờ xét duyệt
+            House Owner List
           </div>
           <div class="card-body">
             <table class="table table-striped" id="table2">
               <thead>
               <tr>
-                <th>House ID</th>
-                <th>House name</th>
-                <th>Location</th>
-                <th>Owner</th>
+                <th>No</th>
                 <th>OwnerID</th>
-                <th>Status</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Gender</th>
+                <th>Date of Birth</th>
               </tr>
               </thead>
               <tbody>
-              <tr th:each="item : ${houses}">
-                <td>
-                  <a th:href="@{/house-listing/house-detail/{id}(id=${item.id})}" th:text="${item.id}"></a>
-
-                </td>
+              <tr th:each="item, iterStat : ${houseOwner}"
+                  th:onclick="'window.location.href=\'/house-listing/owner-detail?id=' + ${item.id} + '\''"
+                  tyle="cursor: pointer;">
+                <td><span th:text="${iterStat.count}"></span></td>
+                <td><span th:text="${item.id}"></span></td>
                 <td><span th:text="${item.name}"></span></td>
-                <td><span th:text="${item.location}"></span></td>
-                <td><span th:text="${item.owner.name}"></span></td>
-                <td>
-                  <a th:href="@{/house-listing/owner-detail(id=${item.owner.id})}" th:text="${item.owner.id}"></a>
-
-                </td>
-
-                <td>
-                                    <span th:text="${item.available_status == '1' ? 'Busy' : 'Free'}"
-                                          th:class="${item.available_status == '1'? 'text-danger' : 'text-primary'}">
-                                    </span>
-                </td>
-
+                <td><span th:text="${item.address}"></span></td>
+                <td><span th:text="${item.phone}"></span></td>
+                <td><span th:text="${item.email}"></span></td>
+                <td><span th:text="${item.gender}"></span></td>
+                <td><span th:text="${item.dob}"></span></td>
               </tr>
               </tbody>
             </table>

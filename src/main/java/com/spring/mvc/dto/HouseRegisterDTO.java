@@ -33,7 +33,7 @@ public class HouseRegisterDTO {
      String HouseOwnerPhone;//HouseOwner
      String HouseOwnerAddress;//HouseOwner
      Account updated_by;
-//     List<Tag> tagList;
+     //     List<Tag> tagList;
 //     List<Amenities> amenities;
 //     List<FireEquipments> fireEquipments;
 //     List<MultipartFile> images;
