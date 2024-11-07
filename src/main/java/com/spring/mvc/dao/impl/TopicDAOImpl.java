@@ -1,6 +1,7 @@
 package com.spring.mvc.dao.impl;
 
 import com.spring.mvc.dao.NewsDAO;
+import com.spring.mvc.dao.QuestionDAO;
 import com.spring.mvc.dao.TopicDAO;
 import com.spring.mvc.entity.Topic;
 import org.hibernate.Session;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository(value = "topicDAO")
@@ -18,11 +20,9 @@ import java.util.List;
 public class TopicDAOImpl implements TopicDAO {
 
     private final SessionFactory sessionFactory;
-//    private Session session;
 
     public TopicDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-//        session = sessionFactory.getCurrentSession();
     }
 
     @Override
@@ -51,9 +51,21 @@ public class TopicDAOImpl implements TopicDAO {
     }
 
     @Override
+    public List<Topic> findTopicsWithoutQuestions() {
+        String hql = "FROM Topic t WHERE t.subTopics IS NOT EMPTY";
+        return sessionFactory.getCurrentSession().createQuery(hql, Topic.class).getResultList();
+    }
+
+    @Override
     public List<Topic> findByParentTopic_TopicId(int parentId) {
         String hql = "FROM Topic t WHERE t.parent_topic.id = " + parentId;
         List<Topic> list = sessionFactory.getCurrentSession().createQuery(hql, Topic.class).getResultList();
         return list;
+    }
+
+    @Override
+    public List<Topic> findBySubTopicsIsEmpty() {
+        String hql = "FROM Topic t WHERE t.subTopics IS EMPTY";
+        return sessionFactory.getCurrentSession().createQuery(hql, Topic.class).getResultList();
     }
 }

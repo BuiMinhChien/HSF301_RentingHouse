@@ -49,4 +49,42 @@ public class TopicServiceImpl implements TopicService {
     public void deleteTopic(int topicId) {
         topicDAO.deleteById(topicId);
     }
+
+    @Override
+    public boolean saveMainTopic(String topicName) {
+        try {
+            Topic topic = new Topic();
+            topic.setTopic_name(topicName);
+            topicDAO.save(topic);
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean saveSubTopic(int parentId, String subTopicName) {
+        try {
+            Topic topic = new Topic();
+            Topic parentTopic = topicDAO.findById(parentId);
+            topic.setParent_topic(parentTopic);
+            topic.setTopic_name(subTopicName);
+            topicDAO.save(topic);
+            parentTopic.addSubTopic(topic);
+            topicDAO.save(parentTopic);
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<Topic> getALlSubTopics() {
+        return topicDAO.findBySubTopicsIsEmpty();
+    }
+
+    @Override
+    public List<Topic> findTopicsWithoutQuestions() {
+        return topicDAO.findTopicsWithoutQuestions();
+    }
 }

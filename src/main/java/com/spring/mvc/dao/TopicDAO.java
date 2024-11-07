@@ -11,9 +11,11 @@ public interface TopicDAO {
 
     void deleteById(int topicId);
 
-    // Tìm các topic chính (parent_topic_id = NULL)
     List<Topic> findByParentTopicIsNull();
 
-    // Tìm các sub-topic theo parent_topic_id
+    public List<Topic> findTopicsWithoutQuestions();
+
     List<Topic> findByParentTopic_TopicId(int parentId);
+
+    List<Topic> findBySubTopicsIsEmpty();
 }

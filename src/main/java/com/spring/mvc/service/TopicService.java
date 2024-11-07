@@ -11,4 +11,8 @@ public interface TopicService {
     public Topic getTopicById(int topicId);
     public boolean updateTopicName(int topicId, String newTopicName);
     public void deleteTopic(int topicId);
+    public boolean saveMainTopic(String topicName);
+    public boolean saveSubTopic(int parentId, String subTopicName);
+    public List<Topic> getALlSubTopics();
+    public List<Topic> findTopicsWithoutQuestions();
 }

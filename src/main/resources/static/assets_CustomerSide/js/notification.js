@@ -59,13 +59,27 @@ function markAsRead2(element) {
 function connectSSE() {
     var eventSource = new EventSource('/api/notifications/stream/' + clientId);
 
-    eventSource.addEventListener('newNotification', function (event) {
-        var notification = JSON.parse(event.data);
-        var notificationList = $('#notification-list');
-        var listItemClass = notification.readStatus === 'unread' ? 'notification-unread' : 'notification-read';
-        var listItem = `<li class="dropdown-item ${listItemClass}" data-id="${notification.notificationId}" onclick="markAsRead(event, this)">${notification.content}</li>`;
-        notificationList.prepend(listItem); // Thêm thông báo mới lên đầu danh sách
-    });
+    console.log(clientId);
+    console.log("connectSSE");
+
+    eventSource.onopen = function () {
+        console.log("SSE connection opened.");
+    };
+
+    // eventSource.addEventListener('newNotification', function (event) {
+    //     console.log('New Notification');
+    //     console.log(event.data.content);
+    //     var notification = JSON.parse(event.data);
+    //     var notificationList = $('#notification-list');
+    //     var listItemClass = notification.readStatus === 'unread' ? 'notification-unread' : 'notification-read';
+    //     var listItem = `<li class="dropdown-item ${listItemClass}" data-id="${notification.notificationId}" onclick="markAsRead(this)">${notification.content}</li>`;
+    //     notificationList.prepend(listItem); // Thêm thông báo mới lên đầu danh sách
+    // });
+
+    eventSource.onmessage = function (event) {
+        console.log('Received message');
+        console.log(event.data);
+    };
 
     eventSource.onerror = function () {
         console.error("Error connecting to SSE stream");

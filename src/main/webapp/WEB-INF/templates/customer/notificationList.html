@@ -386,7 +386,7 @@ Author URL: http://w3layouts.com
             <div class="collapse navbar-collapse" id="navbarScroll">
                 <ul class="navbar-nav mx-lg-auto my-2 my-lg-0 navbar-nav-scroll">
                     <li class="nav-item">
-                        <a class="nav-link active" th:href="@{/}" style="font-size: 20px;">Home</a>
+                        <a class="nav-link" th:href="@{/}" style="font-size: 20px;">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/customer/get_all_house}" style="font-size: 20px;">House</a>
@@ -496,8 +496,8 @@ Author URL: http://w3layouts.com
                                                 onclick="markAsRead2(this)">
                                             Mark as Read
                                         </button>
-                                        <a th:if="${notification != 0}"
-                                           th:href="@{/customer/viewHouseDetail(houseId=${notification.houseId})}"
+                                        <a th:if="${notification.getHouseId() != 0}"
+                                           th:href="@{/customer/viewHouseDetail(houseId=${notification.getHouseId()})}"
                                            class="btn btn-sm btn-outline-primary">
                                             View
                                         </a>

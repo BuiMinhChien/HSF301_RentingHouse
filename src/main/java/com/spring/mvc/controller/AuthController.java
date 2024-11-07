@@ -5,10 +5,8 @@ import com.spring.mvc.dto.UserRegisterDTO;
 import com.spring.mvc.entity.Account;
 import com.spring.mvc.entity.Role;
 import com.spring.mvc.entity.Token;
-import com.spring.mvc.service.AccountService;
-import com.spring.mvc.service.EmailService;
-import com.spring.mvc.service.RoleService;
-import com.spring.mvc.service.TokenService;
+import com.spring.mvc.entity.Topic;
+import com.spring.mvc.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -35,6 +34,9 @@ public class AuthController {
 
     @Autowired
     EmailService emailService;
+
+    @Autowired
+    TopicService topicService;
 
     AccountService accountService;
 
@@ -141,6 +143,16 @@ public class AuthController {
     @GetMapping("customer-care/home")
     public String customercareHome() {
         return "customercare/chatbot-settings";
+    }
+
+    @GetMapping("customer-care/insertContent")
+    public String insertContent(Model model) {
+        List<Topic> mainTopics = topicService.findTopicsWithoutQuestions();
+        List<Topic> subTopics = topicService.getALlSubTopics();
+
+        model.addAttribute("mainTopics", mainTopics);
+        model.addAttribute("subTopics", subTopics);
+        return "customercare/insert-content";
     }
 
     @GetMapping("/forgot-password")

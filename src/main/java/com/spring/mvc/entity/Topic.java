@@ -34,6 +34,10 @@ public class Topic {
     @JsonManagedReference
     private List<Topic> subTopics;
 
+    @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    private List<Question> questions;
+
     @Override
     public String toString() {
         return "Topic{" +
@@ -48,5 +52,12 @@ public class Topic {
             this.subTopics = new ArrayList<>();
         }
         this.subTopics.add(topic);
+    }
+
+    public void addQuestion(Question question) {
+        if (this.questions == null) {
+            this.questions = new ArrayList<>();
+        }
+        this.questions.add(question);
     }
 }

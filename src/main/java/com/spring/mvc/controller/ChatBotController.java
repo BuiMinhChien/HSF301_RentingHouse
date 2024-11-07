@@ -1,5 +1,8 @@
 package com.spring.mvc.controller;
 
+import com.spring.mvc.dto.MainTopicDTO;
+import com.spring.mvc.dto.QuestionDTO;
+import com.spring.mvc.dto.SubTopicDTO;
 import com.spring.mvc.entity.Question;
 import com.spring.mvc.entity.Topic;
 import com.spring.mvc.service.QuestionService;
@@ -7,6 +10,7 @@ import com.spring.mvc.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -106,8 +110,8 @@ public class ChatBotController {
         }
     }
 
-    @PutMapping("/questions/update/{qusetionId}")
-    public ResponseEntity<String> updateQuestion(@PathVariable("qusetionId") int questionId, @RequestBody Map<String, String> request) {
+    @PutMapping("/questions/update/{questionId}")
+    public ResponseEntity<String> updateQuestion(@PathVariable("questionId") int questionId, @RequestBody Map<String, String> request) {
         String newQuestion = request.get("question");
         String newAnswer = request.get("answer");
         boolean updated = questionService.updateQuestion(questionId, newQuestion, newAnswer);
@@ -118,10 +122,49 @@ public class ChatBotController {
         }
     }
 
-    @DeleteMapping("/questions/delete/{questionId}")
-    public ResponseEntity<String> deleteQuestion(@PathVariable("qusetionId") int questionId) {
+    @DeleteMapping("/questions/delete/{id}")
+    public ResponseEntity<String> deleteQuestion(@PathVariable("id") int questionId) {
         questionService.deleteQuestion(questionId);
         return  ResponseEntity.ok("Question deleted successfully");
+    }
+
+    @PostMapping("/insert/mainTopic")
+    public ResponseEntity<String> insertMainTopic(@RequestBody MainTopicDTO mainTopicDTO){
+        if (topicService.saveMainTopic(mainTopicDTO.getTopicName())) {
+            return ResponseEntity.ok("Topic saved successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+    }
+
+    @PostMapping("/insert/subTopic")
+    public ResponseEntity<String> insertSubTopic(@RequestBody SubTopicDTO subTopicDTO){
+        if (topicService.saveSubTopic(subTopicDTO.getMainTopicId(), subTopicDTO.getTopicName())) {
+            return ResponseEntity.ok("Topic saved successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+    }
+
+    @PostMapping("/insert/question")
+    public ResponseEntity<String> insertQuestion(@RequestBody QuestionDTO questionDTO){
+        if (questionService.saveQuestion(questionDTO.getSubTopicId(), questionDTO.getQuestion(), questionDTO.getAnswer())) {
+            return ResponseEntity.ok("Question saved successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+    }
+
+    @GetMapping("/get/mainTopics")
+    public ResponseEntity<List<Topic>> getAllMainTopics() {
+        List<Topic> mainTopics = topicService.findTopicsWithoutQuestions();
+        return ResponseEntity.ok(mainTopics);
+    }
+
+    @GetMapping("/get/subTopics")
+    public ResponseEntity<List<Topic>> getAllSubTopics() {
+        List<Topic> subTopics = topicService.getALlSubTopics();
+        return ResponseEntity.ok(subTopics);
     }
 }
 
