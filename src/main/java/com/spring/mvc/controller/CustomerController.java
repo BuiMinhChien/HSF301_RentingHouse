@@ -197,6 +197,7 @@ public class CustomerController {
                 notification.setContent("You have registered to rent house, please transfer money to complete the procedure.");
                 notification.setCreated_date(LocalDateTime.now().toString());
                 notification.setRead_status("unread"); // Trạng thái chưa đọc
+                notification.setHouse(house);
 
                 // Lưu thông báo vào cơ sở dữ liệu và gửi SSE cho client
                 notification.addAccount(account);
@@ -411,8 +412,13 @@ public class CustomerController {
 
     @GetMapping("/viewNotification")
     public String getNotificationList(Model model, Principal principal) {
-        String username = principal.getName();
-        Account account = accountService.findByUsername(username);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isLoggedIn = authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof String);
+        model.addAttribute("isLoggedIn", isLoggedIn); // Truyền biến vào view
+
+        Account account = accountService.findByUsername(principal.getName());
+        model.addAttribute("accountId", account.getId());
+
         List<NotificationDTO> notificationDTOList = notificationService.getNotificationsForAccount(account) ;
         model.addAttribute("notifications", notificationDTOList);
         return "customer/notificationList";

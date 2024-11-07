@@ -8,4 +8,5 @@ public interface QuestionService {
     public List<Question> getQuestionsByTopic(int topicid);
     public boolean updateQuestion(int questionId, String newQuestion, String newAnswer);
     public void deleteQuestion(int questionId);
+    public boolean saveQuestion(int subTopicId, String newQuestion, String newAnswer);
 }

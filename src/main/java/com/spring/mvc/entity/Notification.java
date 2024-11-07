@@ -33,7 +33,7 @@ public class Notification {
     @ManyToMany(mappedBy = "notifications", fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH, CascadeType.DETACH})
     private List<Account> accounts;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "house_id")
     private House house;
 

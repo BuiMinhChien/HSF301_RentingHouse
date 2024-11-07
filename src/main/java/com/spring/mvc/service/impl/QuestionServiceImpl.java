@@ -44,4 +44,21 @@ public class QuestionServiceImpl implements QuestionService {
     public void deleteQuestion(int questionId) {
         questionDAO.deleteQuestionById(questionId);
     }
+
+    @Override
+    public boolean saveQuestion(int subTopicId, String newQuestion, String newAnswer) {
+        try {
+            Question questionEntity = new Question();
+            Topic topic = topicDAO.findById(subTopicId);
+            questionEntity.setTopic(topic);
+            questionEntity.setQuestion(newQuestion);
+            questionEntity.setAnswer(newAnswer);
+            questionDAO.save(questionEntity);
+            topic.addQuestion(questionEntity);
+            topicDAO.save(topic);
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
