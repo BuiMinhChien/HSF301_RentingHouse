@@ -141,6 +141,6 @@ public class SpringWebConfig implements WebMvcConfigurer, ApplicationContextAwar
 	@Bean
 	public EmailService emailService() {
 		// Khởi tạo EmailServiceImpl với email và mật khẩu của bạn
-		return new EmailServiceImpl("chunglddhe181800@fpt.edu.vn", "efgdrspexinqcwhy");
+		return new EmailServiceImpl("fapbmcprj301@gmail.com", "vzfqauqysltljfjc");
 	}
 }

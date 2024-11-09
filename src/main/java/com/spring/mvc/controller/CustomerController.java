@@ -357,6 +357,7 @@ public class CustomerController {
 
 
     @PostMapping("/change-password")
+    @ResponseBody
     public Map<String, String> changePassword(@RequestParam("oldPassword") String oldPassword,
                                               @RequestParam("newPassword") String newPassword,
                                               @RequestParam("confirmPassword") String confirmPassword,

@@ -177,6 +177,7 @@ Author URL: http://w3layouts.com
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <li th:if="${isLoggedIn}" ><a class="dropdown-item" th:href="@{/customer/profile}">Profile</a></li>
                             <li th:if="${isLoggedIn}" ><a class="dropdown-item" th:href="@{/customer/viewNotification}">Notifications</a></li>
+                            <li th:if="${isLoggedIn}" ><a class="dropdown-item" th:href="@{/customer/viewRegisterHistory}">Register History</a></li>
                             <li th:if="${!isLoggedIn}"><a class="dropdown-item" th:href="@{/login}">Login</a>
                             </li>
                             <li th:if="${!isLoggedIn}"><a class="dropdown-item" th:href="@{/register}">Register</a></li>
@@ -348,8 +349,7 @@ Author URL: http://w3layouts.com
                 <div class="row footer-hny-grids sub-columns">
                     <div class="col-lg-3 sub-one-left">
                         <h6>About </h6>
-                        <p class="footer-phny pe-lg-5">VietLand Auction is a leading online platform for real estate
-                            auctions, offering a transparent and efficient way to buy and sell properties.</p>
+                        <p class="footer-phny pe-lg-5">VietHouse is a leading online platform for renting house with interesting deal!</p>
                         <div class="columns-2 mt-4 pt-lg-2">
                             <ul class="social">
                                 <li><a href="#facebook"><span class="fab fa-facebook-f"></span></a>
